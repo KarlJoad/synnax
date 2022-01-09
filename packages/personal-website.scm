@@ -33,6 +33,7 @@
       ("guile-reader" ,guile-reader)
       ("guile-commonmark" ,guile-commonmark)
       ("guile-syntax-highlight", guile-syntax-highlight)))
+   (home-page "https://karl.hallsby.com")
    (synopsis "Personal website built using Haunt static site generator")
    (description "Karl Hallsby's personal website built using the Haunt static site
 generator.")
