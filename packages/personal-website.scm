@@ -17,7 +17,7 @@
                   (commit "master")))
             (sha256
              (base32
-              "0000000000000000000000000000000000000000000000000000"))))
+              "1nk2kjqnq70f2ghqr01mi297v9zva14lgk9a7y2n6vip0m08vm1w"))))
    (build-system gnu-build-system)
    (arguments
     (list
