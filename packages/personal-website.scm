@@ -3,8 +3,8 @@
   #:use-module (guix packages)
   #:use-module (guix git-download)
   #:use-module (guix build-system gnu)
-  #:use-module (guix packages guile)
-  #:use-module (guix packages guile-xyz))
+  #:use-module (gnu packages guile)
+  #:use-module (gnu packages guile-xyz))
 
 (define-public personal-website
   (package
