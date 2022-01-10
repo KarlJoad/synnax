@@ -4,7 +4,8 @@
   #:use-module (guix git-download)
   #:use-module (guix build-system gnu)
   #:use-module (gnu packages guile)
-  #:use-module (gnu packages guile-xyz))
+  #:use-module (gnu packages guile-xyz)
+  #:use-module (synnax packages resume))
 
 (define-public personal-website
   (package
@@ -26,7 +27,9 @@
                       (delete 'configure)
                       (delete 'check)
                       (replace 'install
-                               (lambda _ (copy-recursively "site/" #$output))))))
+                               (lambda _ (copy-recursively "site" #$output)
+                                       (mkdir-p (string-append #$output "/assets/pdf/resume"))
+                                       (symlink #$resume (string-append #$output "/assets/pdf/resume/Hallsby_Karl.pdf")))))))
    (native-inputs
     `(("guile" ,guile-3.0)
       ("haunt" ,haunt)
