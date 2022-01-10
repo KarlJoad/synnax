@@ -1,4 +1,4 @@
-(define-module (packages personal-website)
+(define-module (synnax packages personal-website)
   #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module (guix git-download)
