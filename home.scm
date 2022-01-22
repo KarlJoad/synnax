@@ -53,7 +53,15 @@
   (list
    (service home-bash-service-type
             (home-bash-configuration
-             (guix-defaults? #t)))
+             (guix-defaults? #t)
+             (aliases
+              '(("grep='grep --color'" . "auto")
+                  ("ll" . "'ls -la'")
+                  ("ls='ls -p --color'" . "auto")))
+             (bashrc
+              (list (local-file "bashrc" "bashrc")))
+             (bash-profile
+                (list (local-file "bash_profile" "bash_profile")))))
    (service home-shepherd-service-type
             (home-shepherd-configuration
              (auto-start? #t)
