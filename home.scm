@@ -56,7 +56,7 @@
              (guix-defaults? #t)))
    (service home-shepherd-service-type
             (home-shepherd-configuration
-   ;;           (auto-start? #t)
+             (auto-start? #t)
              (services
               (list
                (emacs-server "")
