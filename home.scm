@@ -7,6 +7,7 @@
              (gnu packages password-utils)
              (gnu packages emacs)
              (gnu packages engineering)
+             (gnu packages gnucash)
              (guix gexp))
 
 (define (emacs-server server-name)
@@ -50,6 +51,7 @@
  (packages
   (list password-store ;; pass
         lepton-eda
+        gnucash
         ))
  (services
   (list
