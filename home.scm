@@ -38,7 +38,7 @@
             #$(file-append emacs "/bin/emacsclient" " "
                            (format #f "--socket-name=~a"
                                    (server-name->server-socket-name server-name))
-                                 " " "--eval (kill-emacs)"))
+                                 " " "--eval '(kill-emacs)'"))
          )
    (documentation (string-append "Emacs server"
                                  (if (string-null? server-name)
