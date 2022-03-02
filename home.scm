@@ -6,6 +6,7 @@
              (gnu packages admin)
              (gnu packages password-utils)
              (gnu packages emacs)
+             (gnu packages engineering)
              (guix gexp))
 
 (define (emacs-server server-name)
@@ -48,6 +49,7 @@
 (home-environment
  (packages
   (list password-store ;; pass
+        lepton-eda
         ))
  (services
   (list
