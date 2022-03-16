@@ -46,6 +46,7 @@
          (specification->package "nyxt")
          (specification->package "libvirt")
          (specification->package "virt-manager")
+         (specification->package "stumpwm")
          (specification->package "nss-certs"))
    %base-packages))
 
