@@ -43,6 +43,7 @@
          (specification->package "mu")
          (specification->package "isync")
          (specification->package "stumpwm")
+         (specification->package "xsetroot") ;; To change X11 stuff in StumpWM
          ;; Web browser (Minimal enough, but extensible)
          (specification->package "nyxt")
          (specification->package "libvirt")
