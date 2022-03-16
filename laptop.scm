@@ -96,15 +96,20 @@
    (bootloader grub-efi-bootloader)
    (targets (list "/boot/efi"))
    (keyboard-layout keyboard-layout)))
+ (mapped-devices
+  (list (mapped-device
+         (source
+          (uuid "34627d93-4e91-42e8-8eb8-b64c8fa4729f"))
+         (target "cryptroot")
+         (type luks-device-mapping))))
  (file-systems
   (cons* (file-system
-          (mount-point "/")
-          (device
-           (uuid "362b972e-bd89-48f7-8a61-95b298b23cb4"
-                 'ext4))
-          (type "ext4"))
-         (file-system
           (mount-point "/boot/efi")
-          (device (uuid "C9B7-4E39" 'fat32))
+          (device (uuid "C899-DB8A" 'fat32))
           (type "vfat"))
+         (file-system
+          (mount-point "/")
+          (device "/dev/mapper/cryptroot")
+          (type "ext4")
+          (dependencies mapped-devices))
          %base-file-systems)))
