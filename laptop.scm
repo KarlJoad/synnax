@@ -29,6 +29,7 @@
                 (home-directory "/home/karljoad")
                 (supplementary-groups
                  `("wheel" "netdev" "audio" "video"
+                   "lp" "input" "tty"
                    "kvm" ;; ,(user-group (name "libvirt-users") (system? #t))
                    "dialout")))
                %base-user-accounts))
