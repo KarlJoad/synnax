@@ -72,7 +72,12 @@
                            ,(plain-file "config"
                                         "Host 192.168.1.6
 \tUser root
-\tIdentityFile ~/.ssh/ci_rsa\n"))))
+\tIdentityFile ~/.ssh/ci_rsa
+
+Host *github.com
+\tUser git
+\tIdentityFile ~/.ssh/github
+"))))
    (service home-shepherd-service-type
             (home-shepherd-configuration
              (auto-start? #t)
