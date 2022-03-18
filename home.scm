@@ -65,7 +65,14 @@
              (bashrc
               (list (local-file "bashrc" "bashrc")))
              (bash-profile
-                (list (local-file "bash_profile" "bash_profile")))))
+              (list (local-file "bash_profile" "bash_profile")))))
+   (simple-service 'ssh-config
+                   home-files-service-type
+                   (list `("ssh/config"
+                           ,(plain-file "config"
+                                        "Host 192.168.1.6
+\tUser root
+\tIdentityFile ~/.ssh/ci_rsa\n"))))
    (service home-shepherd-service-type
             (home-shepherd-configuration
              (auto-start? #t)

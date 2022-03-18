@@ -68,7 +68,7 @@
                             (authorized-keys
                              ;; Authorise our SSH key.
                              ;; SSH access must be able to access/elevate to user in config list at bottom
-                             `(("root" ,(local-file "/home/karljoad/.ssh/id_rsa.pub"))))))
+                             `(("root" ,(local-file "./ci_rsa.pub"))))))
                   (service cuirass-service-type
                            (cuirass-configuration
                             (specifications %cuirass-specification)
