@@ -46,8 +46,10 @@
          (specification->package "xsetroot") ;; To change X11 stuff in StumpWM
          ;; Web browser (Minimal enough, but extensible)
          (specification->package "nyxt")
+         ;; Virtualization
          (specification->package "libvirt")
          (specification->package "virt-manager")
+         ;; Certs required for HTTPS
          (specification->package "nss-certs"))
    %base-packages))
 
