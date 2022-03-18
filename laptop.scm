@@ -42,13 +42,12 @@
          ;; Only for making Emacs work nicely right now.
          (specification->package "mu")
          (specification->package "isync")
-         (specification->package "stumpwm")
+         (specification->package "stumpwm-with-slynk")
          (specification->package "xsetroot") ;; To change X11 stuff in StumpWM
          ;; Web browser (Minimal enough, but extensible)
          (specification->package "nyxt")
          (specification->package "libvirt")
          (specification->package "virt-manager")
-         (specification->package "stumpwm")
          (specification->package "nss-certs"))
    %base-packages))
 
