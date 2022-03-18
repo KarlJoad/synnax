@@ -8,7 +8,8 @@
   #~(list (specification
            (name "test-guix-hello-timer")
            (build 'hello)
-           (period (* 5 60)))
+           ;; How frequently to attempt to build this specification, in seconds
+           (period (* 10 60)))
           (specification
            (name "personal")
            (channels (list (channel
@@ -72,7 +73,8 @@
                   (service cuirass-service-type
                            (cuirass-configuration
                             (specifications %cuirass-specification)
-          (interval (* 5 60))
+                            ;; How frequently to fetch spec's channels, in seconds
+                            (interval (* 1 60 60))
                             (host "0.0.0.0"))))
       (modify-services %base-services
            (guix-service-type config =>
