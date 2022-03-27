@@ -1,0 +1,23 @@
+#+TITLE: TODO
+#+AUTHOR: Karl Hallsby
+
+* Guix Home
+** User Account
+  * Specify user's email address(es)? (Might be done in System too)
+    - This is primarily for Git
+  * Guile scripts to restart Emacs Shepherd services
+  * Specify Git config using a home-service-type
+  * ~mu-home-service-type~, just like in home-manager
+  * ~mbsync-home-service-type~, just like in home-manager
+
+* Guix System
+** User
+  * Specify user's email address? (Might be done in Home too)
+
+** Configuration
+  * Merge configs similar between machines
+
+* Guix
+** Packaging
+  * Octave Packages
+    - Will require a ~build-octave-package~ function to be written by me
