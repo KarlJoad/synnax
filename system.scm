@@ -39,7 +39,8 @@
    (targets (list "/dev/sda"))
    (keyboard-layout keyboard-layout)))
  (swap-devices
-  (list (uuid "749b8ace-aab5-4c24-a89f-f04f71323774")))
+  (list (swap-space
+         (target (uuid "749b8ace-aab5-4c24-a89f-f04f71323774")))))
  (file-systems
   (cons* (file-system
           (mount-point "/")
