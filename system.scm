@@ -1,4 +1,21 @@
 (use-modules (gnu))
+(use-package-modules gnuzilla web-browsers ; Icecat & Nyxt
+                     emacs emacs-xyz
+                     vim
+                     mail
+                     wget curl
+                     version-control
+                     wm ; Stumpwm
+                     xorg
+                     certs
+                     moreutils pciutils lsof
+                     xdisorg
+                     password-utils
+                     freedesktop ; XDG stuff
+                     linux pulseaudio ; ALSA/PulseAudio
+                     compression
+                     terminals
+                     admin)
 (use-service-modules desktop networking ssh xorg)
 
 (operating-system
@@ -16,14 +33,25 @@
                %base-user-accounts))
  (packages
   (append
-   (list (specification->package "icecat")
-         (specification->package "nyxt")
-         (specification->package "emacs")
-         (specification->package "emacs-guix")
-         (specification->package "vim")
-         (specification->package "mu")
-	       (specification->package "git")
-	       (specification->package "nss-certs"))
+   (list coreutils moreutils
+         ;; sawfish
+         (specification->package "stumpwm-with-slynk") xsetroot
+         icecat
+         nyxt xclip xsel
+         pwgen
+         xdg-utils
+         alsa-utils pavucontrol
+         vim
+         emacs emacs-guix
+         mu
+	       git
+         wget curl
+         zip unzip
+         rxvt-unicode alacritty
+         pciutils lsof hwdata
+         squashfs-tools
+         tree
+	       nss-certs)
    %base-packages))
  (services
   (append
