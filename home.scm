@@ -6,8 +6,17 @@
              (gnu packages admin)
              (gnu packages password-utils)
              (gnu packages emacs)
+             (gnu packages emacs-xyz)
              (gnu packages engineering)
+             (gnu packages maths)
+             (gnu packages ebook)
              (gnu packages gnucash)
+             (gnu packages music)
+             (gnu packages video)
+             (gnu packages vnc)
+             (gnu packages vpn)
+             (gnu packages package-management)
+             (gnu packages text-editors)
              (guix gexp))
 
 (define (emacs-server server-name)
@@ -50,8 +59,19 @@
 (home-environment
  (packages
   (list password-store ;; pass
+        yt-dlp
         lepton-eda
         gnucash
+        lilypond
+        texmacs
+        emacs
+        emacs-guix
+        remmina
+        stow
+        octave
+        ;; slack discord element-desktop
+        calibre
+        openconnect ;; IIT VPN
         ))
  (services
   (list
