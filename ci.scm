@@ -34,23 +34,19 @@
    (timezone "America/Chicago")
    (bootloader
     (bootloader-configuration
-     (bootloader grub-efi-bootloader)
-     (targets (list "/boot/efi"))
+     (bootloader grub-bootloader)
+     (targets (list "/dev/sda"))
      (keyboard-layout (keyboard-layout "us"))
      (terminal-outputs '(console))))
    (swap-devices
     (list (swap-space
            (target
-            (uuid "fcb0090e-f025-4431-bc48-95fc92fd0e0d")))))
+            (uuid "dacd0179-d888-47d4-a910-ac58ae14fac3")))))
    (file-systems
     (cons* (file-system
-            (mount-point "/boot/efi")
-            (device (uuid "8289-0DD4" 'fat32))
-            (type "vfat"))
-           (file-system
             (mount-point "/")
             (device
-             (uuid "558530e1-43b5-42ac-8b02-ca76640882b2"
+             (uuid "9f14407e-8cb3-4b09-b2c3-3363340fafdd"
                    'ext4))
             (type "ext4"))
            %base-file-systems))
@@ -95,5 +91,5 @@
            (host-name "192.168.20.230")
            (system "x86_64-linux")
            ;; SSH host key of system being configured
-           (host-key "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB3+MiMtUqZslF+tBpjipGi7U9b1TSwfhEg6FkmQnrV6 root@(none)")
+           (host-key "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG2OIXsMCJ3SxJcQTZj4B7OVc2uD4K3bd56ST8GJyi1p root@(none)")
            (user "root")))))
