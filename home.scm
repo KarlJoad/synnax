@@ -3,6 +3,7 @@
              (gnu home services shells)
              (gnu home services shepherd)
              (gnu services)
+             (gnu packages base)
              (gnu packages admin)
              (gnu packages password-utils)
              (gnu packages emacs)
@@ -58,7 +59,8 @@
 
 (home-environment
  (packages
-  (list password-store ;; pass
+  (list binutils ;; TODO: Only install the binutils info manuals to global home path?
+        password-store ;; pass
         yt-dlp
         lepton-eda
         gnucash
