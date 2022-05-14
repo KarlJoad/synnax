@@ -81,7 +81,7 @@
    %base-packages))
  (services
   (append
-   (list (service gnome-desktop-service-type)
+   (list (service xfce-desktop-service-type)
          (service openssh-service-type)
          (service cups-service-type)
          (set-xorg-configuration
