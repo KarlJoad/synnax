@@ -11,16 +11,16 @@
  virtualization)
 
 (define %ipmi-linux-options
-   `(("CONFIG_ACPI_IPMI" . #t)
-     ("CONFIG_IPMI_HANDLER" . #t)
-     ("CONFIG_IPMI_DMI_DECODE" . #t)
-     ("CONFIG_IPMI_PLAT_DATA" . #t)
-     ("CONFIG_IPMI_PANIC_EVENT" . #t)
-     ("CONFIG_IPMI_DEVICE_INTERFACE" . #t)
-     ("CONFIG_IPMI_SI" . #t)
-     ("CONFIG_IPMI_SSIF" . #t)
-     ("CONFIG_IPMI_WATCHDOG" . #t)
-     ("CONFIG_IPMI_POWEROFF" . #t)))
+  `(("CONFIG_ACPI_IPMI" . #t)
+    ("CONFIG_IPMI_HANDLER" . #t)
+    ("CONFIG_IPMI_DMI_DECODE" . #t)
+    ("CONFIG_IPMI_PLAT_DATA" . #t)
+    ("CONFIG_IPMI_PANIC_EVENT" . #t)
+    ("CONFIG_IPMI_DEVICE_INTERFACE" . #t)
+    ("CONFIG_IPMI_SI" . #t)
+    ("CONFIG_IPMI_SSIF" . #t)
+    ("CONFIG_IPMI_WATCHDOG" . #t)
+    ("CONFIG_IPMI_POWEROFF" . #t)))
 
 (define %sound-card-options
   `(("CONFIG_SND_EMU10K1" . #t)))
