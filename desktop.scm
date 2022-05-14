@@ -1,7 +1,10 @@
 (use-modules (gnu)
              (gnu packages linux)
              (guix download)
-             (guix packages))
+             (guix packages)
+             ;; Two modules below require nonguix be a pulled channel
+             (nongnu packages linux)
+             (nongnu system linux-initrd))
 
 (use-package-modules gnuzilla ; Icecat
                      web-browsers ; Nyxt
@@ -63,9 +66,17 @@
                     %ipmi-linux-options
                     %sound-card-options)))
 
+;; Will only work if nonguix channel is present.
+(define-public linux-corrupted/desktop
+  (corrupt-linux linux-libre/desktop linux-libre-version
+                 "035i9i0gg3fxi5ighjrya97592sk0i4xagra6a8m8nxyh21z3k34"
+                 #:name "linux-ipmi"))
+
 (operating-system
  (locale "en_US.utf8")
- (kernel linux-libre/desktop)
+ (kernel linux-corrupted/desktop)
+ (initrd microcode-initrd)
+ (firmware (list linux-firmware))
 
  (timezone "America/Chicago")
  (keyboard-layout (keyboard-layout "us"))
