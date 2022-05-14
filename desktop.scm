@@ -131,15 +131,19 @@
    (bootloader grub-efi-bootloader)
    (targets (list "/boot/efi"))
    (keyboard-layout keyboard-layout)))
+ (swap-devices
+  (list (swap-space
+         (target
+          (uuid "13744aad-62a2-4fd4-ae7b-11a94decb1c4")))))
  (file-systems
   (cons* (file-system
-          (mount-point "/")
-          (device
-           (uuid "362b972e-bd89-48f7-8a61-95b298b23cb4"
-                 'ext4))
-          (type "ext4"))
-         (file-system
           (mount-point "/boot/efi")
           (device (uuid "C9B7-4E39" 'fat32))
           (type "vfat"))
+         (file-system
+          (mount-point "/")
+          (device
+           (uuid "edc5ed24-8246-4829-ba13-52fbcf1dadfa"
+                 'ext4))
+          (type "ext4"))
          %base-file-systems)))
