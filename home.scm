@@ -21,6 +21,7 @@
              (gnu packages cryptsetup)
              (gnu packages samba)
              (gnu packages aspell)
+             (gnu packages tex)
              (guix gexp))
 
 (define (emacs-server server-name)
@@ -69,6 +70,7 @@
         gnucash
         lilypond
         texmacs
+        texlive ;; Include ALL of TeXLive, because I am lazy and disks are large
         ispell
         emacs
         emacs-guix
