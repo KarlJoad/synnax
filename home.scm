@@ -19,6 +19,7 @@
              (gnu packages package-management)
              (gnu packages text-editors)
              (gnu packages cryptsetup)
+             (gnu packages samba)
              (guix gexp))
 
 (define (emacs-server server-name)
@@ -75,6 +76,7 @@
         ;; slack discord element-desktop
         calibre
         cryptsetup
+        cifs-utils
         openconnect ;; IIT VPN
         ))
  (services
