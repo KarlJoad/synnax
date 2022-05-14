@@ -20,6 +20,7 @@
              (gnu packages text-editors)
              (gnu packages cryptsetup)
              (gnu packages samba)
+             (gnu packages aspell)
              (guix gexp))
 
 (define (emacs-server server-name)
@@ -68,6 +69,7 @@
         gnucash
         lilypond
         texmacs
+        ispell
         emacs
         emacs-guix
         remmina
