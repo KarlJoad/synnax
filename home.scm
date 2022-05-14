@@ -1,29 +1,31 @@
-(use-modules (gnu home)
+(use-modules (gnu)
+             (gnu home)
              (gnu home services)
              (gnu home services shells)
              (gnu home services shepherd)
              (gnu services)
-             (gnu packages base)
-             (gnu packages admin)
-             (gnu packages password-utils)
-             (gnu packages emacs)
-             (gnu packages emacs-xyz)
-             (gnu packages engineering)
-             (gnu packages maths)
-             (gnu packages ebook)
-             (gnu packages gnucash)
-             (gnu packages music)
-             (gnu packages video)
-             (gnu packages vnc)
-             (gnu packages vpn)
-             (gnu packages package-management)
-             (gnu packages text-editors)
-             (gnu packages cryptsetup)
-             (gnu packages samba)
-             (gnu packages aspell)
-             (gnu packages tex)
-             (gnu packages kde)
              (guix gexp))
+
+(use-package-modules base
+                     admin
+                     password-utils
+                     emacs
+                     emacs-xyz
+                     engineering
+                     maths
+                     ebook
+                     gnucash
+                     music
+                     video
+                     vnc
+                     vpn
+                     package-management
+                     text-editors
+                     cryptsetup
+                     samba
+                     aspell
+                     tex
+                     kde)
 
 (define (emacs-server server-name)
   (define (server-name->symbol server-name)
