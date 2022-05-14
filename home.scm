@@ -18,6 +18,7 @@
              (gnu packages vpn)
              (gnu packages package-management)
              (gnu packages text-editors)
+             (gnu packages cryptsetup)
              (guix gexp))
 
 (define (emacs-server server-name)
@@ -73,6 +74,7 @@
         octave
         ;; slack discord element-desktop
         calibre
+        cryptsetup
         openconnect ;; IIT VPN
         ))
  (services
