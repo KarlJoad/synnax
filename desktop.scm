@@ -2,6 +2,26 @@
              (gnu packages linux)
              (guix download)
              (guix packages))
+
+(use-package-modules gnuzilla ; Icecat
+                     web-browsers ; Nyxt
+                     emacs emacs-xyz
+                     vim
+                     mail
+                     wget curl
+                     version-control
+                     wm ; Stumpwm
+                     xorg
+                     certs
+                     moreutils pciutils lsof
+                     xdisorg
+                     password-utils
+                     freedesktop ; XDG stuff
+                     linux pulseaudio ; ALSA/PulseAudio
+                     compression
+                     terminals
+                     admin)
+
 (use-service-modules
  cups
  desktop
@@ -62,22 +82,25 @@
                %base-user-accounts))
  (packages
   (append
-   (list (specification->package "emacs")
-         (specification->package "emacs-guix")
-         (specification->package "vim")
-         (specification->package "git")
-         ;; Only for making Emacs work nicely right now.
-         (specification->package "mu")
-         (specification->package "isync")
-         (specification->package "stumpwm-with-slynk")
-         (specification->package "xsetroot") ;; To change X11 stuff in StumpWM
-         ;; Web browser (Minimal enough, but extensible)
-         (specification->package "nyxt")
-         ;; Virtualization
-         (specification->package "libvirt")
-         (specification->package "virt-manager")
-         ;; Certs required for HTTPS
-         (specification->package "nss-certs"))
+   (list coreutils moreutils
+         ;; sawfish
+         (specification->package "stumpwm-with-slynk") xsetroot
+         icecat
+         nyxt xclip xsel
+         pwgen
+         xdg-utils
+         alsa-utils pavucontrol
+         vim
+         emacs emacs-guix
+         mu
+         git
+         wget curl
+         zip unzip
+         rxvt-unicode alacritty
+         pciutils lsof hwdata
+         squashfs-tools
+         tree
+         nss-certs)
    %base-packages))
  (services
   (append
