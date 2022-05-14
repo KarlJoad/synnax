@@ -22,6 +22,7 @@
              (gnu packages samba)
              (gnu packages aspell)
              (gnu packages tex)
+             (gnu packages kde)
              (guix gexp))
 
 (define (emacs-server server-name)
@@ -71,6 +72,7 @@
         lilypond
         texmacs
         texlive ;; Include ALL of TeXLive, because I am lazy and disks are large
+        okular
         ispell
         emacs
         emacs-guix
