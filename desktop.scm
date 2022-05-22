@@ -2,9 +2,10 @@
              (gnu packages linux)
              (guix download)
              (guix packages)
-             ;; Two modules below require nonguix be a pulled channel
+             ;; Modules below require nonguix be a pulled channel
              (nongnu packages linux)
-             (nongnu system linux-initrd))
+             (nongnu system linux-initrd)
+             (nongnu packages mozilla))
 
 (use-package-modules gnuzilla ; Icecat
                      web-browsers ; Nyxt
@@ -96,7 +97,7 @@
    (list coreutils moreutils
          ;; sawfish
          (specification->package "stumpwm-with-slynk") xsetroot
-         icecat
+         icecat firefox
          nyxt xclip xsel
          pwgen
          xdg-utils
