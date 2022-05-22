@@ -111,7 +111,12 @@
 Host *github.com
 \tUser git
 \tIdentityFile ~/.ssh/github
-"))))
+"))
+                         `(".gitconfig"
+                           ,(plain-file "gitconfig"
+                                        "[user]
+\tname = Karl Hallsby
+\temail = karl@hallsby.com"))))
    (service home-shepherd-service-type
             (home-shepherd-configuration
              (auto-start? #t)
