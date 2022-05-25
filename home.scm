@@ -67,6 +67,7 @@
 (home-environment
  (packages
   (list binutils ;; TODO: Only install the binutils info manuals to global home path?
+        gnu-make ;; Include the make command by default
         password-store ;; pass
         yt-dlp
         lepton-eda
