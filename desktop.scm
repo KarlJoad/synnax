@@ -18,6 +18,7 @@
                      xorg
                      certs
                      moreutils pciutils lsof
+                     disk ; dosfstools (mkfs.fat)
                      xdisorg
                      password-utils
                      freedesktop ; XDG stuff
@@ -112,6 +113,7 @@
          pciutils lsof hwdata
          squashfs-tools
          tree
+         dosfstools
          nss-certs)
    %base-packages))
  (services
