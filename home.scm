@@ -117,6 +117,11 @@ Host *github.com
                                         "[user]
 \tname = Karl Hallsby
 \temail = karl@hallsby.com"))))
+   (simple-service 'xsession-file
+                   home-files-service-type
+                   (list `(".xsession"
+                           ,(plain-file "xsession"
+                                        "export GDK_CORE_DEVICE_EVENTS=1"))))
    (service home-shepherd-service-type
             (home-shepherd-configuration
              (auto-start? #t)
