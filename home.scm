@@ -70,6 +70,7 @@
         gnu-make ;; Include the make command by default
         password-store ;; pass
         yt-dlp
+        vlc
         lepton-eda
         gnucash
         lilypond
