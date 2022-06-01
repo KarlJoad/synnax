@@ -1,3 +1,5 @@
+(define-module (synnax systems home))
+
 (use-modules (gnu)
              (gnu home)
              (gnu home services)
