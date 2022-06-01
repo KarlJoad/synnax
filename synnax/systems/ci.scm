@@ -1,4 +1,4 @@
-;; (use-modules (synnax))
+(use-modules (gnu))
 (use-service-modules networking ssh web cuirass)
 (use-package-modules bootloaders ssh version-control certs)
 
