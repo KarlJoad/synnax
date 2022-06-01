@@ -1,4 +1,7 @@
+(define-module (synnax systems system))
+
 (use-modules (gnu))
+
 (use-package-modules gnuzilla web-browsers ; Icecat & Nyxt
                      emacs emacs-xyz
                      vim
