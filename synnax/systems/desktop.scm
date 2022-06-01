@@ -1,3 +1,5 @@
+(define-module (synnax systems desktop))
+
 (use-modules (gnu)
              (gnu packages linux)
              (guix download)
