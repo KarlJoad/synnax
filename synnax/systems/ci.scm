@@ -15,6 +15,9 @@
            (channels (list (channel
                             (name 'synnax)
                             (url "https://github.com/KarlJoad/synnax.git"))
+                           (channel
+                            (name 'nonguix)
+                            (url "https://gitlab.com/nonguix/nonguix"))
                            (channel (inherit %default-guix-channel))))
            (build '(channels synnax))
            (period 0))
