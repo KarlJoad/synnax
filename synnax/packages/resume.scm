@@ -18,6 +18,16 @@
              (base32
               "0a9h6kqdafday4fmrgvq5ms6b2ybxcjd62711fjvddr4ai2ncldn"))))
    (build-system gnu-build-system)
+   (native-inputs
+    (list texlive-base texlive-tools
+          texlive-latex-geometry texlive-latex-tools
+          texlive-inputenx texlive-babel ;; texlive-nth
+          texlive-xcolor
+          texlive-hyperref
+          ;; texlive-cleveref
+          texlive-caption texlive-enumitem ;; texlive-chngcntr
+          texlive-booktabs texlive-latex-multirow
+          texlive-titling texlive-latex-titlesec))
    (arguments
     (list
      #:phases
