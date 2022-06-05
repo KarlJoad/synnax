@@ -14,6 +14,7 @@
                      emacs
                      emacs-xyz
                      engineering
+                     libreoffice
                      maths
                      ebook
                      gnucash
@@ -80,6 +81,7 @@
         texlive ;; Include ALL of TeXLive, because I am lazy and disks are large
         okular
         ispell
+        libreoffice
         emacs
         emacs-guix
         remmina
