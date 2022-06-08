@@ -25,6 +25,7 @@
                      vpn
                      lisp
                      lisp-xyz
+                     fonts
                      package-management
                      text-editors
                      cryptsetup
@@ -101,6 +102,8 @@
         cl-asdf
         cl-slynk
         sbcl-slynk
+        font-iosevka font-iosevka-slab font-iosevka-term font-iosevka-term-slab
+        font-fira-mono font-fira-code
         ))
  (services
   (list
