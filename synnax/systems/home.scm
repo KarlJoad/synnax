@@ -13,6 +13,7 @@
                      password-utils
                      emacs
                      emacs-xyz
+                     python-xyz
                      engineering
                      libreoffice
                      maths
@@ -87,6 +88,7 @@
         libreoffice
         emacs
         emacs-guix
+        python-pygments
         remmina
         stow
         octave
