@@ -14,6 +14,7 @@
                      emacs
                      emacs-xyz
                      python-xyz
+                     code
                      engineering
                      libreoffice
                      maths
@@ -90,6 +91,7 @@
         emacs
         emacs-guix
         python-pygments
+        global
         remmina
         stow
         octave
