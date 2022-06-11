@@ -45,6 +45,7 @@
          (specification->package "mu")
          (specification->package "isync")
          (specification->package "stumpwm-with-slynk")
+         (specification->package "alacritty")
          (specification->package "xsetroot") ;; To change X11 stuff in StumpWM
          ;; Web browser (Minimal enough, but extensible)
          (specification->package "nyxt")
