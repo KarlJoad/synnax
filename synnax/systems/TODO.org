@@ -10,6 +10,10 @@
   * ~mu-home-service-type~, just like in home-manager
   * ~mbsync-home-service-type~, just like in home-manager
 
+** Packages
+  * Look into [[https://git-annex.branchable.com/][Git-annex]]
+  * Look into [[https://git.kernel.org/pub/scm/linux/kernel/git/dborkman/l2md.git/about/][l2md]]
+
 * Guix System
 ** User
   * Specify user's email address? (Might be done in Home too)
