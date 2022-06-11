@@ -22,6 +22,8 @@
                      video
                      vnc
                      vpn
+                     lisp
+                     lisp-xyz
                      package-management
                      text-editors
                      cryptsetup
@@ -93,6 +95,10 @@
         cryptsetup
         cifs-utils
         openconnect ;; IIT VPN
+        sbcl
+        cl-asdf
+        cl-slynk
+        sbcl-slynk
         ))
  (services
   (list
