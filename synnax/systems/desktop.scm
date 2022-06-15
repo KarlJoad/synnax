@@ -11,6 +11,7 @@
 
 (use-package-modules gnuzilla ; Icecat
                      web-browsers ; Nyxt
+                     dunst
                      emacs emacs-xyz
                      vim
                      mail
@@ -116,6 +117,7 @@
          squashfs-tools
          tree
          dosfstools
+         dunst
          nss-certs)
    %base-packages))
  (services
