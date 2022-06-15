@@ -122,7 +122,7 @@
               (list (local-file "bash_profile" "bash_profile")))))
    (simple-service 'ssh-config
                    home-files-service-type
-                   (list `("ssh/config"
+                   (list `(".ssh/config"
                            ,(plain-file "config"
                                         "Host 192.168.1.6
 \tUser root
