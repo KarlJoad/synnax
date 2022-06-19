@@ -93,7 +93,7 @@
                 (home-directory "/home/karljoad")
                 (supplementary-groups
                  `("wheel" "netdev" "audio" "video"
-                   "kvm" ;; ,(user-group (name "libvirt-users") (system? #t))
+                   "kvm" "libvirt"
                    "dialout")))
                %base-user-accounts))
  (packages
@@ -130,7 +130,8 @@
            (keyboard-layout keyboard-layout)))
          (service libvirt-service-type
                   (libvirt-configuration
-                   (unix-sock-group "libvirt-users"))))
+                   (unix-sock-group "libvirt")))
+         (service virtlog-service-type))
    %desktop-services))
 
  (bootloader
