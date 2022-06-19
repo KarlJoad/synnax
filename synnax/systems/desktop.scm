@@ -36,7 +36,7 @@
  networking
  ssh
  xorg
- virtualization)
+ virtualization docker)
 
 (define %ipmi-linux-options
   `(("CONFIG_ACPI_IPMI" . #t)
@@ -93,7 +93,7 @@
                 (home-directory "/home/karljoad")
                 (supplementary-groups
                  `("wheel" "netdev" "audio" "video"
-                   "kvm" "libvirt"
+                   "kvm" "libvirt" "docker"
                    "dialout")))
                %base-user-accounts))
  (packages
@@ -131,7 +131,8 @@
          (service libvirt-service-type
                   (libvirt-configuration
                    (unix-sock-group "libvirt")))
-         (service virtlog-service-type))
+         (service virtlog-service-type)
+         (service docker-service-type))
    %desktop-services))
 
  (bootloader
