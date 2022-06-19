@@ -74,7 +74,7 @@
 ;; Will only work if nonguix channel is present.
 (define-public linux-corrupted/desktop
   (corrupt-linux linux-libre/desktop linux-libre-version
-                 "0y2rmn86z3cvgv71b6sjjyafnlbanlib1kjpjjqzjbgg86y2890p"
+                 "0yr8xfds5l1s3lk8qk67mgy0l4yh2jfvjc7xwrfws3ci020ss9a2"
                  #:name "linux-ipmi"))
 
 (operating-system
