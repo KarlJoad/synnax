@@ -132,6 +132,10 @@
 Host *github.com
 \tUser git
 \tIdentityFile ~/.ssh/github
+
+Host *.cs.northwestern.edu
+\tUser kgh0080
+\tIdentityFile ~/.ssh/nu
 "))
                          `(".gitconfig"
                            ,(plain-file "gitconfig"
