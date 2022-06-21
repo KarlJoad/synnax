@@ -3,6 +3,7 @@
 (use-modules (gnu))
 
 (use-package-modules gnuzilla web-browsers ; Icecat & Nyxt
+                     bash
                      emacs emacs-xyz
                      vim
                      mail
@@ -62,7 +63,9 @@
          (service openssh-service-type)
          (set-xorg-configuration
           (xorg-configuration
-           (keyboard-layout keyboard-layout))))
+           (keyboard-layout keyboard-layout)))
+         (extra-special-file "/bin/bash" (file-append bash "/bin/bash"))
+         (extra-special-file "/usr/bin/env" (file-append coreutils "/bin/env")))
    %desktop-services))
  (bootloader
   (bootloader-configuration
