@@ -12,6 +12,7 @@
 (use-package-modules gnuzilla ; Icecat
                      web-browsers ; Nyxt
                      dunst
+                     bash
                      emacs emacs-xyz
                      vim
                      mail
@@ -132,7 +133,9 @@
                   (libvirt-configuration
                    (unix-sock-group "libvirt")))
          (service virtlog-service-type)
-         (service docker-service-type))
+         (service docker-service-type)
+         (extra-special-file "/bin/bash" (file-append bash "/bin/bash"))
+         (extra-special-file "/usr/bin/env" (file-append coreutils "/bin/env")))
    %desktop-services))
 
  (bootloader
