@@ -5,6 +5,7 @@
              (gnu home services)
              (gnu home services shells)
              (gnu home services shepherd)
+             (gnu home services ssh)
              (gnu services)
              (guix gexp))
 
@@ -120,24 +121,22 @@
               (list (local-file "bashrc" "bashrc")))
              (bash-profile
               (list (local-file "bash_profile" "bash_profile")))))
+   (service home-openssh-service-type
+            (home-openssh-configuration
+             (hosts
+              (list (openssh-host (name "ci")
+                                  (host-name "192.168.1.6")
+                                  (user "root")
+                                  (identity-file "~/.ssh/ci_rsa"))
+                    (openssh-host (name "*github.com")
+                                  (user "git")
+                                  (identity-file "~/.ssh/github"))
+                    (openssh-host (name "*.cs.northwestern.edu")
+                                  (user "kgh0080")
+                                  (identity-file "~/.ssh/nu"))))))
    (simple-service 'ssh-config
                    home-files-service-type
-                   (list `(".ssh/config"
-                           ,(plain-file "config"
-                                        "Host ci
-\tHostName 192.168.1.6
-\tUser root
-\tIdentityFile ~/.ssh/ci_rsa
-
-Host *github.com
-\tUser git
-\tIdentityFile ~/.ssh/github
-
-Host *.cs.northwestern.edu
-\tUser kgh0080
-\tIdentityFile ~/.ssh/nu
-"))
-                         `(".gitconfig"
+                   (list `(".gitconfig"
                            ,(plain-file "gitconfig"
                                         "[user]
 \tname = Karl Hallsby
