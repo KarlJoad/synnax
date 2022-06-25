@@ -140,7 +140,11 @@
                            ,(plain-file "config"
                                         "[user]
 \tname = Karl Hallsby
-\temail = karl@hallsby.com"))))
+\temail = karl@hallsby.com"))
+                         `(".config/git/ignore"
+                           ,(plain-file "ignore"
+                                        "*~
+*.swp"))))
    (service home-shepherd-service-type
             (home-shepherd-configuration
              (auto-start? #t)
