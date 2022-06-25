@@ -110,6 +110,9 @@
         ))
  (services
   (list
+   (simple-service 'force-xdg-env-vars-service
+                   home-environment-variables-service-type
+                   `(("SQLITE_HISTORY" . "$XDG_CACHE_HOME/sqlite_history")))
    (service home-bash-service-type
             (home-bash-configuration
              (guix-defaults? #t)
