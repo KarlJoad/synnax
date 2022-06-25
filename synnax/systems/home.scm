@@ -136,8 +136,8 @@
                                   (identity-file "~/.ssh/nu"))))))
    (simple-service 'ssh-config
                    home-files-service-type
-                   (list `(".gitconfig"
-                           ,(plain-file "gitconfig"
+                   (list `(".config/git/config"
+                           ,(plain-file "config"
                                         "[user]
 \tname = Karl Hallsby
 \temail = karl@hallsby.com"))))
