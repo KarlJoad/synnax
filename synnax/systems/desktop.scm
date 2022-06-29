@@ -135,6 +135,11 @@
                    (unix-sock-group "libvirt")))
          (service virtlog-service-type)
          (service docker-service-type)
+         ;; Add GNU Hurd VM that is small, but always exists.
+         (service hurd-vm-service-type
+                  (hurd-vm-configuration
+                   (disk-size (* 3 (expt 2 30))) ;3GiB Volatile disk
+                   (memory-size 1024)))          ;1024MiB vRAM
          (service syncthing-service-type
                   (syncthing-configuration
                    (user "karljoad"))) ;; TODO: Refactor `user' field to use variable.
