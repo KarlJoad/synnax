@@ -80,6 +80,7 @@
         password-store ;; pass
         yt-dlp
         vlc
+        obs
         lepton-eda
         gnucash
         lilypond
