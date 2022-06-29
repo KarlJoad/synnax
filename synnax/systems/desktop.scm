@@ -36,6 +36,7 @@
  desktop
  networking
  ssh
+ syncthing
  xorg
  virtualization docker)
 
@@ -134,6 +135,9 @@
                    (unix-sock-group "libvirt")))
          (service virtlog-service-type)
          (service docker-service-type)
+         (service syncthing-service-type
+                  (syncthing-configuration
+                   (user "karljoad"))) ;; TODO: Refactor `user' field to use variable.
          (extra-special-file "/bin/bash" (file-append bash "/bin/bash"))
          (extra-special-file "/usr/bin/env" (file-append coreutils "/bin/env")))
    %desktop-services))
