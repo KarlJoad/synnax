@@ -81,7 +81,7 @@
         yt-dlp
         vlc
         obs
-        lepton-eda
+        lepton-eda kicad
         gnucash
         lilypond
         texmacs
