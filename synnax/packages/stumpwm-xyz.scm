@@ -195,3 +195,17 @@ in StumpWM's modeline.")
    (description "Integrate the @code{pass} program with StumpWM")
    (license license:gpl3)))
 
+(define-public stumpwm-contrib-screenshot
+  (package
+   (name "stumpwm-contrib-screenshot")
+   (version stumpwm-contrib-version)
+   (source stumpwm-contrib-source)
+   (build-system copy-build-system)
+   (arguments
+    '(#:install-plan
+      '(("util/screenshot/" ""))))
+   (home-page "https://github.com/stumpwm/stumpwm-contrib/tree/master/util/screenshot")
+   (synopsis "Takes screenshots and stores them as @code{.png} files")
+   (description "Takes screenshots and stores them as @code{.png} files")
+   (license license:gpl3)))
+
