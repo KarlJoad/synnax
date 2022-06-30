@@ -30,7 +30,7 @@
                      compression
                      terminals
                      virtualization
-                     admin)
+                     admin freeipmi)
 
 (use-service-modules
  cups
@@ -114,10 +114,12 @@
    (list coreutils moreutils
          ;; sawfish
          (specification->package "stumpwm-with-slynk") xsetroot
+         freeipmi
          icecat firefox
          nyxt xclip xsel
          pwgen
          xdg-utils
+         xautolock ; Run command for user after some time has passed with no input
          alsa-utils pavucontrol
          vim
          emacs emacs-guix
