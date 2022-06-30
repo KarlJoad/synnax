@@ -5,6 +5,7 @@
              (gnu home services)
              (gnu home services shells)
              (gnu home services shepherd)
+             (gnu home services mcron)
              (gnu home services ssh)
              (gnu services)
              (guix gexp))
@@ -28,6 +29,7 @@
                      lisp
                      lisp-xyz
                      fonts
+                     fontutils
                      package-management
                      text-editors
                      cryptsetup
@@ -72,6 +74,12 @@
                                  (if (string-null? server-name)
                                      ""
                                      (string-append " for " server-name))))))
+
+(define fontconfig-update-mcron-job
+  #~(job '(next-hour '(10))
+         (lambda ()
+           (string-append #$fontconfig "/bin/fc-cache -fv"))
+         "fontconfig-daily-update"))
 
 (home-environment
  (packages
@@ -156,4 +164,9 @@
               (list
                (emacs-server "")
                (emacs-server "debug")))))
+   (service home-mcron-service-type
+            (home-mcron-configuration
+             (jobs
+              (list
+               fontconfig-update-mcron-job))))
    )))
