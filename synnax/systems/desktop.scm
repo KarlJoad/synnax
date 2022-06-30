@@ -53,9 +53,6 @@
     ("CONFIG_IPMI_WATCHDOG" . #t)
     ("CONFIG_IPMI_POWEROFF" . #t)))
 
-(define %sound-card-options
-  `(("CONFIG_SND_EMU10K1" . #t)))
-
 (define* (add-linux-libre-config-options #:rest options)
   "Prepend provided list of OPTIONS, which itself is a list of pairs."
   (append
@@ -71,8 +68,7 @@
    #:configuration-file (@@ (gnu packages linux) kernel-config)
    ;; extra-options must take ALL config flags to be passed to the kernel!
    #:extra-options (add-linux-libre-config-options
-                    %ipmi-linux-options
-                    %sound-card-options)))
+                    %ipmi-linux-options)))
 
 ;; Will only work if nonguix channel is present.
 (define-public linux-corrupted/desktop
