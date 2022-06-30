@@ -209,3 +209,17 @@ in StumpWM's modeline.")
    (description "Takes screenshots and stores them as @code{.png} files")
    (license license:gpl3)))
 
+(define-public stumpwm-contrib-stump-backlight
+  (package
+   (name "stumpwm-contrib-stump-backlight")
+   (version stumpwm-contrib-version)
+   (source stumpwm-contrib-source)
+   (build-system copy-build-system)
+   (arguments
+    '(#:install-plan
+      '(("util/stump-backlight/" ""))))
+   (home-page "https://github.com/stumpwm/stumpwm-contrib/tree/master/util/stump-backlight")
+   (synopsis "Native backlight control from StumpWM")
+   (description "Native backlight control from StumpWM")
+   (license license:gpl3)))
+
