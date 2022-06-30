@@ -10,34 +10,25 @@
              (gnu services)
              (guix gexp))
 
-(use-package-modules base ;; make & glibc
-                     admin
-                     mail
-                     password-utils
-                     emacs
-                     emacs-xyz
-                     python-xyz
-                     code
-                     engineering
-                     libreoffice
-                     maths
-                     ebook
-                     gnucash
-                     music
-                     video
-                     vnc
-                     vpn
-                     lisp
-                     lisp-xyz
-                     fonts
-                     fontutils
-                     package-management
-                     text-editors
-                     cryptsetup
-                     samba
-                     aspell
-                     tex
-                     kde)
+(use-package-modules
+ base ;; make & glibc
+ admin mail password-utils
+ emacs emacs-xyz
+ python-xyz
+ text-editors code commencement ;; gcc-toolchain
+ linux
+ engineering
+ libreoffice tex aspell kde
+ maths
+ ebook
+ gnucash
+ music video
+ vnc
+ vpn
+ lisp lisp-xyz
+ fonts fontutils
+ package-management
+ cryptsetup samba)
 
 (define (emacs-server server-name)
   (define (server-name->symbol server-name)
