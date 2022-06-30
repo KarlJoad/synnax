@@ -76,3 +76,18 @@ in StumpWM's modeline.")
 in StumpWM's modeline.")
    (license license:gpl3)))
 
+(define-public stumpwm-contrib-hostname
+  (package
+   (name "stumpwm-contrib-hostname")
+   (version stumpwm-contrib-version)
+   (source stumpwm-contrib-source)
+   (build-system copy-build-system)
+   (arguments
+    '(#:install-plan
+      '(("modeline/hostname/" ""))))
+   (home-page "https://github.com/stumpwm/stumpwm-contrib/tree/master/modeline/hostname")
+   (synopsis "Display hostname information in StumpWM's modeline")
+   (description "StumpWM-contributed module to display the device's hostname
+usage in StumpWM's modeline.")
+   (license license:bsd-2)))
+
