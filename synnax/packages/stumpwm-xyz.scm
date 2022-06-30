@@ -181,3 +181,17 @@ in StumpWM's modeline.")
    (description "Simple clipboard history module for StumpWM")
    (license license:gpl3)))
 
+(define-public stumpwm-contrib-pass
+  (package
+   (name "stumpwm-contrib-pass")
+   (version stumpwm-contrib-version)
+   (source stumpwm-contrib-source)
+   (build-system copy-build-system)
+   (arguments
+    '(#:install-plan
+      '(("util/pass/" ""))))
+   (home-page "https://github.com/stumpwm/stumpwm-contrib/tree/master/util/pass")
+   (synopsis "Integrate the @code{pass} program with StumpWM")
+   (description "Integrate the @code{pass} program with StumpWM")
+   (license license:gpl3)))
+
