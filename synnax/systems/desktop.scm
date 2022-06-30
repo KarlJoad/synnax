@@ -76,6 +76,20 @@
                  "0a5n1lb43nhnhwjwclkk3dqp2nxsx5ny7zfl8idvzshf94m9472a"
                  #:name "linux-ipmi"))
 
+(define zsa-moonlander-udev-rule
+  (udev-rule
+   "50-wally.rules"
+   (string-append
+    "# Teensy rules for the Ergodox EZ\n"
+    "ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789B]?\", ENV{ID_MM_DEVICE_IGNORE}=\"1\"\n"
+    "ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789A]?\", ENV{MTP_NO_PROBE}=\"1\"\n"
+    "SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789ABCD]?\", MODE:=\"0666\"\n"
+    "KERNEL==\"ttyACM*\", ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789B]?\", MODE:=\"0666\"\n"
+    "# STM32 rules for the Moonlander and Planck EZ\n"
+    "SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"0483\", AT\"TRS{idProduct}==\"df11\", \\\n"
+    "MODE:=\"0666\", \\\n"
+    "SYMLINK+=\"stm32_dfu\"\n")))
+
 (operating-system
  (locale "en_US.utf8")
  (kernel linux-corrupted/desktop)
@@ -141,6 +155,7 @@
          (service syncthing-service-type
                   (syncthing-configuration
                    (user "karljoad"))) ;; TODO: Refactor `user' field to use variable.
+         (udev-rules-service 'zsa-moonlander zsa-moonlander-udev-rule)
          (extra-special-file "/bin/bash" (file-append bash "/bin/bash"))
          (extra-special-file "/usr/bin/env" (file-append coreutils "/bin/env")))
    %desktop-services))
