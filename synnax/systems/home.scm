@@ -12,6 +12,7 @@
 
 (use-package-modules base ;; make & glibc
                      admin
+                     mail
                      password-utils
                      emacs
                      emacs-xyz
@@ -86,6 +87,7 @@
   (list binutils ;; TODO: Only install the binutils info manuals to global home path?
         gnu-make ;; Include the make command by default
         password-store ;; pass
+        l2md
         yt-dlp
         vlc
         obs
