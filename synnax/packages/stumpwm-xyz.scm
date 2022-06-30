@@ -167,3 +167,17 @@ connections in StumpWM's modeline.")
 in StumpWM's modeline.")
    (license license:gpl3)))
 
+(define-public stumpwm-contrib-clipboard-history
+  (package
+   (name "stumpwm-contrib-clipboard-history")
+   (version stumpwm-contrib-version)
+   (source stumpwm-contrib-source)
+   (build-system copy-build-system)
+   (arguments
+    '(#:install-plan
+      '(("util/clipboard-history/" ""))))
+   (home-page "https://github.com/stumpwm/stumpwm-contrib/tree/master/util/clipboard-history")
+   (synopsis "Simple clipboard history module for StumpWM")
+   (description "Simple clipboard history module for StumpWM")
+   (license license:gpl3)))
+
