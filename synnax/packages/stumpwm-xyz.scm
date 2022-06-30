@@ -137,3 +137,18 @@ StumpWM's modeline")
 device's current network connection in StumpWM's modeline.")
    (license license:gpl3)))
 
+(define-public stumpwm-contrib-wifi
+  (package
+   (name "stumpwm-contrib-wifi")
+   (version stumpwm-contrib-version)
+   (source stumpwm-contrib-source)
+   (build-system copy-build-system)
+   (arguments
+    '(#:install-plan
+      '(("modeline/wifi/" ""))))
+   (home-page "https://github.com/stumpwm/stumpwm-contrib/tree/master/modeline/wifi")
+   (synopsis "Display information about WiFi in StumpWM's modeline")
+   (description "StumpWM-contributed module to display the device's WiFi
+connections in StumpWM's modeline.")
+   (license license:gpl3)))
+
