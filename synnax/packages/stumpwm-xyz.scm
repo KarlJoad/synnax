@@ -19,19 +19,22 @@
   (git-version stumpwm-contrib-git-branch stumpwm-contrib-revision
                stumpwm-contrib-git-commit))
 
+(define stumpwm-contrib-source
+  (origin
+   (method git-fetch)
+   (uri (git-reference
+         (url "https://github.com/stumpwm/stumpwm-contrib.git")
+         (commit stumpwm-contrib-git-branch)))
+   (file-name (git-file-name "stumpwm-contrib" stumpwm-contrib-version))
+   (sha256
+    (base32
+     "0zxhqh9wjfk7zas67kmwfx0a47y8rxmh8f1a5rcs300bv1083lkb"))))
+
 (define-public stumpwm-contrib-battery-portable
   (package
    (name "stumpwm-contrib-battery-portable")
    (version stumpwm-contrib-version)
-   (source (origin
-            (method git-fetch)
-            (uri (git-reference
-                  (url "https://github.com/stumpwm/stumpwm-contrib.git")
-                  (commit stumpwm-contrib-git-branch)))
-            (file-name (git-file-name name version))
-            (sha256
-             (base32
-              "0zxhqh9wjfk7zas67kmwfx0a47y8rxmh8f1a5rcs300bv1083lkb"))))
+   (source stumpwm-contrib-source)
    (build-system copy-build-system)
    (arguments
     '(#:install-plan
@@ -47,15 +50,7 @@ device's battery levels in StumpWM's modeline.")
   (package
    (name "stumpwm-contrib-cpu")
    (version stumpwm-contrib-version)
-   (source (origin
-            (method git-fetch)
-            (uri (git-reference
-                  (url "https://github.com/stumpwm/stumpwm-contrib.git")
-                  (commit stumpwm-contrib-git-branch)))
-            (file-name (git-file-name name version))
-            (sha256
-             (base32
-              "0zxhqh9wjfk7zas67kmwfx0a47y8rxmh8f1a5rcs300bv1083lkb"))))
+   (source stumpwm-contrib-source)
    (build-system copy-build-system)
    (arguments
     '(#:install-plan
