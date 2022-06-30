@@ -109,8 +109,12 @@
         octave
         ;; slack discord element-desktop
         calibre
-        cryptsetup
-        cifs-utils
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        ;; Pull out to filesystems-packages variable ;;
+        cryptsetup                                   ;;
+        cifs-utils                                   ;;
+        usbutils                                     ;;
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         openconnect ;; IIT VPN
         sbcl
         cl-asdf
