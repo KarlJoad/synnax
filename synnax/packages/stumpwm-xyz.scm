@@ -121,3 +121,19 @@ accounts maildir state in StumpWM's modeline.")
 in StumpWM's modeline.")
    (license license:gpl3)))
 
+(define-public stumpwm-contrib-net
+  (package
+   (name "stumpwm-contrib-net")
+   (version stumpwm-contrib-version)
+   (source stumpwm-contrib-source)
+   (build-system copy-build-system)
+   (arguments
+    '(#:install-plan
+      '(("modeline/net/" ""))))
+   (home-page "https://github.com/stumpwm/stumpwm-contrib/tree/master/modeline/net")
+   (synopsis "Display information about the current network connection in
+StumpWM's modeline")
+   (description "StumpWM-contributed module to display the information about the
+device's current network connection in StumpWM's modeline.")
+   (license license:gpl3)))
+
