@@ -23,7 +23,7 @@
 
  (timezone "America/Chicago")
  (keyboard-layout (keyboard-layout "us"))
- (host-name "Karl-Desktop")
+ (host-name "Guix-Laptop")
  (users (cons* (user-account
                 (name "karljoad")
                 (comment "Karl Hallsby")
