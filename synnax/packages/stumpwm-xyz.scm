@@ -106,3 +106,18 @@ usage in StumpWM's modeline.")
 accounts maildir state in StumpWM's modeline.")
    (license license:gpl3)))
 
+(define-public stumpwm-contrib-mem
+  (package
+   (name "stumpwm-contrib-mem")
+   (version stumpwm-contrib-version)
+   (source stumpwm-contrib-source)
+   (build-system copy-build-system)
+   (arguments
+    '(#:install-plan
+      '(("modeline/mem/" ""))))
+   (home-page "https://github.com/stumpwm/stumpwm-contrib/tree/master/modeline/mem")
+   (synopsis "Display system memory information in StumpWM's modeline")
+   (description "StumpWM-contributed module to display the device's memory usage
+in StumpWM's modeline.")
+   (license license:gpl3)))
+
