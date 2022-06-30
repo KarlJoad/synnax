@@ -61,3 +61,18 @@ device's battery levels in StumpWM's modeline.")
 in StumpWM's modeline.")
    (license license:gpl3)))
 
+(define-public stumpwm-contrib-disk
+  (package
+   (name "stumpwm-contrib-disk")
+   (version stumpwm-contrib-version)
+   (source stumpwm-contrib-source)
+   (build-system copy-build-system)
+   (arguments
+    '(#:install-plan
+      '(("modeline/disk/" ""))))
+   (home-page "https://github.com/stumpwm/stumpwm-contrib/tree/master/modeline/disk")
+   (synopsis "Display disk information in StumpWM's modeline")
+   (description "StumpWM-contributed module to display the device's disk usage
+in StumpWM's modeline.")
+   (license license:gpl3)))
+
