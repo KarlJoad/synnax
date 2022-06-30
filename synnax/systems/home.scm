@@ -168,8 +168,7 @@
              (auto-start? #t)
              (services
               (list
-               (emacs-server "")
-               (emacs-server "debug")))))
+               (emacs-server "")))))
    (service home-mcron-service-type
             (home-mcron-configuration
              (jobs
