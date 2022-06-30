@@ -9,7 +9,7 @@
              (gnu services)
              (guix gexp))
 
-(use-package-modules base
+(use-package-modules base ;; make & glibc
                      admin
                      password-utils
                      emacs
