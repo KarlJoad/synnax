@@ -11,6 +11,11 @@
   #:use-module (guix build-system copy))
 
 ;; Packages install to their directories.
+;; Can modify stumpwm *load-path* variable with add-to-load-path function to
+;; be able to load modules using the load-mdoule function.
+;;
+;; Could instead symlink each of the packages into place under *data-dir*/modules,
+;; which ends up being $HOME/.stumpwm.d/modules.
 
 (define stumpwm-contrib-git-branch "master")
 (define stumpwm-contrib-git-commit "d0c05077eca5257d33083de949c10bca4aac4242")
