@@ -152,3 +152,18 @@ device's current network connection in StumpWM's modeline.")
 connections in StumpWM's modeline.")
    (license license:gpl3)))
 
+(define-public stumpwm-contrib-stumptray
+  (package
+   (name "stumpwm-contrib-stumptray")
+   (version stumpwm-contrib-version)
+   (source stumpwm-contrib-source)
+   (build-system copy-build-system)
+   (arguments
+    '(#:install-plan
+      '(("modeline/stumptray/" ""))))
+   (home-page "https://github.com/stumpwm/stumpwm-contrib/tree/master/modeline/stumptray")
+   (synopsis "System tray for StumpWM's modeline")
+   (description "StumpWM-contributed module to present a system tray to the user
+in StumpWM's modeline.")
+   (license license:gpl3)))
+
