@@ -12,8 +12,9 @@
  desktop
  networking
  ssh
+ syncthing
  xorg
- virtualization)
+ virtualization docker)
 
 (operating-system
  (locale "en_US.utf8")
@@ -64,9 +65,14 @@
          (set-xorg-configuration
           (xorg-configuration
            (keyboard-layout keyboard-layout)))
+         (service syncthing-service-type
+                  (syncthing-configuration
+                   (user "karljoad"))) ;; TODO: Refactor `user' field to use variable.
          (service libvirt-service-type
                   (libvirt-configuration
-                   (unix-sock-group "libvirt-users"))))
+                   (unix-sock-group "libvirt-users")))
+         (service virtlog-service-type)
+         (service docker-service-type))
    %desktop-services))
 
  (bootloader
