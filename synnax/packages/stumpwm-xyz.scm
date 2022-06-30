@@ -91,3 +91,18 @@ in StumpWM's modeline.")
 usage in StumpWM's modeline.")
    (license license:bsd-2)))
 
+(define-public stumpwm-contrib-maildir
+  (package
+   (name "stumpwm-contrib-maildir")
+   (version stumpwm-contrib-version)
+   (source stumpwm-contrib-source)
+   (build-system copy-build-system)
+   (arguments
+    '(#:install-plan
+      '(("modeline/maildir/" ""))))
+   (home-page "https://github.com/stumpwm/stumpwm-contrib/tree/master/modeline/maildir")
+   (synopsis "Display maildir information in StumpWM's modeline")
+   (description "StumpWM-contributed module to display the tracked email
+accounts maildir state in StumpWM's modeline.")
+   (license license:gpl3)))
+
