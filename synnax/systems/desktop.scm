@@ -29,6 +29,7 @@
                      linux pulseaudio ; ALSA/PulseAudio
                      compression
                      terminals
+                     virtualization
                      admin)
 
 (use-service-modules
@@ -120,6 +121,7 @@
          tree
          dosfstools
          dunst
+         virt-manager
          nss-certs)
    %base-packages))
  (services
