@@ -223,3 +223,17 @@ in StumpWM's modeline.")
    (description "Native backlight control from StumpWM")
    (license license:gpl3)))
 
+(define-public stumpwm-contrib-stump-nm
+  (package
+   (name "stumpwm-contrib-stump-nm")
+   (version stumpwm-contrib-version)
+   (source stumpwm-contrib-source)
+   (build-system copy-build-system)
+   (arguments
+    '(#:install-plan
+      '(("util/stump-nm/" ""))))
+   (home-page "https://github.com/stumpwm/stumpwm-contrib/tree/master/util/stump-nm")
+   (synopsis "StumpWM integration with NetworkManager")
+   (description "StumpWM integration with NetworkManager")
+   (license license:gpl3)))
+
