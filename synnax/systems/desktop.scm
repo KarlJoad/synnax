@@ -86,7 +86,7 @@
     "SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789ABCD]?\", MODE:=\"0666\"\n"
     "KERNEL==\"ttyACM*\", ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789B]?\", MODE:=\"0666\"\n"
     "# STM32 rules for the Moonlander and Planck EZ\n"
-    "SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"0483\", AT\"TRS{idProduct}==\"df11\", \\\n"
+    "SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"0483\", ATTRS{idProduct}==\"df11\", \\\n"
     "MODE:=\"0666\", \\\n"
     "SYMLINK+=\"stm32_dfu\"\n")))
 
