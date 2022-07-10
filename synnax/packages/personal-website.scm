@@ -16,6 +16,7 @@
             (uri (git-reference
                   (url "git://git.karl.hallsby.com/haunt-website.git")
                   (commit "master")))
+            (file-name (git-file-name name version))
             (sha256
              (base32
               "0lwnhjil5b8rbqnfvcrm8hjv0h9blk75010z0digwycjk5915z82"))))
