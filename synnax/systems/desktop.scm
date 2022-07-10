@@ -109,6 +109,9 @@
                    "kvm" "libvirt" "docker"
                    "dialout" "plugdev")))
                %base-user-accounts))
+ (groups (cons* (user-group (name "plugdev")
+                            (system? #t))
+                %base-groups))
  (packages
   (append
    (list coreutils moreutils
