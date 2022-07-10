@@ -8,7 +8,8 @@
              (gnu home services mcron)
              (gnu home services ssh)
              (gnu services)
-             (guix gexp))
+             (guix gexp)
+             (synnax packages wally))
 
 (use-package-modules
  base ;; make & glibc
@@ -111,6 +112,7 @@
         cl-asdf
         cl-slynk
         sbcl-slynk
+        wally-cli
         font-iosevka font-iosevka-slab font-iosevka-term font-iosevka-term-slab
         font-fira-mono font-fira-code
         ))
