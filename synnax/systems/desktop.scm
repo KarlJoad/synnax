@@ -107,7 +107,7 @@
                 (supplementary-groups
                  `("wheel" "netdev" "audio" "video"
                    "kvm" "libvirt" "docker"
-                   "dialout")))
+                   "dialout" "plugdev")))
                %base-user-accounts))
  (packages
   (append
