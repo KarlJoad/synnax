@@ -11,6 +11,7 @@
 
 (use-package-modules gnuzilla ; Icecat
                      web-browsers ; Nyxt
+                     wm
                      dunst
                      bash
                      emacs emacs-xyz
@@ -116,7 +117,7 @@
   (append
    (list coreutils moreutils
          ;; sawfish
-         (specification->package "stumpwm-with-slynk") xsetroot
+         stumpwm+slynk xsetroot
          freeipmi
          icecat firefox
          nyxt xclip xsel
