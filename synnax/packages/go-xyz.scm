@@ -54,3 +54,23 @@
    (description "Go-like bindings around the libusb library")
    (license license:asl2.0)))
 
+(define-public go-github-com-marcinbor85-gohex
+  (package
+   (name "go-github-com-marcinbor85-gohex")
+   (version "master")
+   (source (origin
+            (method git-fetch)
+            (uri (git-reference
+                  (url "https://github.com/marcinbor85/gohex")
+                  (commit version)))
+            (file-name (git-file-name name version))
+            (sha256
+             (base32
+              "0klzqnvmkx6xvy9kc7hbsgpsdcrswnljsq8frf0jxddxi27qh1hn"))))
+   (build-system go-build-system)
+   (arguments '(#:import-path "github.com/marcinbor85/gohex"))
+   (home-page "https://github.com/marcinbor85/gohex")
+   (synopsis "A Go library for parsing Intel HEX files")
+   (description "A Go library for parsing Intel HEX files")
+   (license license:expat)))
+
