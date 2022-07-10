@@ -74,3 +74,22 @@
    (description "A Go library for parsing Intel HEX files")
    (license license:expat)))
 
+(define-public go-github-com-cheggaaa-pb-v1
+  (package
+    (inherit go-github-com-cheggaaa-pb-v3)
+    (name "go-github-com-cheggaaa-pb-v1")
+    (version "1.0.28")
+    (source (origin
+            (method git-fetch)
+            (uri (git-reference
+                  (url "https://github.com/cheggaaa/pb")
+                  (commit (string-append "v" version))))
+            (file-name (git-file-name name version))
+            (sha256
+             (base32
+              "13a66cqbpdif804qj12z9ad8r24va9q41gfk71qbc4zg1wsxs3rh"))))
+    (arguments
+     '(#:import-path "github.com/cheggaaa/pb/v1"
+       ;; XXX: it does have tests but I'm not sure how to run them.
+       ;; go-build-system is looking in the wrong directory.
+       #:tests? #f))))
