@@ -84,7 +84,7 @@
         vlc
         obs
         lepton-eda kicad
-        gnucash
+        gnucash ;; gnucash:doc yelp
         lilypond
         texmacs
         texlive ;; Include ALL of TeXLive, because I am lazy and disks are large
