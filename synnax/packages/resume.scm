@@ -14,9 +14,10 @@
             (uri (git-reference
                   (url "git://git.karl.hallsby.com/resume.git")
                   (commit "master")))
+            (file-name (git-file-name name version))
             (sha256
              (base32
-              "0a9h6kqdafday4fmrgvq5ms6b2ybxcjd62711fjvddr4ai2ncldn"))))
+              "1avaz7gkrcyf1kz61s8zhkr4q6lj4wyaq5spxp6d9wc16gkvz40l"))))
    (build-system gnu-build-system)
    (native-inputs
     (list texlive-base texlive-tools
