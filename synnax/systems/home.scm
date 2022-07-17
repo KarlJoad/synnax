@@ -78,6 +78,11 @@
  (packages
   (list binutils ;; TODO: Only install the binutils info manuals to global home path?
         gnu-make ;; Include the make command by default
+        ;; For compiling EmacSQL for org-roam
+        ;glibc
+        ;; gcc-toolchain
+        ;linux-libre-headers
+        ;;
         password-store ;; pass
         l2md
         yt-dlp
@@ -94,6 +99,7 @@
         libreoffice
         emacs
         emacs-guix
+        ;; emacs-emacsql ;; SQLite binary for Emacsql for org-roam
         python-pygments
         global
         remmina
