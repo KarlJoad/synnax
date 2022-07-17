@@ -34,8 +34,6 @@
      #~(modify-phases %standard-phases
                       (delete 'configure)
                       (delete 'check)
-                      (replace 'build
-                               (lambda _ (system* (string-append #+texlive "/bin/latexmk"))))
                       (replace 'install
                                (lambda _ (copy-file "Hallsby_Karl.pdf" #$output))))))
    (home-page "https://karl.hallsby.com")
