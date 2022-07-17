@@ -4,6 +4,7 @@
   #:use-module (guix git-download)
   #:use-module (guix build-system gnu)
   #:use-module (gnu packages tex))
+;;  #:use-module (gnu packages tex-xyz)
 
 (define-public resume
   (package
@@ -20,15 +21,17 @@
               "1avaz7gkrcyf1kz61s8zhkr4q6lj4wyaq5spxp6d9wc16gkvz40l"))))
    (build-system gnu-build-system)
    (native-inputs
-    (list texlive-base texlive-tools
-          texlive-latex-geometry texlive-latex-tools
-          texlive-inputenx texlive-babel ;; texlive-nth
-          texlive-xcolor
-          texlive-hyperref
-          ;; texlive-cleveref
-          texlive-caption texlive-enumitem ;; texlive-chngcntr
-          texlive-booktabs texlive-latex-multirow
-          texlive-titling texlive-latex-titlesec))
+    (list texlive)
+    ;; (list texlive-base texlive-tools
+    ;;       texlive-latex-geometry texlive-latex-tools
+    ;;       texlive-inputenx texlive-babel ;; texlive-nth
+    ;;       texlive-xcolor
+    ;;       texlive-hyperref
+    ;;       ;; texlive-cleveref
+    ;;       texlive-caption texlive-enumitem ;; texlive-chngcntr
+    ;;       texlive-booktabs texlive-latex-multirow
+    ;;       texlive-titling texlive-latex-titlesec)
+    )
    (arguments
     (list
      #:phases
