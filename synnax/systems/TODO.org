@@ -26,6 +26,7 @@
     1. ~guix shell xrandr~
     2. ~xrandr --output DVI-D-1 --mode 1280x1024~
     3. ~xrandr --output DVI-D-1 --mode 1600x900~
+    4. ~xrandr --output HDMI-1 --left-of DVI-D-1~
   * Probably easier to just buy new monitors.
 
 * Guix
