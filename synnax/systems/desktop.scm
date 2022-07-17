@@ -21,6 +21,7 @@
                      version-control
                      wm ; Stumpwm
                      xorg
+                     xdisorg ; X11 helper programs (xautolock)
                      certs
                      moreutils pciutils lsof
                      disk ; dosfstools (mkfs.fat)
