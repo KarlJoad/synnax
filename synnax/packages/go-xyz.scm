@@ -93,3 +93,30 @@
        ;; XXX: it does have tests but I'm not sure how to run them.
        ;; go-build-system is looking in the wrong directory.
        #:tests? #f))))
+
+(define-public go-github-com-sri-csl-gllvm
+  (package
+   (name "go-github-com-sri-csl-gllvm")
+   (version "git-master")
+   (source (origin
+            (method git-fetch)
+            (uri (git-reference
+                  (url "https://github.com/SRI-CSL/gllvm")
+                  (commit "master")))
+            (file-name (git-file-name name version))
+            (sha256
+             (base32
+              "04amsgljrc46s92l19pqa9vwzrkbm9iz78rfmsc61r5hxyaz932y"))))
+   (build-system go-build-system)
+   (arguments
+    `(#:unpack-path "github.com/SRI-CSL/gllvm"
+      #:import-path "github.com/SRI-CSL/gllvm/cmd/..."
+      #:install-source? #f
+      #:phases
+      (modify-phases %standard-phases
+                     (delete 'check))))
+   (home-page "https://github.com/SRI-CSL/gllvm")
+   (synopsis "Clang/LLVM wrapper that preserves LLVM bitcode")
+   (description "Clang tool for preserving and inlining all LLVM bitcode during
+compilation to use in a second pass for final optimization and code generation.")
+   (license license:bsd-3)))
