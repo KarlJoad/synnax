@@ -16,5 +16,5 @@
        ncurses/tinfo
        libxml2 libxml++
        llvm-12
-       clang-12
+       clang-toolchain-12
        linux-libre-headers))
