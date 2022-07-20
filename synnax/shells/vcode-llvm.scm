@@ -6,12 +6,14 @@
   #:use-module (gnu packages llvm)
   #:use-module (gnu packages linux)
   #:use-module (gnu packages golang)
+  #:use-module (gnu packages ncurses)
   #:use-module (synnax packages go-xyz))
 
 (packages->manifest
  (list go
        go-github-com-sri-csl-gllvm
        file
+       ncurses/tinfo
        libxml2 libxml++
        llvm-12
        clang-12
