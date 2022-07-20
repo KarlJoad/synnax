@@ -22,7 +22,6 @@
             (sha256
              (base32
               "1iswh1z7llapjn116lyr5lvry7q93zfaasxvm36q5jx09hf91v1n"))))
-   ;; (build-inputs libusb) ;; TODO: Will need libusb to make this work.
    (native-inputs
     (list pkg-config
           go-github-com-carrlos0-spin
