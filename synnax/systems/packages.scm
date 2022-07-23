@@ -11,7 +11,8 @@
             %system-packages
             %base-home-packages
             %eda-packages
-            %document-prep-packages))
+            %document-prep-packages
+            %development-packages))
 
 (use-package-modules
  gnuzilla ; Icecat
@@ -102,3 +103,9 @@
         okular
         ispell
         libreoffice))
+
+(define %development-packages
+  (list binutils ;; TODO: Only install the binutils info manuals to global home path?
+        gnu-make ;; Include the make command by default
+        global   ;; Global & gtags
+        cscope))
