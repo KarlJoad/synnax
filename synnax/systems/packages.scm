@@ -5,7 +5,8 @@
   #:export (%nonguix-packages
             %web-browser-packages
             %virtualization-packages
-            %filesystems-packages))
+            %filesystems-packages
+            %wm-packages))
 
 (use-package-modules
  gnuzilla ; Icecat
@@ -52,3 +53,6 @@
         cryptsetup
         cifs-utils
         usbutils))
+
+(define %wm-packages
+  (list stumpwm+slynk xsetroot dunst))
