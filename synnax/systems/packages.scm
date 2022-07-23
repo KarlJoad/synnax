@@ -12,7 +12,8 @@
             %base-home-packages
             %eda-packages
             %document-prep-packages
-            %development-packages))
+            %development-packages
+            %font-packages))
 
 (use-package-modules
  gnuzilla ; Icecat
@@ -109,3 +110,7 @@
         gnu-make ;; Include the make command by default
         global   ;; Global & gtags
         cscope))
+
+(define %font-packages
+  (list font-iosevka font-iosevka-slab font-iosevka-term font-iosevka-term-slab
+        font-fira-mono font-fira-code))
