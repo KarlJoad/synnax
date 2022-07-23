@@ -4,7 +4,8 @@
   #:use-module (nongnu packages mozilla)
   #:export (%nonguix-packages
             %web-browser-packages
-            %virtualization-packages))
+            %virtualization-packages
+            %filesystems-packages))
 
 (use-package-modules
  gnuzilla ; Icecat
@@ -45,3 +46,9 @@
 
 (define %virtualization-packages
   (list virt-manager))
+
+(define %filesystems-packages
+  (list squashfs-tools dosfstools
+        cryptsetup
+        cifs-utils
+        usbutils))
