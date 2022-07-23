@@ -3,7 +3,8 @@
   #:use-module (guix)
   #:use-module (nongnu packages mozilla)
   #:export (%nonguix-packages
-            %web-browser-packages))
+            %web-browser-packages
+            %virtualization-packages))
 
 (use-package-modules
  gnuzilla ; Icecat
@@ -41,3 +42,6 @@
 (define %nonguix-packages (list firefox))
 
 (define %web-browser-packages (list icecat nyxt xclip xsel))
+
+(define %virtualization-packages
+  (list virt-manager))
