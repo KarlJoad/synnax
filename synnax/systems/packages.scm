@@ -10,7 +10,8 @@
             %utils-packages
             %system-packages
             %base-home-packages
-            %eda-packages))
+            %eda-packages
+            %document-prep-packages))
 
 (use-package-modules
  gnuzilla ; Icecat
@@ -92,3 +93,12 @@
         ))
 
 (define %eda-packages (list lepton-eda kicad))
+
+(define %document-prep-packages
+  (list texmacs
+        texlive ;; Include ALL of TeXLive, because I am lazy and disks are large
+        python-pygments ;; To make texlive-minted work
+        biber ;; I prefer biber over old-school bibtex
+        okular
+        ispell
+        libreoffice))
