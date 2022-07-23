@@ -2,7 +2,8 @@
   #:use-module (gnu)
   #:use-module (guix)
   #:use-module (nongnu packages mozilla)
-  #:export (%nonguix-packages))
+  #:export (%nonguix-packages
+            %web-browser-packages))
 
 (use-package-modules
  gnuzilla ; Icecat
@@ -38,3 +39,5 @@
  fonts)
 
 (define %nonguix-packages (list firefox))
+
+(define %web-browser-packages (list icecat nyxt xclip xsel))
