@@ -9,7 +9,8 @@
             %wm-packages
             %utils-packages
             %system-packages
-            %base-home-packages))
+            %base-home-packages
+            %eda-packages))
 
 (use-package-modules
  gnuzilla ; Icecat
@@ -89,3 +90,5 @@
         emacs-guix
         password-store ;; pass
         ))
+
+(define %eda-packages (list lepton-eda kicad))
