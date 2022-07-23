@@ -1,24 +1,5 @@
   :#export '(package-list))
 
-(use-package-modules gnuzilla ; Icecat
-                     web-browsers ; Nyxt
-                     emacs emacs-xyz
-                     vim
-                     mail
-                     wget curl
-                     version-control
-                     wm ; Stumpwm
-                     xorg
-                     certs
-                     moreutils pciutils lsof
-                     xdisorg
-                     password-utils
-                     freedesktop ; XDG stuff
-                     linux pulseaudio ; ALSA/PulseAudio
-                     compression
-                     terminals
-                     admin)
-
 (define-public package-list
   (list coreutils moreutils
         ;; sawfish
@@ -42,3 +23,37 @@
 (define-module (synnax systems packages)
   #:use-module (gnu)
   #:use-module (guix)
+
+(use-package-modules
+ gnuzilla ; Icecat
+ web-browsers ; Nyxt
+ emacs emacs-xyz
+ vim
+ admin
+ password-utils ; passwd
+ mail ; mbsync & mu
+ xorg
+ xdisorg          ; X11 helper programs
+ wget curl
+ version-control
+ wm ; Stumpwm
+ dunst ; X11 Notification manager
+ certs
+ moreutils pciutils lsof
+ disk             ; dosfstools (mkfs.fat)
+ cryptsetup samba
+ freedesktop      ; XDG stuff
+ linux pulseaudio ; ALSA/PulseAudio
+ compression
+ terminals      ; alacritty, urxvt
+ virtualization ; virt-manager
+ code           ; global
+ engineering    ; lepton-eda
+ text-editors   ; texmacs
+ tex            ; texlive, biber
+ python-xyz     ; python-pygments
+ aspell         ; ispell
+ kde            ; okular
+ libreoffice
+ fonts)
+
