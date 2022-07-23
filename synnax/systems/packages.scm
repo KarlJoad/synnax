@@ -1,28 +1,8 @@
-  :#export '(package-list))
-
-(define-public package-list
-  (list coreutils moreutils
-        ;; sawfish
-        (specification->package "stumpwm-with-slynk") xsetroot
-        icecat
-        nyxt xclip xsel
-        pwgen
-        xdg-utils
-        alsa-utils pavucontrol
-        vim
-        emacs emacs-guix
-        mu
-        git
-        wget curl
-        zip unzip
-        rxvt-unicode alacritty
-        pciutils lsof hwdata
-        squashfs-tools
-        tree
-        nss-certs))
 (define-module (synnax systems packages)
   #:use-module (gnu)
   #:use-module (guix)
+  #:use-module (nongnu packages mozilla)
+  #:export (%nonguix-packages))
 
 (use-package-modules
  gnuzilla ; Icecat
@@ -57,3 +37,4 @@
  libreoffice
  fonts)
 
+(define %nonguix-packages (list firefox))
