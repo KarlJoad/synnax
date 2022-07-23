@@ -6,7 +6,8 @@
             %web-browser-packages
             %virtualization-packages
             %filesystems-packages
-            %wm-packages))
+            %wm-packages
+            %utils-packages))
 
 (use-package-modules
  gnuzilla ; Icecat
@@ -56,3 +57,6 @@
 
 (define %wm-packages
   (list stumpwm+slynk xsetroot dunst))
+
+(define %utils-packages
+  (list coreutils moreutils pciutils lsof hwdata binutils))
