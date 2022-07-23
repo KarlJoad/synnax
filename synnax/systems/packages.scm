@@ -8,7 +8,8 @@
             %filesystems-packages
             %wm-packages
             %utils-packages
-            %system-packages))
+            %system-packages
+            %base-home-packages))
 
 (use-package-modules
  gnuzilla ; Icecat
@@ -80,3 +81,11 @@
    %virtualization-packages
    ;; %nonguix-packages
    ))
+
+
+(define %base-home-packages
+  (list vim  ;; While this may be heresy, having vim is useful sometimes
+        emacs
+        emacs-guix
+        password-store ;; pass
+        ))
