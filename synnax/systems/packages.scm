@@ -13,7 +13,8 @@
             %eda-packages
             %document-prep-packages
             %development-packages
-            %font-packages))
+            %font-packages
+            %home-packages))
 
 (use-package-modules
  gnuzilla ; Icecat
@@ -114,3 +115,13 @@
 (define %font-packages
   (list font-iosevka font-iosevka-slab font-iosevka-term font-iosevka-term-slab
         font-fira-mono font-fira-code))
+
+(define %home-packages
+  (append
+   (list hello)
+   %development-packages
+   %document-prep-packages
+   %eda-packages
+   %font-packages
+   %fs-tools-packages
+   %base-home-packages))
