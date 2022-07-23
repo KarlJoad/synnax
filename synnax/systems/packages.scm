@@ -7,7 +7,8 @@
             %virtualization-packages
             %filesystems-packages
             %wm-packages
-            %utils-packages))
+            %utils-packages
+            %system-packages))
 
 (use-package-modules
  gnuzilla ; Icecat
@@ -60,3 +61,22 @@
 
 (define %utils-packages
   (list coreutils moreutils pciutils lsof hwdata binutils))
+
+(define %system-packages
+  (append
+   (list pwgen
+         xdg-utils
+         xautolock ; Run command for user after some time has passed with no input
+         alsa-utils pavucontrol
+         vim
+         emacs emacs-guix
+         wget curl
+         zip unzip
+         rxvt-unicode alacritty
+         nss-certs)
+   %utils-packages
+   %wm-packages
+   %web-browser-packages
+   %virtualization-packages
+   ;; %nonguix-packages
+   ))
