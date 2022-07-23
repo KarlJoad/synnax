@@ -1,6 +1,3 @@
-(define-module (systems packages)
-  :#use-module (gnu)
-  :#use-module (guix)
   :#export '(package-list))
 
 (use-package-modules gnuzilla ; Icecat
@@ -42,3 +39,6 @@
         squashfs-tools
         tree
         nss-certs))
+(define-module (synnax systems packages)
+  #:use-module (gnu)
+  #:use-module (guix)
