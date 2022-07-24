@@ -9,19 +9,19 @@
 
 (define-public stumpwm+slynk-with-contrib
   (package
-    (inherit stumpwm)
-    (source (origin (inherit (package-source stumpwm))
+    (inherit stumpwm+slynk)
+    (source (origin (inherit (package-source stumpwm+slynk))
                     (patches
                      (append (list (local-file "patches/stumpwm-module-dir-easy-regexp-replace.patch"))
-                             (origin-patches (package-source stumpwm))))))
+                             (origin-patches (package-source stumpwm+slynk))))))
     (inputs
      (cons `("stumpwm-contrib" ,(package-source (@@ (gnu packages wm) stumpwm-contrib)))
-           (package-inputs stumpwm)))
+           (package-inputs stumpwm+slynk)))
     (arguments
-     (substitute-keyword-arguments (package-arguments stumpwm)
+     (substitute-keyword-arguments (package-arguments stumpwm+slynk)
        ((#:phases old-phases)
         #~(modify-phases #$old-phases
-            (add-before 'copy-source 'module-dir-point-to-store
+            (add-after 'unpack 'module-dir-point-to-store
               (lambda* (#:key source inputs outputs #:allow-other-keys)
                 (let ((modules-dir #$(this-package-input "stumpwm-contrib"))
                       (out (assoc-ref outputs "out")))
