@@ -83,9 +83,7 @@
    %utils-packages
    %wm-packages
    %web-browser-packages
-   %virtualization-packages
-   ;; %nonguix-packages
-   ))
+   %virtualization-packages))
 
 
 (define %base-home-packages
