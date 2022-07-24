@@ -1,0 +1,6 @@
+* StumpWM
+** TODO Make ~stumpwm-contrib~ source ~define-public~-d
+** TODO Patch ~*module-dir*~
+List of:
+   * ~XDG_DATA_DIRS~
+   * ~"common-lisp/sbcl/"~
