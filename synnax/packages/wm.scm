@@ -5,7 +5,6 @@
   #:use-module (gnu packages)
   #:use-module (gnu packages wm)
   #:use-module (gnu packages pkg-config)
-  #:use-module (synnax packages stumpwm-xyz)
   #:use-module ((guix licenses) #:prefix license:))
 
 (define-public stumpwm-no-docs
@@ -54,7 +53,7 @@
         #~(modify-phases #$old-phases
             (add-before 'copy-source 'module-dir-point-to-store
               (lambda* (#:key source inputs outputs #:allow-other-keys)
-                (let ((modules-dir inputs)
+                (let ((modules-dir #$(this-package-input "stumpwm-contrib"))
                       (out (assoc-ref outputs "out")))
                   (format #t "Modifying module.lisp to point to ~s~%" modules-dir)
                   (substitute* "module.lisp"
