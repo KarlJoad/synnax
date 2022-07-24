@@ -46,8 +46,8 @@
                      (append (list (local-file "patches/stumpwm-module-dir-easy-regexp-replace.patch"))
                              (origin-patches (package-source stumpwm))))))
     (inputs
-     (append (list stumpwm-contrib-cpu)
-             (package-inputs stumpwm)))
+     (cons `("stumpwm-contrib" ,(package-source (@@ (gnu packages wm) stumpwm-contrib)))
+           (package-inputs stumpwm)))
     (arguments
      (substitute-keyword-arguments (package-arguments stumpwm)
        ((#:phases old-phases)
