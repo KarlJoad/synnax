@@ -59,7 +59,7 @@
                   (substitute* "module.lisp"
                     (("REPLACE-ME") modules-dir)))))))))))
 
-(define-public stumpwm-with-contrib
+(define-public (stumpwm+slynk-with-contrib contrib-pkgs)
   (package
     (inherit stumpwm+slynk)))
 
