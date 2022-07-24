@@ -5,6 +5,7 @@
   #:use-module (gnu packages)
   #:use-module (gnu packages wm)
   #:use-module (gnu packages pkg-config)
+  #:use-module (synnax packages stumpwm-xyz)
   #:use-module ((guix licenses) #:prefix license:))
 
 (define-public stumpwm-no-docs
@@ -36,6 +37,28 @@
                     (("REPLACE-ME")
                      (string-append out "/modules"))))))
             (delete 'install-manual)))))))
+
+(define-public stumpwm-with-patch-with-contrib
+  (package
+    (inherit stumpwm)
+    (source (origin (inherit (package-source stumpwm))
+                    (patches
+                     (append (list (local-file "patches/stumpwm-module-dir-easy-regexp-replace.patch"))
+                             (origin-patches (package-source stumpwm))))))
+    (inputs
+     (append (list stumpwm-contrib-cpu)
+             (package-inputs stumpwm)))
+    (arguments
+     (substitute-keyword-arguments (package-arguments stumpwm)
+       ((#:phases old-phases)
+        #~(modify-phases #$old-phases
+            (add-before 'copy-source 'module-dir-point-to-store
+              (lambda* (#:key source inputs outputs #:allow-other-keys)
+                (let ((modules-dir inputs)
+                      (out (assoc-ref outputs "out")))
+                  (format #t "Modifying module.lisp to point to ~s~%" modules-dir)
+                  (substitute* "module.lisp"
+                    (("REPLACE-ME") modules-dir)))))))))))
 
 (define-public stumpwm-with-contrib
   (package
