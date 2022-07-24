@@ -28,9 +28,9 @@
      (substitute-keyword-arguments (package-arguments stumpwm)
        ((#:phases old-phases)
         #~(modify-phases #$old-phases
-            (add-before 'build 'module-dir-point-to-store
-              (lambda* (#:key source-path outputs #:allow-other-keys)
-                (substitute* (string-append source-path "/module.lisp")
+            (add-before 'copy-source 'module-dir-point-to-store
+              (lambda* (#:key source outputs #:allow-other-keys)
+                (substitute* "module.lisp"
                   (("REPLACE-ME") (assoc-ref outputs "out")))))
             (delete 'install-manual)))))))
 
