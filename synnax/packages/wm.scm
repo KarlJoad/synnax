@@ -7,7 +7,7 @@
   #:use-module (gnu packages pkg-config)
   #:use-module ((guix licenses) #:prefix license:))
 
-(define-public stumpwm-with-patch-with-contrib
+(define-public stumpwm+slynk-with-contrib
   (package
     (inherit stumpwm)
     (source (origin (inherit (package-source stumpwm))
@@ -29,8 +29,3 @@
                   (substitute* "module.lisp"
                     (("REPLACE-ME") modules-dir)))))))))))
 
-(define-public (stumpwm+slynk-with-contrib contrib-pkgs)
-  (package
-    (inherit stumpwm+slynk)))
-
-stumpwm-with-contrib
