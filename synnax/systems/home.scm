@@ -9,7 +9,8 @@
              (gnu home services ssh)
              (gnu services)
              (guix gexp)
-             (synnax packages wally))
+             (synnax packages wally)
+             (synnax systems packages))
 
 (use-package-modules
  base ;; make & glibc
@@ -27,7 +28,7 @@
  vnc
  vpn
  lisp lisp-xyz
- fonts fontutils
+ fontutils
  package-management
  cryptsetup samba)
 
@@ -76,46 +77,44 @@
 
 (home-environment
  (packages
-  (list binutils ;; TODO: Only install the binutils info manuals to global home path?
-        gnu-make ;; Include the make command by default
-        password-store ;; pass
-        l2md
-        yt-dlp
-        vlc
-        obs
-        lepton-eda kicad
-        gnucash
-        lilypond
-        texmacs
-        texlive ;; Include ALL of TeXLive, because I am lazy and disks are large
-        biber ;; I prefer biber over old-school bibtex
-        okular
-        ispell
-        libreoffice
-        emacs
-        emacs-guix
-        python-pygments
-        global
-        remmina
-        stow
-        octave
-        ;; slack discord element-desktop
-        calibre
+  (append (list binutils ;; TODO: Only install the binutils info manuals to global home path?
+                gnu-make ;; Include the make command by default
+                password-store ;; pass
+                l2md
+                yt-dlp
+                vlc
+                obs
+                lepton-eda kicad
+                gnucash
+                lilypond
+                texmacs
+                texlive ;; Include ALL of TeXLive, because I am lazy and disks are large
+                biber ;; I prefer biber over old-school bibtex
+                okular
+                ispell
+                libreoffice
+                emacs
+                emacs-guix
+                python-pygments
+                global
+                remmina
+                stow
+                octave
+                ;; slack discord element-desktop
+                calibre
         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        ;; Pull out to filesystems-packages variable ;;
-        cryptsetup                                   ;;
-        cifs-utils                                   ;;
-        usbutils                                     ;;
+                ;; Pull out to filesystems-packages variable ;;
+                cryptsetup                                   ;;
+                cifs-utils                                   ;;
+                usbutils                                     ;;
         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        openconnect ;; IIT VPN
-        sbcl
-        cl-asdf
-        cl-slynk
-        sbcl-slynk
-        wally-cli
-        font-iosevka font-iosevka-slab font-iosevka-term font-iosevka-term-slab
-        font-fira-mono font-fira-code
-        ))
+                openconnect ;; IIT VPN
+                sbcl
+                cl-asdf
+                cl-slynk
+                sbcl-slynk
+                wally-cli)
+          %font-packages))
  (services
   (list
    (simple-service 'force-xdg-env-vars-service
