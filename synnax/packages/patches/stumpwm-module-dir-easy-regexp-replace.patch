@@ -1,0 +1,13 @@
+diff --git a/module.lisp b/module.lisp
+index 762a664..7274d74 100644
+--- a/module.lisp
++++ b/module.lisp
+@@ -35,7 +35,7 @@
+           add-to-load-path))
+ 
+ (defvar *module-dir*
+-  (pathname-as-directory (concat (getenv "HOME") "/.stumpwm.d/modules"))
++  (pathname-as-directory "REPLACE-ME")
+   "The location of the contrib modules on your system.")
+ 
+ (defun build-load-path (path)
