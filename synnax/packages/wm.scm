@@ -30,8 +30,11 @@
         #~(modify-phases #$old-phases
             (add-before 'copy-source 'module-dir-point-to-store
               (lambda* (#:key source outputs #:allow-other-keys)
-                (substitute* "module.lisp"
-                  (("REPLACE-ME") (assoc-ref outputs "out")))))
+                (let ((out (assoc-ref outputs "out")))
+                  (format #t "Modifying module.lisp to point to ~s~%" out)
+                  (substitute* "module.lisp"
+                    (("REPLACE-ME")
+                     (string-append out "/modules"))))))
             (delete 'install-manual)))))))
 
 (define-public stumpwm-with-contrib
