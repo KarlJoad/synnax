@@ -28,10 +28,10 @@
  (keyboard-layout (keyboard-layout "us"))
  (host-name "guix-iso-vm")
  (users (cons* (user-account
-                (name "karl")
-                (comment "Karl Hallsby")
+                (name "raven")
+                (comment "Raven Hallsby")
                 (group "users")
-                (home-directory "/home/karl")
+                (home-directory "/home/raven")
                 (supplementary-groups
                  '("wheel" "netdev" "audio" "video" "kvm")))
                %base-user-accounts))
