@@ -1,4 +1,4 @@
-(define-module (synnax systems system))
+(define-module (synnax systems vm-desktop))
 
 (use-modules (gnu))
 
