@@ -136,13 +136,16 @@
             (home-openssh-configuration
              (hosts
               (list (openssh-host (name "ci")
+                                  (address-family *unspecified*)
                                   (host-name "192.168.1.6")
                                   (user "root")
                                   (identity-file "~/.ssh/ci_rsa"))
                     (openssh-host (name "*github.com")
+                                  (address-family *unspecified*)
                                   (user "git")
                                   (identity-file "~/.ssh/github"))
                     (openssh-host (name "*.cs.northwestern.edu")
+                                  (address-family *unspecified*)
                                   (user "kgh0080")
                                   (identity-file "~/.ssh/nu"))))))
    (simple-service 'ssh-config
