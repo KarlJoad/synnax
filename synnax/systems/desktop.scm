@@ -7,7 +7,9 @@
              ;; Modules below require nonguix be a pulled channel
              (nongnu packages linux)
              (nongnu system linux-initrd)
-             (nongnu packages mozilla))
+             (nongnu packages mozilla)
+             ;; Modules below are from my own Synnax channel
+             (synnax packages scripts))
 
 (use-package-modules gnuzilla ; Icecat
                      web-browsers ; Nyxt
@@ -138,6 +140,7 @@
          tree
          dosfstools
          dunst
+         fix-desktop-monitors
          virt-manager
          nss-certs)
    %base-packages))
