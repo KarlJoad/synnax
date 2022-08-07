@@ -14,7 +14,7 @@
 (use-package-modules
  base ;; make & glibc
  admin mail password-utils
- emacs emacs-xyz
+ emacs emacs-xyz perl
  python-xyz
  text-editors code commencement ;; gcc-toolchain
  linux
@@ -94,6 +94,7 @@
         libreoffice
         emacs
         emacs-guix
+        perl ;; For magit to work correctly (Rebase, commit-ammend, etc.)
         python-pygments
         global
         remmina
