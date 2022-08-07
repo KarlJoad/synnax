@@ -178,7 +178,7 @@
  (swap-devices
   (list (swap-space
          (target
-          (uuid "58db59f7-b2e6-489f-89ac-911734ac8da2")))))
+          (uuid "375cdcd3-21c9-4130-b507-68767ebc3a90")))))
  (file-systems
   (cons* (file-system
           (mount-point "/boot/efi")
@@ -187,7 +187,7 @@
          (file-system
           (mount-point "/")
           (device
-           (uuid "db00e330-f375-4a28-9f68-90eca0d2db17"
+           (uuid "0c469309-3ce2-4780-bf8c-279f7f02e155"
                  'ext4))
           (type "ext4"))
          %base-file-systems)))
