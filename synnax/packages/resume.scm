@@ -17,7 +17,7 @@
             (file-name (git-file-name name version))
             (sha256
              (base32
-              "1avaz7gkrcyf1kz61s8zhkr4q6lj4wyaq5spxp6d9wc16gkvz40l"))))
+              "0bqgl63gi27vzhsrb8mc8xdhbrjaccgyjixjii0p3n9lw56slag7"))))
    (build-system gnu-build-system)
    (native-inputs
     (list texlive))
