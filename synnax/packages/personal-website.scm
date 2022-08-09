@@ -19,7 +19,7 @@
             (file-name (git-file-name name version))
             (sha256
              (base32
-              "0i396rq3h0fl429p0f8dn91dbwcjfb0vgpd2kzwzg9vmbzcndgbg"))))
+              "1kzy20p425xlxcy91kdpkmqfck5bd6clj1x78qj1n7b1z1mhp5k4"))))
    (build-system gnu-build-system)
    (arguments
     (list
