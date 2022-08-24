@@ -13,6 +13,18 @@
 ;; torsocks msmtp --file=/var/cuirass/cuirass-mailer.rc $@
 ;; invoked with sendmail:///var/cuirass/cuirass-mailer by cuirass
 
-(define-public cuirass-mailer-config)
+(define mailer-config
+  (computed-file "cuirass-mailer.conf"
+                 "account default
+\tprotocol smtp
+\thost gmail.com
+\tport 997
+\ttimeout 60
+\ttls on
+\ttls_trust_file /run/current-system/profile/etc/ssl/certs/ca-certificates.crt
+\tfrom cuirass@hallsby.com
+\tauth login
+\tuser karl@hallsby.com
+\tpassword something"))
 
 (define-public cuirass-mailer-script)
