@@ -14,8 +14,8 @@
 ;; invoked with sendmail:///var/cuirass/cuirass-mailer by cuirass
 
 (define mailer-config
-  (computed-file "cuirass-mailer.conf"
-                 "account default
+  (plain-file "cuirass-mailer.conf"
+              "account default
 \tprotocol smtp
 \thost gmail.com
 \tport 997
