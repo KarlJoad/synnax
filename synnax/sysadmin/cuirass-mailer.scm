@@ -1,6 +1,7 @@
 (define-module (synnax sysadmin cuirass-mailer)
   #:use-module (guix gexp)
   #:use-module (guix packages)
+  #:use-module (guix build-system trivial)
   #:use-module (gnu packages mail))
 
 ;; mailutils, sendmail, and msmtp may be needed?
