@@ -54,27 +54,19 @@ starts failing or builds start failing.")
 
 ;; "Build the email script that Cuirass calls with the CONFIG provided."
 (define (mailer-script config-pkg)
-  ;; TODO: Use scheme script instead
-  ;; (program-file "cuirass-mailer-script.scm"
-  ;;               (with-imported-modules
-  ;;                `((srfi srfi-13))
-  ;;                #~(begin
-  ;;                    (use-modules (srfi srfi-13))
-  ;;                    (let ((msmtp (string-append #$msmtp "/bin/msmtp"))
-  ;;                          (config)
-  (computed-file "cuirass-mailer-script.sh"
-                 (with-imported-modules
-                  `((srfi srfi-13))
-                  #~(begin
-                      (use-modules (srfi srfi-13))
-                      (let ((msmtp-bin #$(file-append msmtp "/bin/msmtp"))
-                            (config #$config-pkg))
-                        (string-append
-                         "#!/bin/sh\n\n"
-                         (string-join '(msmtp-bin
-                                        (string-append "--file=" config)
-                                        "$@")
-                                      " ")))))))
+  (program-file
+   "cuirass-mailer-script.scm"
+   (with-imported-modules
+    `((srfi srfi-13))
+    #~(begin
+        (use-modules (srfi srfi-13))
+        (let* ((msmtp-bin #$(file-append msmtp "/bin/msmtp"))
+               (config #$config-pkg)
+               (cmd (string-join `(,msmtp-bin ,(string-append "--file=" config)
+                                              ;; cdr of command-line to remove Guile binary at front of list
+                                              ,(string-join (command-line))))))
+          (format #t "~a~%" cmd)
+          (system* cmd))))))
 
 (define-public cuirass-mailer-script
   (let ((version "git") ; FIXME: Use "git" or "synnax" for channel-only packages?
