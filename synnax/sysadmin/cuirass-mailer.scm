@@ -86,7 +86,7 @@ starts failing or builds start failing.")
      (inputs `(("mailer-script" ,(mailer-script cuirass-mailer-config))))
      (build-system trivial-build-system)
      (arguments
-      `(#:modules ((guix build utils))
+      `(#:modules ((guix build utils) (srfi srfi-13))
         #:builder
         (begin
           (use-modules (guix build utils))
