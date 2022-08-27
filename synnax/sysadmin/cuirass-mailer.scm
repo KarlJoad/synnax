@@ -83,7 +83,7 @@ starts failing or builds start failing.")
      (name "cuirass-mailer-script")
      (version (string-append version "-" revision))
      (source #f)
-     (inputs `(("mailer-script" ,(mailer-script cuirass-mailer-config))))
+     (inputs `(("msmtp" ,msmtp) ("mailer-script" ,(mailer-script cuirass-mailer-config))))
      (build-system trivial-build-system)
      (arguments
       `(#:modules ((guix build utils) (srfi srfi-13))
