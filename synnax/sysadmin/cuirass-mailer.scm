@@ -52,8 +52,8 @@ Connects to my personal email account and sends emails when a Cuirass evaluation
 starts failing or builds start failing.")
      (license #f))))
 
+;; "Build the email script that Cuirass calls with the CONFIG provided."
 (define (mailer-script config-pkg)
-  "Build the email script that Cuirass calls with the CONFIG provided."
   ;; TODO: Use scheme script instead
   ;; (program-file "cuirass-mailer-script.scm"
   ;;               (with-imported-modules
