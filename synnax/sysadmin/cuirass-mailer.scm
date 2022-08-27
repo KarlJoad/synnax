@@ -63,18 +63,18 @@ starts failing or builds start failing.")
   ;;                    (let ((msmtp (string-append #$msmtp "/bin/msmtp"))
   ;;                          (config)
   (computed-file "cuirass-mailer-script.sh"
-                 #~(string-append
-                    "#!/bin/sh"
-                    (with-imported-modules
-                     `((srfi srfi-13))
-                     (begin
-                         (use-modules (srfi srfi-13))
-                         (let ((msmtp #$(file-append msmtp "/bin/msmtp"))
-                               (config #$config-pkg))
-                           (string-join msmtp
+                 (with-imported-modules
+                  `((srfi srfi-13))
+                  #~(begin
+                      (use-modules (srfi srfi-13))
+                      (let ((msmtp-bin #$(file-append msmtp "/bin/msmtp"))
+                            (config #$config-pkg))
+                        (string-append
+                         "#!/bin/sh\n\n"
+                         (string-join '(msmtp-bin
                                         (string-append "--file=" config)
-                                        "$@"
-                                        " ")))))))
+                                        "$@")
+                                      " ")))))))
 
 (define-public cuirass-mailer-script
   (let ((version "git") ; FIXME: Use "git" or "synnax" for channel-only packages?
