@@ -86,14 +86,13 @@ starts failing or builds start failing.")
      (inputs `(("msmtp" ,msmtp) ("mailer-script" ,(mailer-script cuirass-mailer-config))))
      (build-system trivial-build-system)
      (arguments
-      `(#:modules ((guix build utils) (srfi srfi-13))
+      `(#:modules ((guix build utils))
         #:builder
         (begin
           (use-modules (guix build utils))
           (let ((mailer-script (assoc-ref %build-inputs "mailer-script"))
                 (install-target (assoc-ref %outputs "out")))
-            (symlink mailer-script install-target))
-          )))
+            (symlink mailer-script install-target)))))
      (home-page "https://github.com/KarlJoad/synnax")
      (synopsis "Script for Cuirass emailer")
      (description "Script for Cuirass emailer.
