@@ -76,3 +76,27 @@ starts failing or builds start failing.")
                                         "$@"
                                         " ")))))))
 
+(define-public cuirass-mailer-script
+  (let ((version "git") ; FIXME: Use "git" or "synnax" for channel-only packages?
+        (revision "0"))
+    (package
+     (name "cuirass-mailer-script")
+     (version (string-append version "-" revision))
+     (source #f)
+     (inputs `(("mailer-script" ,(mailer-script cuirass-mailer-config))))
+     (build-system trivial-build-system)
+     (arguments
+      `(#:modules ((guix build utils))
+        #:builder
+        (begin
+          (use-modules (guix build utils))
+          (let ((mailer-script (assoc-ref %build-inputs "mailer-script"))
+                (install-target (assoc-ref %outputs "out")))
+            (symlink mailer-script install-target))
+          )))
+     (home-page "https://github.com/KarlJoad/synnax")
+     (synopsis "Script for Cuirass emailer")
+     (description "Script for Cuirass emailer.
+Uses the Cuirass mailer configuration to send emails when a Cuirass evaluation
+starts failing or builds start failing.")
+     (license #f))))
