@@ -2,7 +2,8 @@
   #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module (guix build-system trivial)
-  #:use-module (gnu packages mail))
+  #:use-module (gnu packages mail)
+  #:use-module (gnu packages gnupg))
 
 ;; mailutils, sendmail, and msmtp may be needed?
 ;; Cuirass uses the sendmail command.
@@ -14,19 +15,22 @@
 ;; torsocks msmtp --file=/var/cuirass/cuirass-mailer.rc $@
 ;; invoked with sendmail:///var/cuirass/cuirass-mailer by cuirass
 
-(define mailer-config
-  (plain-file "cuirass-mailer.conf"
-              "account default
-\tprotocol smtp
-\thost gmail.com
-\tport 997
-\ttimeout 60
+(define (mailer-config gnupg-pkg)
+  (mixed-text-file "cuirass-mailer.conf"
+                   "defaults
 \ttls on
+\ttls_starttls on
 \ttls_trust_file /run/current-system/profile/etc/ssl/certs/ca-certificates.crt
-\tfrom cuirass@hallsby.com
+
+account default
 \tauth login
+\tfrom cuirass@hallsby.com
+\tprotocol smtp
+\thost smtp.gmail.com
+\tport 587
+\ttimeout 60
 \tuser karl@hallsby.com
-\tpassword something"))
+\tpasswordeval " gnupg-pkg "/bin/gpg " "--quiet " "--for-your-eyes-only " "--no-tty " "--decrypt " "/etc/cuirass/mailer-pass"))
 
 (define-public cuirass-mailer-config
   (let ((version "git")
@@ -36,7 +40,7 @@
      (version (string-append version "-" revision))
      (source #f)
      (build-system trivial-build-system)
-     (native-inputs `(("config" ,mailer-config)))
+     (native-inputs `(("config" ,(mailer-config gnupg))))
      (arguments
       `(#:modules ((guix build utils))
         #:builder
