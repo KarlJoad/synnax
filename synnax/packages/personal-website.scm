@@ -8,7 +8,7 @@
   #:use-module (synnax packages resume))
 
 (define-public personal-website
-  (let ((revision "0"))
+  (let ((revision "1"))
     (package
      (name "karl-personal-website")
      (version (string-append "git" "-" revision))
@@ -20,7 +20,7 @@
               (file-name (git-file-name name version))
               (sha256
                (base32
-                "1kzy20p425xlxcy91kdpkmqfck5bd6clj1x78qj1n7b1z1mhp5k4"))))
+                "08h0qd8vl5wcp2x93rf3w9hl02zkpgxbsdx0zjbf2gx8qv7zrq4i"))))
      (build-system gnu-build-system)
      (arguments
       (list
