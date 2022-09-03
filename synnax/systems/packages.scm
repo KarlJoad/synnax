@@ -93,6 +93,12 @@
         password-store ;; pass
         ))
 
+(define %extra-guix-packages
+  (list guix-icons ;; Guix icons & artwork
+        guix-modules ;; Incremental development of guix-shell-like module environments
+        gwl ;; Declarative workflow management system using Guile & Guix
+        ))
+
 (define %eda-packages (list lepton-eda kicad))
 
 (define %document-prep-packages
@@ -117,6 +123,7 @@
 (define %home-packages
   (append
    (list hello)
+   %extra-guix-packages
    %development-packages
    %document-prep-packages
    %eda-packages
