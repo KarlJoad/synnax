@@ -43,6 +43,7 @@
  engineering    ; lepton-eda
  text-editors   ; texmacs
  tex            ; texlive, biber
+ maths          ; GNUPlot
  python-xyz     ; python-pygments
  aspell         ; ispell
  kde            ; okular
@@ -106,6 +107,7 @@
         texlive ;; Include ALL of TeXLive, because I am lazy and disks are large
         python-pygments ;; To make texlive-minted work
         biber ;; I prefer biber over old-school bibtex
+        gnuplot
         okular
         ispell
         libreoffice))
