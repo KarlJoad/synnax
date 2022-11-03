@@ -44,6 +44,7 @@
  text-editors   ; texmacs
  tex            ; texlive, biber
  maths          ; GNUPlot
+ gcc            ; GNU C Manual
  python-xyz     ; python-pygments
  aspell         ; ispell
  kde            ; okular
@@ -118,6 +119,9 @@
         global   ;; Global & gtags
         cscope))
 
+(define %documentation-packages
+  (list gnu-c-manual)) ;; The GNU manual for their C implementation
+
 (define %font-packages
   (list font-iosevka font-iosevka-slab font-iosevka-term font-iosevka-term-slab
         font-fira-mono font-fira-code))
@@ -127,6 +131,7 @@
    (list hello)
    %extra-guix-packages
    %development-packages
+   %documentation-packages
    %document-prep-packages
    %eda-packages
    %font-packages
