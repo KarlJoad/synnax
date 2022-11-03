@@ -43,6 +43,7 @@
  engineering    ; lepton-eda
  text-editors   ; texmacs
  tex            ; texlive, biber
+ texinfo
  maths          ; GNUPlot
  gcc            ; GNU C Manual
  python-xyz     ; python-pygments
@@ -117,7 +118,8 @@
   (list binutils ;; TODO: Only install the binutils info manuals to global home path?
         gnu-make ;; Include the make command by default
         global   ;; Global & gtags
-        cscope))
+        cscope
+        texinfo))
 
 (define %documentation-packages
   (list gnu-c-manual)) ;; The GNU manual for their C implementation
