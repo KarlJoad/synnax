@@ -20,6 +20,7 @@
                      wget curl
                      version-control
                      wm ; Stumpwm
+                     xfce
                      xorg
                      xdisorg ; X11 helper programs (xautolock)
                      certs
@@ -90,6 +91,7 @@
          pwgen
          xdg-utils
          xautolock ; Run command for user after some time has passed with no input
+         thunar
          alsa-utils pavucontrol
          vim
          emacs emacs-guix
