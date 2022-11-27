@@ -13,6 +13,7 @@
 
 (use-package-modules
  base ;; make & glibc
+ shellutils
  admin mail password-utils
  emacs emacs-xyz perl
  python-xyz
@@ -78,6 +79,7 @@
  (packages
   (list binutils ;; TODO: Only install the binutils info manuals to global home path?
         gnu-make ;; Include the make command by default
+        direnv
         password-store ;; pass
         l2md
         yt-dlp
