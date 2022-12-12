@@ -65,12 +65,11 @@ starts failing or builds start failing.")
     #~(begin
         (use-modules (srfi srfi-13))
         (let* ((msmtp-bin #$(file-append msmtp "/bin/msmtp"))
-               (config #$config-pkg)
-               (cmd (string-join `(,msmtp-bin ,(string-append "--file=" config)
-                                              ;; cdr of command-line to remove Guile binary at front of list
-                                              ,(string-join (command-line))))))
-          (format #t "~a~%" cmd)
-          (system* cmd))))))
+               (config #$config-pkg))
+          ;; cdr of command-line to remove Guile binary at front of list
+          ;; ,(string-join (cdr (command-line)))
+          (format #t "~a --file=~a ~a ~a ~%" msmtp-bin config "--read-envelope-from" "--read-recipients")
+          (system* msmtp-bin (string-append "--file=" config) "--read-envelope-from" "--read-recipients"))))))
 
 (define-public cuirass-mailer-script
   (let ((version "git") ; FIXME: Use "git" or "synnax" for channel-only packages?
