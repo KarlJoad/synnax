@@ -61,9 +61,19 @@ starts failing or builds start failing.")
   (program-file
    "cuirass-mailer-script.scm"
    (with-imported-modules
-    `((srfi srfi-13))
+    `((ice-9 match)
+      (srfi srfi-1)
+      (srfi srfi-13))
     #~(begin
-        (use-modules (srfi srfi-13))
+        (use-modules (ice-9 match) (srfi srfi-1) (srfi srfi-13))
+        (define (flatten lst)
+          ;; flatten from https://git.savannah.nongnu.org/cgit/grip.git/tree/grip/list.scm#n73
+          (let loop ((item lst)
+                     (result '()))
+            (match item
+              (() result)
+              ((elt . rests) (loop elt (loop rests result)))
+              (else (cons item result)))))
         (let* ((msmtp-bin #$(file-append msmtp "/bin/msmtp"))
                (config #$config-pkg))
           ;; cdr of command-line to remove Guile binary at front of list
