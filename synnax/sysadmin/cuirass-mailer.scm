@@ -78,8 +78,8 @@ starts failing or builds start failing.")
                (config #$config-pkg)
                ;; cdr of command-line to remove Guile binary at front of list
                (body (cdr (command-line))))
-          (format #t "~a --file=~a ~a ~a ~a ~%" msmtp-bin config "--read-envelope-from" "--read-recipients" (flatten body))
-          (apply system* `(,msmtp-bin ,(string-append "--file=" config) "--read-envelope-from" "--read-recipients" ,@(flatten body))))))))
+          (format #t "~a --file=~a ~a ~a ~%" msmtp-bin config "--read-recipients" (flatten body))
+          (apply system* `(,msmtp-bin ,(string-append "--file=" config) "--read-recipients" ,@(flatten body))))))))
 
 (define-public cuirass-mailer-script
   (let ((version "git") ; FIXME: Use "git" or "synnax" for channel-only packages?
