@@ -9,28 +9,15 @@
              (gnu home services ssh)
              (gnu services)
              (guix gexp)
-             (synnax packages wally)
              (synnax systems packages))
 
 (use-package-modules
- base ;; make & glibc
- admin mail password-utils
- emacs emacs-xyz
- python-xyz
- text-editors code commencement ;; gcc-toolchain
+ emacs
  linux
- engineering
- libreoffice tex aspell kde
- maths
- ebook
- gnucash
- music video
+ music
  vnc
  vpn
- lisp lisp-xyz
- fontutils
- package-management
- cryptsetup samba)
+ fontutils)
 
 (define (emacs-server server-name)
   (define (server-name->symbol server-name)
@@ -77,44 +64,11 @@
 
 (home-environment
  (packages
-  (append (list binutils ;; TODO: Only install the binutils info manuals to global home path?
-                gnu-make ;; Include the make command by default
-                password-store ;; pass
-                l2md
-                yt-dlp
-                vlc
-                obs
-                lepton-eda kicad
-                gnucash
-                lilypond
-                texmacs
-                texlive ;; Include ALL of TeXLive, because I am lazy and disks are large
-                biber ;; I prefer biber over old-school bibtex
-                okular
-                ispell
-                libreoffice
-                emacs
-                emacs-guix
-                python-pygments
-                global
-                remmina
-                stow
-                octave
-                ;; slack discord element-desktop
-                calibre
-        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                ;; Pull out to filesystems-packages variable ;;
-                cryptsetup                                   ;;
-                cifs-utils                                   ;;
-                usbutils                                     ;;
-        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                openconnect ;; IIT VPN
-                sbcl
-                cl-asdf
-                cl-slynk
-                sbcl-slynk
-                wally-cli)
-          %font-packages))
+  (append
+   (list ;; slack discord element-desktop
+    )
+   %desktop-home-packages
+   %home-packages))
  (services
   (list
    (simple-service 'force-xdg-env-vars-service

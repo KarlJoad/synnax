@@ -2,6 +2,7 @@
   #:use-module (gnu)
   #:use-module (guix)
   #:use-module (nongnu packages mozilla)
+  #:use-module (synnax packages wally)
   #:export (%nonguix-packages
             %web-browser-packages
             %virtualization-packages
@@ -14,7 +15,8 @@
             %document-prep-packages
             %development-packages
             %font-packages
-            %home-packages))
+            %home-packages
+            %desktop-home-packages))
 
 (use-package-modules
  gnuzilla ; Icecat
@@ -151,3 +153,11 @@
    %font-packages
    %filesystems-packages
    %base-home-packages))
+
+(define %desktop-home-packages
+  (append
+   (list vlc obs
+         gnucash calibre
+         sbcl cl-asdf cl-slynk sbcl-slynk
+         wally-cli)
+   %mailing-list-packages))
