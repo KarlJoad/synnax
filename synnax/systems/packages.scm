@@ -50,7 +50,12 @@
  aspell         ; ispell
  kde            ; okular
  libreoffice
- fonts)
+ fonts
+ package-management ; stow
+ gnucash
+ video          ; vlc
+ ebook          ; calibre
+ lisp lisp-xyz)
 
 (define %nonguix-packages (list firefox))
 
@@ -94,7 +99,7 @@
         emacs
         emacs-guix
         password-store ;; pass
-        ))
+        stow))
 
 (define %extra-guix-packages
   (list guix-icons ;; Guix icons & artwork
@@ -121,6 +126,9 @@
         cscope
         texinfo))
 
+(define %mailing-list-packages
+  (list l2md))
+
 (define %documentation-packages
   (list gnu-c-manual)) ;; The GNU manual for their C implementation
 
@@ -128,14 +136,18 @@
   (list font-iosevka font-iosevka-slab font-iosevka-term font-iosevka-term-slab
         font-fira-mono font-fira-code))
 
+(define %scientific-packages
+  (list octave
+        gnuplot))
+
 (define %home-packages
   (append
-   (list hello)
    %extra-guix-packages
+   %scientific-packages
    %development-packages
    %documentation-packages
    %document-prep-packages
    %eda-packages
    %font-packages
-   %fs-tools-packages
+   %filesystems-packages
    %base-home-packages))
