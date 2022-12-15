@@ -9,28 +9,15 @@
              (gnu home services ssh)
              (gnu services)
              (guix gexp)
-             (synnax packages wally))
+             (synnax systems packages))
 
 (use-package-modules
- base ;; make & glibc
- shellutils
- admin mail password-utils
- emacs emacs-xyz perl
- python-xyz
- text-editors code commencement ;; gcc-toolchain
+ emacs
  linux
- engineering
- libreoffice tex aspell kde
- maths
- ebook
- gnucash
- music video
+ music
  vnc
  vpn
- lisp lisp-xyz
- fonts fontutils
- package-management
- cryptsetup samba)
+ fontutils)
 
 (define (emacs-server server-name)
   (define (server-name->symbol server-name)
@@ -77,48 +64,11 @@
 
 (home-environment
  (packages
-  (list binutils ;; TODO: Only install the binutils info manuals to global home path?
-        gnu-make ;; Include the make command by default
-        direnv
-        password-store ;; pass
-        l2md
-        yt-dlp
-        vlc
-        obs
-        lepton-eda kicad
-        gnucash
-        lilypond
-        texmacs
-        texlive ;; Include ALL of TeXLive, because I am lazy and disks are large
-        biber ;; I prefer biber over old-school bibtex
-        okular
-        ispell
-        libreoffice
-        emacs
-        emacs-guix
-        perl ;; For magit to work correctly (Rebase, commit-ammend, etc.)
-        python-pygments
-        global
-        remmina
-        stow
-        octave
-        ;; slack discord element-desktop
-        calibre
-        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        ;; Pull out to filesystems-packages variable ;;
-        cryptsetup                                   ;;
-        cifs-utils                                   ;;
-        usbutils                                     ;;
-        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        openconnect ;; IIT VPN
-        sbcl
-        cl-asdf
-        cl-slynk
-        sbcl-slynk
-        wally-cli
-        font-iosevka font-iosevka-slab font-iosevka-term font-iosevka-term-slab
-        font-fira-mono font-fira-code
-        ))
+  (append
+   (list ;; slack discord element-desktop
+    )
+   %desktop-home-packages
+   %home-packages))
  (services
   (list
    (simple-service 'force-xdg-env-vars-service
