@@ -35,6 +35,9 @@
     ("CONFIG_IPMI_WATCHDOG" . #t)
     ("CONFIG_IPMI_POWEROFF" . #t)))
 
+(define %container-linux-options
+  `(("CONFIG_DEVPTS_MULTIPLE_INSTANCES" . #t)))
+
 (define* (add-linux-libre-config-options #:rest options)
   "Prepend provided list of OPTIONS, which itself is a list of pairs."
   (append
