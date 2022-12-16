@@ -11,6 +11,7 @@
             %utils-packages
             %system-packages
             %base-home-packages
+            %email-packages
             %eda-packages
             %document-prep-packages
             %development-packages
@@ -130,6 +131,10 @@
         cscope
         texinfo))
 
+(define %email-packages
+  (list isync ; mbsync
+        mu))
+
 (define %mailing-list-packages
   (list l2md))
 
@@ -152,6 +157,7 @@
    %documentation-packages
    %document-prep-packages
    %eda-packages
+   %email-packages
    %font-packages
    %filesystems-packages
    %base-home-packages))
