@@ -57,14 +57,15 @@
  gnucash
  video          ; vlc
  ebook          ; calibre
- lisp lisp-xyz)
+ lisp lisp-xyz
+ perl)
 
 (define %nonguix-packages (list firefox))
 
 (define %web-browser-packages (list icecat nyxt xclip xsel))
 
 (define %virtualization-packages
-  (list virt-manager))
+  (list libvirt virt-manager))
 
 (define %filesystems-packages
   (list squashfs-tools dosfstools

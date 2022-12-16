@@ -1,25 +1,9 @@
 (define-module (synnax systems vm-desktop))
 
-(use-modules (gnu))
+(use-modules (gnu)
+             (synnax systems packages))
 
-(use-package-modules gnuzilla web-browsers ; Icecat & Nyxt
-                     bash
-                     emacs emacs-xyz
-                     vim
-                     mail
-                     wget curl
-                     version-control
-                     wm ; Stumpwm
-                     xorg
-                     certs
-                     moreutils pciutils lsof
-                     xdisorg
-                     password-utils
-                     freedesktop ; XDG stuff
-                     linux pulseaudio ; ALSA/PulseAudio
-                     compression
-                     terminals
-                     admin)
+(use-package-modules bash)
 (use-service-modules desktop networking ssh xorg)
 
 (operating-system
@@ -37,25 +21,8 @@
                %base-user-accounts))
  (packages
   (append
-   (list coreutils moreutils
-         ;; sawfish
-         (specification->package "stumpwm-with-slynk") xsetroot
-         icecat
-         nyxt xclip xsel
-         pwgen
-         xdg-utils
-         alsa-utils pavucontrol
-         vim
-         emacs emacs-guix
-         mu
-	       git
-         wget curl
-         zip unzip
-         rxvt-unicode alacritty
-         pciutils lsof hwdata
-         squashfs-tools
-         tree
-	       nss-certs)
+   (list )
+   %system-packages
    %base-packages))
  (services
   (append

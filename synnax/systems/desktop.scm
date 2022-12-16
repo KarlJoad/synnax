@@ -9,32 +9,10 @@
              (nongnu system linux-initrd)
              (nongnu packages mozilla)
              ;; Modules below are from my own Synnax channel
-             (synnax packages scripts))
+             (synnax packages scripts)
+             (synnax systems packages))
 
-(use-package-modules gnuzilla ; Icecat
-                     web-browsers ; Nyxt
-                     wm
-                     dunst
-                     bash
-                     emacs emacs-xyz
-                     vim
-                     mail
-                     wget curl
-                     version-control
-                     wm ; Stumpwm
-                     xorg
-                     xdisorg ; X11 helper programs (xautolock)
-                     certs
-                     moreutils pciutils lsof
-                     disk ; dosfstools (mkfs.fat)
-                     xdisorg
-                     password-utils
-                     freedesktop ; XDG stuff
-                     linux pulseaudio ; ALSA/PulseAudio
-                     compression
-                     terminals
-                     virtualization
-                     admin freeipmi)
+(use-package-modules bash freeipmi)
 
 (use-service-modules
  cups
@@ -118,31 +96,9 @@
                 %base-groups))
  (packages
   (append
-   (list coreutils moreutils
-         ;; sawfish
-         stumpwm+slynk xsetroot
-         freeipmi
-         icecat firefox
-         nyxt xclip xsel
-         pwgen
-         xdg-utils
-         xautolock ; Run command for user after some time has passed with no input
-         alsa-utils pavucontrol
-         vim
-         emacs emacs-guix
-         mu
-         git
-         wget curl
-         zip unzip
-         rxvt-unicode alacritty
-         pciutils lsof hwdata
-         squashfs-tools
-         tree
-         dosfstools
-         dunst
-         fix-desktop-monitors
-         virt-manager
-         nss-certs)
+   (list freeipmi
+         fix-desktop-monitors)
+   %system-packages
    %base-packages))
  (services
   (append

@@ -7,33 +7,10 @@
              ;; Modules below require nonguix be a pulled channel
              (nongnu packages linux)
              (nongnu system linux-initrd)
-             (nongnu packages mozilla))
+             (nongnu packages mozilla)
+             (synnax systems packages))
 
-(use-package-modules gnuzilla ; Icecat
-                     web-browsers ; Nyxt
-                     wm
-                     dunst
-                     bash
-                     emacs emacs-xyz
-                     vim
-                     mail
-                     wget curl
-                     version-control
-                     wm ; Stumpwm
-                     xfce
-                     xorg
-                     xdisorg ; X11 helper programs (xautolock)
-                     certs
-                     moreutils pciutils lsof
-                     disk ; dosfstools (mkfs.fat)
-                     xdisorg
-                     password-utils
-                     freedesktop ; XDG stuff
-                     linux pulseaudio ; ALSA/PulseAudio
-                     compression
-                     terminals
-                     virtualization
-                     admin freeipmi)
+(use-package-modules bash)
 
 (use-service-modules
  cups
@@ -43,20 +20,6 @@
  syncthing
  xorg
  virtualization docker)
-
-(define zsa-moonlander-udev-rule
-  (udev-rule
-   "50-wally.rules"
-   (string-append
-    "# Teensy rules for the Ergodox EZ\n"
-    "ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789B]?\", ENV{ID_MM_DEVICE_IGNORE}=\"1\"\n"
-    "ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789A]?\", ENV{MTP_NO_PROBE}=\"1\"\n"
-    "SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789ABCD]?\", MODE:=\"0666\"\n"
-    "KERNEL==\"ttyACM*\", ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789B]?\", MODE:=\"0666\"\n"
-    "# STM32 rules for the Moonlander and Planck EZ\n"
-    "SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"0483\", ATTRS{idProduct}==\"df11\", \\\n"
-    "MODE:=\"0666\", \\\n"
-    "SYMLINK+=\"stm32_dfu\"\n")))
 
 (operating-system
  (locale "en_US.utf8")
@@ -82,31 +45,9 @@
                 %base-groups))
  (packages
   (append
-   (list coreutils moreutils
-         ;; sawfish
-         stumpwm+slynk xsetroot
-         freeipmi
-         icecat firefox
-         nyxt xclip xsel
-         pwgen
-         xdg-utils
-         xautolock ; Run command for user after some time has passed with no input
-         thunar
-         alsa-utils pavucontrol
-         vim
-         emacs emacs-guix
-         mu
-         git
-         wget curl
-         zip unzip
-         rxvt-unicode alacritty
-         pciutils lsof hwdata
-         squashfs-tools
-         tree
-         dosfstools
-         dunst
-         virt-manager
-         nss-certs)
+   (list )
+   ;; %nonguix-packages
+   %system-packages
    %base-packages))
  (services
   (append
@@ -127,7 +68,6 @@
          (service syncthing-service-type
                   (syncthing-configuration
                    (user "raven"))) ;; TODO: Refactor `user' field to use variable.
-         (udev-rules-service 'zsa-moonlander zsa-moonlander-udev-rule)
          (extra-special-file "/bin/bash" (file-append bash "/bin/bash"))
          (extra-special-file "/usr/bin/env" (file-append coreutils "/bin/env")))
    %desktop-services))

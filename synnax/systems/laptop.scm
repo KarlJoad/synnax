@@ -5,7 +5,8 @@
              (guix download)
              (guix packages)
              (nongnu packages linux)
-             (nongnu system linux-initrd))
+             (nongnu system linux-initrd)
+             (synnax systems packages))
 
 (use-service-modules
  cups
@@ -38,23 +39,8 @@
                %base-user-accounts))
  (packages
   (append
-   (list (specification->package "emacs")
-         (specification->package "emacs-guix")
-         (specification->package "vim")
-         (specification->package "git")
-         ;; Only for making Emacs work nicely right now.
-         (specification->package "mu")
-         (specification->package "isync")
-         (specification->package "stumpwm-with-slynk")
-         (specification->package "alacritty")
-         (specification->package "xsetroot") ;; To change X11 stuff in StumpWM
-         ;; Web browser (Minimal enough, but extensible)
-         (specification->package "nyxt")
-         ;; Virtualization
-         (specification->package "libvirt")
-         (specification->package "virt-manager")
-         ;; Certs required for HTTPS
-         (specification->package "nss-certs"))
+   (list )
+   %system-packages
    %base-packages))
 
  (services
