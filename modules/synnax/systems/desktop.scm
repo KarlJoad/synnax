@@ -40,28 +40,33 @@
 (define %container-linux-options
   `(("CONFIG_DEVPTS_MULTIPLE_INSTANCES" . #t)))
 
-(define* (add-linux-libre-config-options #:rest options)
-  "Prepend provided list of OPTIONS, which itself is a list of pairs."
-  (append
-   (apply append options)
-   (@@ (gnu packages linux) %default-extra-linux-options)))
+(define (linux-config-alist->linux-config-string-list configs)
+  "Given an alist of Linux kernel config options, convert to a list of strings
+with the form show below.
+  '((\"CONFIG_TO_SET\" . #t)
+    (\"CONFIG_TO_CLEAR\" . #f))
+is turned into
+  '(\"CONFIG_TO_SET=y\" \"CONFIG_TO_CLEAR\")"
+  (define (config->string config)
+    (let ((config-name (car config))
+          (config-set (cdr config)))
+      (if config-set
+          (string-append config-name "=" "y")
+          config-name)))
+  (map config->string configs))
+
+(define* (extra-linux-config-options #:rest options)
+  "Turn alist of Linux kernel options into a list of strings."
+  (let ((configs (apply append options)))
+    (linux-config-alist->linux-config-string-list configs)))
 
 (define-public linux-libre/desktop
-  ((@@ (gnu packages linux) make-linux-libre*)
-   linux-libre-version
-   linux-libre-gnu-revision
-   linux-libre-source
-   '("x86_64-linux")
-   #:configuration-file (@@ (gnu packages linux) kernel-config)
-   ;; extra-options must take ALL config flags to be passed to the kernel!
-   #:extra-options (add-linux-libre-config-options
-                    %ipmi-linux-options)))
+  (customize-linux #:name "linux-ipmi-uncorrupted"
+                   #:configs (extra-linux-config-options %ipmi-linux-options)))
 
 ;; Will only work if nonguix channel is present.
 (define-public linux-corrupted/desktop
-  (corrupt-linux linux-libre/desktop linux-libre-version
-                 "08389890gq4b9vkvrb22lzkr4blkn3a5ma074ns19gl89wyyp16l"
-                 #:name "linux-ipmi"))
+  (corrupt-linux linux-libre/desktop #:name "linux-ipmi"))
 
 (define zsa-moonlander-udev-rule
   (udev-rule
