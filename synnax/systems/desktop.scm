@@ -8,6 +8,8 @@
              (nongnu packages linux)
              (nongnu system linux-initrd)
              (nongnu packages mozilla)
+             (nongnu packages nvidia)
+             (nongnu services nvidia)
              ;; Modules below are from my own Synnax channel
              (synnax packages scripts)
              (synnax systems packages))
@@ -110,7 +112,10 @@
          (service cups-service-type)
          (set-xorg-configuration
           (xorg-configuration
-           (keyboard-layout keyboard-layout)))
+           (keyboard-layout keyboard-layout)
+           (modules (cons* nvidia-driver %default-xorg-modules))
+           (drivers '("nvidia"))))
+         (service nvidia-service-type)
          (service libvirt-service-type
                   (libvirt-configuration
                    (unix-sock-group "libvirt")))
