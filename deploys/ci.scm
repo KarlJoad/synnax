@@ -6,11 +6,6 @@
 ;; available packages!
 (define %cuirass-specification
   #~(list (specification
-           (name "test-guix-hello-timer")
-           (build 'hello)
-           ;; How frequently to attempt to build this specification, in seconds
-           (period (* 10 60)))
-          (specification
            (name "personal")
            (channels (list (channel
                             (name 'synnax)
@@ -20,6 +15,7 @@
                             (url "https://gitlab.com/nonguix/nonguix"))
                            (channel (inherit %default-guix-channel))))
            (build '(channels synnax))
+           ;; How frequently to attempt to build this specification, in seconds
            (period 0))
           (specification
            (name "nonguix")
