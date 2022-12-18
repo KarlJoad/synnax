@@ -87,7 +87,7 @@
        (environment managed-host-environment-type)
        (configuration (machine-ssh-configuration
            ;; IP or DNS-resolved address of machine(s) to manage
-           (host-name "192.168.20.230")
+           (host-name "192.168.20.253")
            (system "x86_64-linux")
            ;; SSH host key of system being configured
            (host-key "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG2OIXsMCJ3SxJcQTZj4B7OVc2uD4K3bd56ST8GJyi1p root@(none)")
