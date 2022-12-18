@@ -29,6 +29,7 @@
 
 (define %system
   (operating-system
+   (locale "en_US.utf8")
    (host-name "Karl-CI")
    (timezone "America/Chicago")
    (bootloader
