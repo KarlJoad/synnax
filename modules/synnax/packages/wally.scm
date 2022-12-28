@@ -49,5 +49,7 @@
                 "github.com/cheggaaa/pb/v1")))))))
    (home-page "https://ergodox-ez.com/pages/wally-planck")
    (synopsis "A tool to flash firmware to mechanical keyboards")
-   (description "Personal website built using Haunt static site generator")
+   (description "Provides a command-line interface for the Wally GUI utility for
+flashing firmware to mechanical keyboards. Particularly for Ergodox, ZSA Moonlander,
+and Planck keyboards.")
    (license license:expat)))
