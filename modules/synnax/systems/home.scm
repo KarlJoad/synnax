@@ -90,7 +90,7 @@
             (home-openssh-configuration
              (hosts
               (list (openssh-host (name "ci")
-                                  (host-name "192.168.1.6")
+                                  (host-name "192.168.20.253")
                                   (user "root")
                                   (identity-file "~/.ssh/ci_rsa"))
                     (openssh-host (name "*github.com")
