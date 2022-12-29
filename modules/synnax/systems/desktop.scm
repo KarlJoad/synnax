@@ -60,7 +60,7 @@
 ;; Will only work if nonguix channel is present.
 (define-public linux-corrupted/desktop
   (corrupt-linux linux-libre/desktop linux-libre-version
-                 "191dlxcmbx8vy6z2k04jq2kr6hwnaknsnsyycvqnjmvmdf6i3lq8"
+                 "08389890gq4b9vkvrb22lzkr4blkn3a5ma074ns19gl89wyyp16l"
                  #:name "linux-ipmi"))
 
 (define zsa-moonlander-udev-rule
