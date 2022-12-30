@@ -92,4 +92,6 @@
            (system "x86_64-linux")
            ;; SSH host key of system being configured
            (host-key "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG2OIXsMCJ3SxJcQTZj4B7OVc2uD4K3bd56ST8GJyi1p root@(none)")
-           (user "root")))))
+           (user "root")
+           ;; SSH identity key for machine deploying to connect to remote
+           (identity "~/.ssh/ci_rsa")))))
