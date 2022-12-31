@@ -78,7 +78,8 @@
   (list stumpwm+slynk xsetroot dunst))
 
 (define %utils-packages
-  (list coreutils moreutils pciutils lsof hwdata binutils))
+  (list coreutils moreutils pciutils lsof hwdata binutils
+        bind:utils))
 
 (define %system-packages
   (append
