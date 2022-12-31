@@ -1,4 +1,5 @@
-(use-modules (gnu))
+(use-modules (gnu)
+             (ice-9 format))
 (use-service-modules networking ssh web cuirass)
 (use-package-modules bootloaders ssh version-control certs)
 
@@ -54,6 +55,10 @@
    (packages (append (list git nss-certs) %base-packages))
    (services
     (append (list (service dhcp-client-service-type)
+                  (simple-service 'add-dhclient-conf etc-service-type
+                                  (list `("dhclient.conf"
+                                          ,(plain-file "dhclient.conf"
+                                                       (format #f "send host-name \"~a\";" host-name)))))
                   (service openssh-service-type
                            (openssh-configuration
                             (openssh openssh-sans-x)
@@ -95,7 +100,7 @@
        (environment managed-host-environment-type)
        (configuration (machine-ssh-configuration
            ;; IP or DNS-resolved address of machine(s) to manage
-           (host-name "192.168.20.253")
+           (host-name "Karl-CI.raven")
            (system "x86_64-linux")
            ;; SSH host key of system being configured
            (host-key "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG2OIXsMCJ3SxJcQTZj4B7OVc2uD4K3bd56ST8GJyi1p root@(none)")
