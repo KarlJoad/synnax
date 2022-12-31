@@ -26,7 +26,7 @@
           (symlink monitor-script target-script-file)))))
    (home-page "https://github.com/KarlJoad/synnax")
    (synopsis "Script that fixes my desktop monitors")
-   (description "Uses @{code} xrandr to change the display configuration, forcing
+   (description "Uses @code{xrandr} to change the display configuration, forcing
 my monitors to work correctly.")
    (license #f)))
 
