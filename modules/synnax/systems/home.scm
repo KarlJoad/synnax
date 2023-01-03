@@ -89,8 +89,12 @@
    (service home-openssh-service-type
             (home-openssh-configuration
              (hosts
-              (list (openssh-host (name "ci")
-                                  (host-name "192.168.20.253")
+              (list (openssh-host (name "robin")
+                                  (host-name "robin.raven")
+                                  (user "root")
+                                  (identity-file "~/.ssh/ci_rsa"))
+                    (openssh-host (name "redhood")
+                                  (host-name "redhood.raven")
                                   (user "root")
                                   (identity-file "~/.ssh/ci_rsa"))
                     (openssh-host (name "*github.com")
