@@ -159,4 +159,12 @@ is turned into
            (uuid "0c469309-3ce2-4780-bf8c-279f7f02e155"
                  'ext4))
           (type "ext4"))
+         (file-system
+          (type "cifs")
+          (mount-point "/mnt/store")
+          (device "//karl-nas.raven/store")
+          (options "noauto,vers=default,iocharset=utf8,uid=1000,gid=998,rw,file_mode=0644,dir_mode=0755,nobrl,nounix")
+          (mount? #f)
+          (create-mount-point? #t)
+          (mount-may-fail? #t))
          %base-file-systems)))
