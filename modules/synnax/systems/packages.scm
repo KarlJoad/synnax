@@ -130,6 +130,7 @@
         global   ;; Global & gtags
         perl ;; For magit to work correctly (Rebase, commit-ammend, etc.)
         cscope
+	git
         texinfo))
 
 (define %email-packages
