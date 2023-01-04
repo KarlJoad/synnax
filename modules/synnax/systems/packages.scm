@@ -35,6 +35,7 @@
  dunst ; X11 Notification manager
  certs
  moreutils pciutils lsof
+ dns            ; isc-bind (host, dig, etc.)
  disk             ; dosfstools (mkfs.fat)
  cryptsetup samba
  freedesktop      ; XDG stuff
@@ -79,7 +80,7 @@
 
 (define %utils-packages
   (list coreutils moreutils pciutils lsof hwdata binutils
-        bind:utils))
+        (list isc-bind "utils")))
 
 (define %system-packages
   (append
