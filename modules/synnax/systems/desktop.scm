@@ -1,4 +1,5 @@
-(define-module (synnax systems desktop))
+(define-module (synnax systems desktop)
+  #:export (desktop))
 
 (use-modules (gnu)
              (gnu packages linux)
@@ -82,89 +83,92 @@ is turned into
     "MODE:=\"0666\", \\\n"
     "SYMLINK+=\"stm32_dfu\"\n")))
 
-(operating-system
- (locale "en_US.utf8")
- (kernel linux-corrupted/desktop)
- (initrd microcode-initrd)
- (firmware (list linux-firmware))
+(define desktop
+  (operating-system
+    (locale "en_US.utf8")
+    (kernel linux-corrupted/desktop)
+    (initrd microcode-initrd)
+    (firmware (list linux-firmware))
 
- (timezone "America/Chicago")
- (keyboard-layout (keyboard-layout "us"))
- (host-name "Karl-Desktop")
- (users (cons* (user-account
-                (name "karljoad")
-                (comment "Karl Hallsby")
-                (group "users")
-                (home-directory "/home/karljoad")
-                (supplementary-groups
-                 `("wheel" "netdev" "audio" "video"
-                   "kvm" "libvirt" "docker"
-                   "dialout" "plugdev")))
-               %base-user-accounts))
- (groups (cons* (user-group (name "plugdev")
-                            (system? #t))
-                %base-groups))
- (packages
-  (append
-   (list freeipmi
-         fix-desktop-monitors)
-   %system-packages
-   %base-packages))
- (services
-  (append
-   (list (service xfce-desktop-service-type)
-         (service openssh-service-type)
-         (service cups-service-type)
-         (set-xorg-configuration
-          (xorg-configuration
-           (keyboard-layout keyboard-layout)
-           (modules (cons* nvidia-driver %default-xorg-modules))
-           (drivers '("nvidia"))))
-         (service nvidia-service-type)
-         (service libvirt-service-type
-                  (libvirt-configuration
-                   (unix-sock-group "libvirt")))
-         (service virtlog-service-type)
-         (service docker-service-type)
-         ;; Add GNU Hurd VM that is small, but always exists.
-         (service hurd-vm-service-type
-                  (hurd-vm-configuration
-                   (disk-size (* 3 (expt 2 30))) ;3GiB Volatile disk
-                   (memory-size 1024)))          ;1024MiB vRAM
-         (service syncthing-service-type
-                  (syncthing-configuration
-                   (user "karljoad"))) ;; TODO: Refactor `user' field to use variable.
-         (udev-rules-service 'zsa-moonlander zsa-moonlander-udev-rule)
-         (extra-special-file "/bin/bash" (file-append bash "/bin/bash"))
-         (extra-special-file "/usr/bin/env" (file-append coreutils "/bin/env")))
-   %desktop-services))
+    (timezone "America/Chicago")
+    (keyboard-layout (keyboard-layout "us"))
+    (host-name "Karl-Desktop")
+    (users (cons* (user-account
+                   (name "karljoad")
+                   (comment "Karl Hallsby")
+                   (group "users")
+                   (home-directory "/home/karljoad")
+                   (supplementary-groups
+                    `("wheel" "netdev" "audio" "video"
+                      "kvm" "libvirt" "docker"
+                      "dialout" "plugdev")))
+                  %base-user-accounts))
+    (groups (cons* (user-group (name "plugdev")
+                               (system? #t))
+                   %base-groups))
+    (packages
+     (append
+      (list freeipmi
+            fix-desktop-monitors)
+      %system-packages
+      %base-packages))
+    (services
+     (append
+      (list (service xfce-desktop-service-type)
+            (service openssh-service-type)
+            (service cups-service-type)
+            (set-xorg-configuration
+             (xorg-configuration
+              (keyboard-layout keyboard-layout)
+              (modules (cons* nvidia-driver %default-xorg-modules))
+              (drivers '("nvidia"))))
+            (service nvidia-service-type)
+            (service libvirt-service-type
+                     (libvirt-configuration
+                      (unix-sock-group "libvirt")))
+            (service virtlog-service-type)
+            (service docker-service-type)
+            ;; Add GNU Hurd VM that is small, but always exists.
+            (service hurd-vm-service-type
+                     (hurd-vm-configuration
+                      (disk-size (* 3 (expt 2 30))) ;3GiB Volatile disk
+                      (memory-size 1024)))          ;1024MiB vRAM
+            (service syncthing-service-type
+                     (syncthing-configuration
+                      (user "karljoad"))) ;; TODO: Refactor `user' field to use variable.
+            (udev-rules-service 'zsa-moonlander zsa-moonlander-udev-rule)
+            (extra-special-file "/bin/bash" (file-append bash "/bin/bash"))
+            (extra-special-file "/usr/bin/env" (file-append coreutils "/bin/env")))
+      %desktop-services))
 
- (bootloader
-  (bootloader-configuration
-   (bootloader grub-efi-removable-bootloader)
-   (targets (list "/boot/efi"))
-   (keyboard-layout keyboard-layout)))
- (swap-devices
-  (list (swap-space
-         (target
-          (uuid "375cdcd3-21c9-4130-b507-68767ebc3a90")))))
- (file-systems
-  (cons* (file-system
-          (mount-point "/boot/efi")
-          (device (uuid "2089-9100" 'fat32))
-          (type "vfat"))
-         (file-system
-          (mount-point "/")
-          (device
-           (uuid "0c469309-3ce2-4780-bf8c-279f7f02e155"
-                 'ext4))
-          (type "ext4"))
-         (file-system
-          (type "cifs")
-          (mount-point "/mnt/store")
-          (device "//karl-nas.raven/store")
-          (options "noauto,vers=default,iocharset=utf8,uid=1000,gid=998,rw,file_mode=0644,dir_mode=0755,nobrl,nounix")
-          (mount? #f)
-          (create-mount-point? #t)
-          (mount-may-fail? #t))
-         %base-file-systems)))
+    (bootloader
+     (bootloader-configuration
+      (bootloader grub-efi-removable-bootloader)
+      (targets (list "/boot/efi"))
+      (keyboard-layout keyboard-layout)))
+    (swap-devices
+     (list (swap-space
+            (target
+             (uuid "375cdcd3-21c9-4130-b507-68767ebc3a90")))))
+    (file-systems
+     (cons* (file-system
+              (mount-point "/boot/efi")
+              (device (uuid "2089-9100" 'fat32))
+              (type "vfat"))
+            (file-system
+              (mount-point "/")
+              (device
+               (uuid "0c469309-3ce2-4780-bf8c-279f7f02e155"
+                     'ext4))
+              (type "ext4"))
+            (file-system
+              (type "cifs")
+              (mount-point "/mnt/store")
+              (device "//karl-nas.raven/store")
+              (options "noauto,vers=default,iocharset=utf8,uid=1000,gid=998,rw,file_mode=0644,dir_mode=0755,nobrl,nounix,credentials=/root/.personalSMBcredentials")
+              (mount? #f)
+              (create-mount-point? #t)
+              (mount-may-fail? #t))
+            %base-file-systems))))
+
+desktop
