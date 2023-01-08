@@ -46,6 +46,7 @@
  code           ; global
  engineering    ; lepton-eda
  text-editors   ; texmacs
+ cmake
  tex            ; texlive, biber
  texinfo
  maths          ; GNUPlot
@@ -128,6 +129,7 @@
 (define %development-packages
   (list binutils ;; TODO: Only install the binutils info manuals to global home path?
         gnu-make ;; Include the make command by default
+        cmake
         global   ;; Global & gtags
         perl ;; For magit to work correctly (Rebase, commit-ammend, etc.)
         cscope
@@ -142,7 +144,8 @@
   (list l2md))
 
 (define %documentation-packages
-  (list gnu-c-manual)) ;; The GNU manual for their C implementation
+  (list gnu-c-manual ;; The GNU manual for their C implementation
+        (list cmake "doc")))
 
 (define %font-packages
   (list font-iosevka font-iosevka-slab font-iosevka-term font-iosevka-term-slab
