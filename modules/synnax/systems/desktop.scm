@@ -13,7 +13,8 @@
              (nongnu services nvidia)
              ;; Modules below are from my own Synnax channel
              (synnax packages scripts)
-             (synnax systems packages))
+             (synnax systems packages)
+             (synnax services fstrim))
 
 (use-package-modules bash freeipmi)
 
@@ -24,8 +25,7 @@
  ssh
  syncthing
  xorg
- virtualization docker
- mcron)
+ virtualization docker)
 
 (define %ipmi-linux-options
   `(("CONFIG_ACPI_IPMI" . #t)
@@ -84,25 +84,12 @@ is turned into
     "MODE:=\"0666\", \\\n"
     "SYMLINK+=\"stm32_dfu\"\n")))
 
-(define fstrim-job
-  ;; The time to run the job must be set by calculating the offset from now to
-  ;; 7 days from now using math. This is needed because despite having
-  ;; documentation that next-week and next-week-from exists, there are no procedures
-  ;; defined in mcron for them.
-  ;; Patch https://lists.gnu.org/archive/html/bug-mcron/2022-09/msg00000.html would
-  ;; add this functionality, but remains to be merged into upstream mcron.
-  #~(job (lambda (current-time)
-           (let ((week-time (* 60 60 24 7)))
-             (+ current-time week-time)))
-         #$(file-append util-linux "/bin/fstrim --listed-in /etc/fstab:/proc/self/mountinfo --verbose --quiet-unsupported")))
-
 (define desktop
   (operating-system
     (locale "en_US.utf8")
     (kernel linux-corrupted/desktop)
     (initrd microcode-initrd)
     (firmware (list linux-firmware))
-
     (timezone "America/Chicago")
     (keyboard-layout (keyboard-layout "us"))
     (host-name "Karl-Desktop")
@@ -130,8 +117,7 @@ is turned into
       (list (service xfce-desktop-service-type)
             (service openssh-service-type)
             (service cups-service-type)
-            (simple-service 'fstrim-mcron-job mcron-service-type
-                         (list fstrim-job))
+            (service fstrim-service-type)
             (set-xorg-configuration
              (xorg-configuration
               (keyboard-layout keyboard-layout)
