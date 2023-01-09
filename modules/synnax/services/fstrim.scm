@@ -12,6 +12,8 @@
 (define-record-type* <fstrim-configuration>
   fstrim-configuration make-fstrim-configuration
   fstrim-configuration?
+  (package  fstrim-configuration-package  ;file-like
+            (default util-linux))
   (interval fstrim-configuration-interval ;integer (seconds)
             (default (* 60 60 24 7))))
 
@@ -22,10 +24,12 @@
   ;; defined in mcron for them.
   ;; Patch https://lists.gnu.org/archive/html/bug-mcron/2022-09/msg00000.html would
   ;; add this functionality, but remains to be merged into upstream mcron.
-  (list
-   #~(job (lambda (current-time)
-            (+ current-time #$(fstrim-configuration-interval configuration)))
-          #$(file-append util-linux "/bin/fstrim --listed-in /etc/fstab:/proc/self/mountinfo --verbose --quiet-unsupported"))))
+  (let ((fstrim-package (fstrim-configuration-package configuration)))
+    (list
+     #~(job (lambda (current-time)
+              (+ current-time #$(fstrim-configuration-interval configuration)))
+            #$(file-append fstrim-package
+                           "/bin/fstrim --listed-in /etc/fstab:/proc/self/mountinfo --verbose --quiet-unsupported")))))
 
 (define fstrim-service-type
   (service-type
