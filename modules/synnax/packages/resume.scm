@@ -6,7 +6,7 @@
   #:use-module (gnu packages tex))
 
 (define-public resume
-  (let ((revision "0"))
+  (let ((revision "1"))
     (package
      (name "karl-resume")
      (version (string-append "git" "-" revision))
@@ -18,7 +18,7 @@
               (file-name (git-file-name name version))
               (sha256
                (base32
-                "0bqgl63gi27vzhsrb8mc8xdhbrjaccgyjixjii0p3n9lw56slag7"))))
+                "09139npqd01k7gl33g7vfdcr6ghdya39jw3fwgcifbhlpnlnghiw"))))
      (build-system gnu-build-system)
      (native-inputs
       (list texlive))
