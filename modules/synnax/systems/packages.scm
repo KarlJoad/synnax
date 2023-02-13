@@ -56,7 +56,7 @@
  kde            ; okular
  libreoffice
  fonts
- package-management ; stow
+ package-management ; stow, nix
  gnucash
  video          ; vlc
  ebook          ; calibre
@@ -93,6 +93,7 @@
          emacs emacs-guix
          wget curl
          zip unzip
+         nix
          rxvt-unicode alacritty
          nss-certs)
    %utils-packages
