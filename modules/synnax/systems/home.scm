@@ -75,6 +75,10 @@
    (simple-service 'force-xdg-env-vars-service
                    home-environment-variables-service-type
                    `(("SQLITE_HISTORY" . "$XDG_CACHE_HOME/sqlite_history")))
+   (simple-service 'language-env-vars-service
+                   home-environment-variables-service-type
+                   '(("LANGUAGE" . "en_US.utf8")
+                     ("LC_ALL" . "en_US.utf8")))
    (service home-bash-service-type
             (home-bash-configuration
              (guix-defaults? #t)
