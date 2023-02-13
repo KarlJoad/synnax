@@ -114,6 +114,17 @@
                            ,(plain-file "ignore"
                                         "*~
 *.swp"))))
+   ;; TODO: Add $HOME/.nix-profile/bin to $PATH
+   (simple-service 'nix-config
+                   home-files-service-type
+                   (list `(".nix-channels"
+                           ,(plain-file "nix-channels"
+                                        "https://nixos.org/channels/nixos-22.11 nixpkgs"))
+                         `(".config/nixpkgs/config.nix"
+                           ,(plain-file "config.nix"
+                                        "{
+  allowUnfree = true;
+}"))))
    (service home-shepherd-service-type
             (home-shepherd-configuration
              (auto-start? #t)
