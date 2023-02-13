@@ -25,6 +25,7 @@
  ssh
  syncthing
  xorg
+ nix
  virtualization docker)
 
 (define %ipmi-linux-options
@@ -129,6 +130,7 @@ is turned into
                       (unix-sock-group "libvirt")))
             (service virtlog-service-type)
             (service docker-service-type)
+            (service nix-service-type)
             ;; Add GNU Hurd VM that is small, but always exists.
             (service hurd-vm-service-type
                      (hurd-vm-configuration
