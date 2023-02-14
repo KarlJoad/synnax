@@ -118,8 +118,7 @@
                            ,(plain-file "ignore"
                                         "*~
 *.swp"))))
-   ;; TODO: Add $HOME/.nix-profile/bin to $PATH
-   (simple-service 'nix-config
+   (simple-service 'nix-config-files-service
                    home-files-service-type
                    (list `(".nix-channels"
                            ,(plain-file "nix-channels"
@@ -129,6 +128,11 @@
                                         "{
   allowUnfree = true;
 }"))))
+   (simple-service 'nix-config-env-vars-service
+                   home-environment-variables-service-type
+                   `(("NIX_PROFILE" . "$HOME/.nix-profile")
+                     ;; See info (bash) Shell Parameter Expansion for why :+ is used
+                     ("PATH" . "$NIX_PROFILE/bin${PATH:+:}$PATH")))
    (service home-shepherd-service-type
             (home-shepherd-configuration
              (auto-start? #t)
