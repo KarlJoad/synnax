@@ -44,7 +44,7 @@
  terminals      ; alacritty, urxvt
  virtualization ; virt-manager
  code           ; global
- engineering    ; lepton-eda
+ engineering    ; lepton-eda, poke
  text-editors   ; texmacs
  cmake
  tex            ; texlive, biber
@@ -132,6 +132,7 @@
         gnu-make ;; Include the make command by default
         cmake
         global   ;; Global & gtags
+        poke
         perl ;; For magit to work correctly (Rebase, commit-ammend, etc.)
         cscope
 	      git
