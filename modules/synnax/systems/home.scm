@@ -107,7 +107,7 @@
                     (openssh-host (name "*.cs.northwestern.edu")
                                   (user "kgh0080")
                                   (identity-file "~/.ssh/nu"))))))
-   (simple-service 'ssh-config
+   (simple-service 'git-config-files
                    home-files-service-type
                    (list `(".config/git/config"
                            ,(plain-file "config"
