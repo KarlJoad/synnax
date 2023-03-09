@@ -9,7 +9,8 @@
              (gnu home services ssh)
              (gnu services)
              (guix gexp)
-             (synnax systems packages))
+             (synnax systems packages)
+             (synnax services dbus))
 
 (use-package-modules
  emacs
@@ -72,6 +73,7 @@
    %home-packages))
  (services
   (list
+   (service home-dbus-service-type)
    (simple-service 'force-xdg-env-vars-service
                    home-environment-variables-service-type
                    `(("SQLITE_HISTORY" . "$XDG_CACHE_HOME/sqlite_history")))
