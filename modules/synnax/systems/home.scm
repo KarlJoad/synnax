@@ -108,13 +108,13 @@
                                   (user "kgh0080")
                                   (identity-file "~/.ssh/nu"))))))
    (simple-service 'git-config-files
-                   home-files-service-type
-                   (list `(".config/git/config"
+                   home-xdg-configuration-files-service-type
+                   (list `("git/config"
                            ,(plain-file "config"
                                         "[user]
 \tname = Karl Hallsby
 \temail = karl@hallsby.com"))
-                         `(".config/git/ignore"
+                         `("git/ignore"
                            ,(plain-file "ignore"
                                         "*~
 *.swp"))))
