@@ -43,6 +43,7 @@
  compression
  terminals      ; alacritty, urxvt
  virtualization ; virt-manager
+ gdb
  code           ; global
  engineering    ; lepton-eda, poke
  text-editors   ; texmacs
@@ -133,6 +134,7 @@
         cmake
         global   ;; Global & gtags
         poke
+        gdb
         perl ;; For magit to work correctly (Rebase, commit-ammend, etc.)
         cscope
 	      git
