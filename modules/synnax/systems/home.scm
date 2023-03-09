@@ -10,7 +10,8 @@
              (gnu services)
              (guix gexp)
              (synnax systems packages)
-             (synnax services dbus))
+             (synnax services dbus)
+             (synnax services pipewire))
 
 (use-package-modules
  emacs
@@ -74,6 +75,7 @@
  (services
   (list
    (service home-dbus-service-type)
+   (service home-pipewire-service-type)
    (simple-service 'force-xdg-env-vars-service
                    home-environment-variables-service-type
                    `(("SQLITE_HISTORY" . "$XDG_CACHE_HOME/sqlite_history")))
