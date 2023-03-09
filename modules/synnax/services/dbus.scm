@@ -22,7 +22,8 @@
                     "--session"
                     (string-append
                      "--address=" "unix:path="
-                     (getenv "XDG_RUNTIME_DIR") "/dbus.sock")))))))
+                     (getenv "XDG_RUNTIME_DIR") "/dbus.sock"))))
+    (documentation "User instance of DBUS"))))
 
 (define-public home-dbus-service-type
   (service-type
