@@ -39,20 +39,23 @@ ctl_type.pipewire {
     (provision '(pipewire))
     (stop  #~(make-kill-destructor))
     (start #~(make-forkexec-constructor
-              (list #$(file-append pipewire "/bin/pipewire")))))
+              (list #$(file-append pipewire "/bin/pipewire"))))
+    (documentation "Pipewire service"))
    (shepherd-service
     (requirement '(pipewire))
     (provision '(wireplumber))
     (stop  #~(make-kill-destructor))
     (start #~(make-forkexec-constructor
-              (list #$(file-append wireplumber "/bin/wireplumber")))))
+              (list #$(file-append wireplumber "/bin/wireplumber"))))
+    (documentation "Wireplumber service for Pipewire"))
 
    (shepherd-service
     (requirement '(pipewire))
     (provision '(pipewire-pulse))
     (stop  #~(make-kill-destructor))
     (start #~(make-forkexec-constructor
-              (list #$(file-append pipewire "/bin/pipewire-pulse")))))))
+              (list #$(file-append pipewire "/bin/pipewire-pulse"))))
+    (documentation "Pulseaudio integration for Pipewire"))))
 
 (define-public home-pipewire-service-type
   (service-type
