@@ -107,6 +107,7 @@
   (list vim  ;; While this may be heresy, having vim is useful sometimes
         emacs
         emacs-guix
+        emacs-vterm
         password-store ;; pass
         stow))
 
