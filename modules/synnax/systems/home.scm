@@ -67,7 +67,7 @@
 (home-environment
  (packages
   (append
-   (list ;; slack discord element-desktop
+   (list ;; slack discord
     )
    %nonguix-packages
    %desktop-home-packages
