@@ -32,6 +32,13 @@ ctl_type.pipewire {
 }
 ")))))
 
+(define (get-log-file-path daemon-name)
+  "Given DAEMON-NAME, return file path for the daemon's log file as a string."
+  (format #f "~a/~a.log"
+          (or (getenv "XDG_LOG_HOME")
+              (format #f "~a/.local/var/log" (getenv "HOME")))
+          daemon-name))
+
 (define (home-pipewire-shepherd-service _)
   (list
    (shepherd-service
@@ -39,14 +46,17 @@ ctl_type.pipewire {
     (provision '(pipewire))
     (stop  #~(make-kill-destructor))
     (start #~(make-forkexec-constructor
-              (list #$(file-append pipewire "/bin/pipewire"))))
+              (list #$(file-append pipewire "/bin/pipewire"))
+              #:log-file #$(get-log-file-path "pipewire")))
     (documentation "Pipewire service"))
+
    (shepherd-service
     (requirement '(pipewire))
     (provision '(wireplumber))
     (stop  #~(make-kill-destructor))
     (start #~(make-forkexec-constructor
-              (list #$(file-append wireplumber "/bin/wireplumber"))))
+              (list #$(file-append wireplumber "/bin/wireplumber"))
+              #:log-file #$(get-log-file-path "wireplumber")))
     (documentation "Wireplumber service for Pipewire"))
 
    (shepherd-service
@@ -54,7 +64,8 @@ ctl_type.pipewire {
     (provision '(pipewire-pulse))
     (stop  #~(make-kill-destructor))
     (start #~(make-forkexec-constructor
-              (list #$(file-append pipewire "/bin/pipewire-pulse"))))
+              (list #$(file-append pipewire "/bin/pipewire-pulse"))
+              #:log-file #$(get-log-file-path "pipewire-pulse")))
     (documentation "Pulseaudio integration for Pipewire"))))
 
 (define-public home-pipewire-service-type
