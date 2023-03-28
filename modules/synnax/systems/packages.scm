@@ -2,6 +2,7 @@
   #:use-module (gnu)
   #:use-module (guix)
   #:use-module (nongnu packages mozilla)
+  #:use-module (nongnu packages messaging) ;; zoom
   #:use-module (synnax packages wally)
   #:export (%nonguix-packages
             %web-browser-packages
@@ -64,7 +65,7 @@
  lisp lisp-xyz
  perl)
 
-(define %nonguix-packages (list firefox))
+(define %nonguix-packages (list firefox zoom))
 
 (define %web-browser-packages (list icecat nyxt xclip xsel))
 
