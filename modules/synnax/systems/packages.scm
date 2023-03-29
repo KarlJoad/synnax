@@ -4,6 +4,7 @@
   #:use-module (nongnu packages mozilla)
   #:use-module (nongnu packages messaging) ;; zoom, element-desktop
   #:use-module (synnax packages wally)
+  #:use-module (synnax packages scripts)
   #:export (%nonguix-packages
             %web-browser-packages
             %virtualization-packages
@@ -110,7 +111,8 @@
         emacs-guix
         emacs-vterm
         password-store ;; pass
-        stow))
+        stow
+        last-reconfigure-date))
 
 (define %extra-guix-packages
   (list guix-icons ;; Guix icons & artwork
