@@ -41,7 +41,9 @@ my monitors to work correctly.")
                               (cmd-to-run (string-join `(,xrandr-bin "--output" ,output ,extra) " ")))
                            (format #t "~a~%" (string-append cmd-to-run))
                            (system cmd-to-run)))
-                     (xrandr-cmd "HDMI-1" "--left-of DVI-D-1")))))
+                     (xrandr-cmd "HDMI-1" "--left-of DP-1")
+                     (xrandr-cmd "HDMI-1" "--mode 1920x1080 --rate 144.00")
+                     (xrandr-cmd "DP-1" "--mode 1920x1080 --rate 144.00")))))
 
 (define-public last-reconfigure-date
   (package
