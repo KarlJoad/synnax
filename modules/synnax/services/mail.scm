@@ -234,6 +234,11 @@ use."
 ;; TODO: Serialize the msmtprc config file
 (define msmtp-serialize-file-like serialize-file-like)
 
+(define (list-of-msmtp-accounts? lst)
+  (every home-msmtp-account-configuration? lst))
+(define (msmtp-serialize-list-of-msmtp-accounts field-name val)
+  (format #f "test-list ~s => ~a" field-name val))
+
 (define-configuration home-msmtp-configuration
   (package
     (file-like msmtp)
@@ -250,6 +255,9 @@ use."
   (tls-trust-file
    (string "/etc/ssl/certs/ca-certificates.crt") ;; Find package /etc/ssl/certs/ca-certificates.crt comes from
    "Certificate Authority certificates file.")
+  (accounts
+   (list-of-msmtp-accounts '())
+   "List of MSMTP accounts to send with.")
   (prefix msmtp-))
 
 (define (add-msmtp-package config)
