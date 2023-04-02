@@ -18,13 +18,13 @@
             home-mu-configuration
 
             home-msmtp-service-type
-            home-msmtp-configuration))
+            home-msmtp-configuration
+            home-msmtp-account-configuration))
 
 
 ;;;
 ;;; isync/mbsync
 ;;;
-
 (define (serialize-mbsync-config field-name val)
   "Serialize the extra-config field of an home-mbsync-configuration item."
   (define (serialize-term term)
@@ -187,6 +187,50 @@ use."
 ;;;
 ;;; msmtp
 ;;;
+(define (msmtp-serialize-string field-name val)
+  (format #f "~s ~s" field-name val))
+(define (msmtp-serialize-number field-name val)
+  (format #f "~s ~s" field-name (number->string val)))
+(define (msmtp-serialize-boolean field-name val)
+  (format #f "~s ~s" field-name (if val "on" "off")))
+
+(define-configuration home-msmtp-account-configuration
+  (account
+   (string "")
+   "Name this accound should use.")
+  (authorization
+   (string "")
+   "Authorization")
+  (from-email
+   (string "")
+   "Email address that should be used as from.")
+  (host
+   (string "")
+   "SMTP host to synchronize with. Hostname or IP address works.")
+  (user
+   (string "")
+   "User to log in as")
+  (pass-cmd
+   (string "") ;; #$(file-append coreutils /bin/cat) "/home/karljoad/<pw-file>"
+   "Command to use to get the password for this account.")
+  (port
+   (number 587)
+   "Port number to use with SMTP.")
+  (protocol
+   (string "smtp")
+   "Protocol to use when synchronizing mail.")
+  (tls?
+   (boolean #t)
+   "Should TLS be used?")
+  (starttls?
+   (boolean #t)
+   "Should Start TLS be used?")
+  (tls-trust-file
+   (string "/etc/ssl/certs/ca-certificates.crt") ;; Find package /etc/ssl/certs/ca-certificates.crt comes from
+   "Certificate Authority certificates file.")
+  ;; We want to use the same serialization procedures as msmtp.
+  (prefix msmtp-))
+
 ;; TODO: Serialize the msmtprc config file
 (define msmtp-serialize-file-like serialize-file-like)
 
@@ -194,12 +238,20 @@ use."
   (package
     (file-like msmtp)
     "@code{msmtp} package to use.")
+  (use-defaults?
+   (boolean #t)
+   "Should sensible defaults be used for all accounts?")
   (prefix msmtp-))
 
 (define (add-msmtp-package config)
   "Adds the msmtp package to the profile, installing it, and making it available for
 use."
   (list (home-msmtp-configuration-package config)))
+
+(define (home-msmtp-extensions cfg extensions)
+  (home-msmtp-configuration
+   (inherit cfg)
+   (accounts (append (home-msmtp-configuration-accounts cfg) extensions))))
 
 (define home-msmtp-service-type
   (service-type (name 'home-msmtp)
@@ -212,7 +264,7 @@ use."
                        ;;  add-msmtp-xdg-configuration)
                        ))
                 (compose concatenate)
-                (extend #f)
+                (extend home-msmtp-extensions)
                 (default-value #f) ;; We require users to provide a configuration themselves
                 (description "Install and configure msmtp, a SMTP client to send
 mail")))
