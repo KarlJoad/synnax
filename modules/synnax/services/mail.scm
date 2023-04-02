@@ -198,10 +198,10 @@ use."
   (account
    (string "")
    "Name this accound should use.")
-  (authorization
+  (auth
    (string "")
-   "Authorization")
-  (from-email
+   "Authentication mechanism to use.")
+  (from
    (string "")
    "Email address that should be used as from.")
   (host
