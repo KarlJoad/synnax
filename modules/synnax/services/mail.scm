@@ -291,6 +291,18 @@ instance."
 use."
   (list (home-msmtp-configuration-package config)))
 
+(define (serialize-home-msmtp-account-configuration account-config)
+  "Serialize the Scheme configuration of an MSMTP account to a configuration
+file, in MSMTP's format."
+  ;; (serialize-configuration account-config home-msmtp-account-configuration-fields)
+  ;; Requires that each serialization function define a newline at the end
+  (string-join (map (lambda (field)
+                      ((configuration-field-serializer field)
+                       (configuration-field-name field)
+                       ((configuration-field-getter field) account-config)))
+                    home-msmtp-account-configuration-fields)
+               "\n" 'suffix))
+
 (define (serialize-home-msmtp-configuration config)
   "Serialize the Scheme configuration of MSMTP to a configuration file, in
 MSMTP's format."
