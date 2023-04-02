@@ -15,7 +15,10 @@
             home-mbsync-configuration
 
             home-mu-service-type
-            home-mu-configuration))
+            home-mu-configuration
+
+            home-msmtp-service-type
+            home-msmtp-configuration))
 
 
 ;;;
@@ -179,3 +182,41 @@ use."
 (define (generate-home-mu-documentation)
   (generate-documentation `((home-mu-configuration ,home-mu-configuration-fields))
                           'home-mu-configuration))
+
+
+;;;
+;;; msmtp
+;;;
+;; TODO: Serialize the msmtprc config file
+(define msmtp-serialize-file-like serialize-file-like)
+
+(define-configuration home-msmtp-configuration
+  (package
+    (file-like msmtp)
+    "@code{msmtp} package to use.")
+  (prefix msmtp-))
+
+(define (add-msmtp-package config)
+  "Adds the msmtp package to the profile, installing it, and making it available for
+use."
+  (list (home-msmtp-configuration-package config)))
+
+(define home-msmtp-service-type
+  (service-type (name 'home-msmtp)
+                (extensions
+                 (list (service-extension
+                        home-profile-service-type
+                        add-msmtp-package)
+                       ;; (service-extension
+                       ;;  home-xdg-configuration-files-service-type
+                       ;;  add-msmtp-xdg-configuration)
+                       ))
+                (compose concatenate)
+                (extend #f)
+                (default-value #f) ;; We require users to provide a configuration themselves
+                (description "Install and configure msmtp, a SMTP client to send
+mail")))
+
+(define (generate-home-msmtp-documentation)
+  (generate-documentation `((home-msmtp-configuration ,home-msmtp-configuration-fields))
+                          'home-msmtp-configuration))
