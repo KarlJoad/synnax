@@ -251,6 +251,10 @@ use."
   (every home-msmtp-account-configuration? lst))
 (define (msmtp-serialize-list-of-msmtp-accounts field-name val)
   (format #f "test-list ~s => ~a" field-name val))
+(define (msmtp-serialize-default-account field-name val)
+  (if (not (equal? val %unset-value))
+      (format #f "account default : ~a" val)
+      ""))
 
 (define-configuration home-msmtp-configuration
   (package
@@ -274,6 +278,12 @@ use."
   (accounts
    (list-of-msmtp-accounts '())
    "List of MSMTP accounts to send with.")
+  (default-account
+    maybe-string
+    "Account name that should be used as the default by MSMTP. This must match
+one of the @code{account} fields for a @code{home-msmtp-account-configuration}
+instance."
+    msmtp-serialize-default-account)
   (prefix msmtp-))
 
 (define (add-msmtp-package config)
