@@ -12,7 +12,10 @@
   #:use-module (srfi srfi-1)
 
   #:export (home-mbsync-service-type
-            home-mbsync-configuration))
+            home-mbsync-configuration
+
+            home-mu-service-type
+            home-mu-configuration))
 
 
 ;;;
@@ -142,3 +145,37 @@ optional periodic task")))
 (define (generate-home-mbsync-documentation)
   (generate-documentation `((home-mbsync-configuration ,home-mbsync-configuration-fields))
                           'home-mbsync-configuration))
+
+
+;;;
+;;; mu
+;;;
+;; TODO: An activation script that is run on the first time mu is used, but we
+;; could also skip that and print a message to the user about it.
+(define mu-serialize-file-like serialize-file-like)
+
+(define-configuration home-mu-configuration
+  (package
+    (file-like mu)
+    "@code{mu} package to use.")
+  (prefix mu-))
+
+(define (add-mu-package config)
+  "Adds the mu package to the profile, installing it, and making it available for
+use."
+  (list (home-mu-configuration-package config)))
+
+(define home-mu-service-type
+  (service-type (name 'home-mu)
+                (extensions
+                 (list (service-extension
+                        home-profile-service-type
+                        add-mu-package)))
+                (compose concatenate)
+                (extend #f) ;; TODO: Use other extension function?
+                (default-value (home-mu-configuration))
+                (description "Install and configure mu, a mail indexing software")))
+
+(define (generate-home-mu-documentation)
+  (generate-documentation `((home-mu-configuration ,home-mu-configuration-fields))
+                          'home-mu-configuration))
