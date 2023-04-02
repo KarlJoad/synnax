@@ -262,6 +262,11 @@ use."
   (package
     (file-like msmtp)
     "@code{msmtp} package to use.")
+  (queue-dir
+   (string (string-append (getenv "HOME") "/.msmtpqueue"))
+   ;; An alternative $XDG_DATA_HOME/msmtpqueue
+   "Directory where emails queued to send (with msmtpqueue) will be stored before
+being sent later.")
   (use-defaults?
    (boolean #t)
    "Should sensible defaults be used for all accounts?")
@@ -329,6 +334,10 @@ naming the resuling file @file{$XDG_CONFIG_HOME/msmtp/config}."
        "msmtp-config"
        (serialize-home-msmtp-configuration config)))))
 
+(define (add-msmtp-queue-dir-env-var config)
+  "Set MSMTP's $QUEUEDIR for delayed sending of emails."
+  `(("QUEUEDIR" . ,(home-msmtp-configuration-queue-dir config))))
+
 (define (home-msmtp-extensions cfg extensions)
   (home-msmtp-configuration
    (inherit cfg)
@@ -343,7 +352,9 @@ naming the resuling file @file{$XDG_CONFIG_HOME/msmtp/config}."
                        (service-extension
                         home-xdg-configuration-files-service-type
                         add-msmtp-xdg-configuration)
-                       ))
+                       (service-extension
+                        home-environment-variables-service-type
+                        add-msmtp-queue-dir-env-var)))
                 (compose concatenate)
                 (extend home-msmtp-extensions)
                 (default-value #f) ;; We require users to provide a configuration themselves
