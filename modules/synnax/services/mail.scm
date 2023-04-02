@@ -241,6 +241,15 @@ use."
   (use-defaults?
    (boolean #t)
    "Should sensible defaults be used for all accounts?")
+  (tls?
+   (boolean #t)
+   "Should TLS be used for all MSMTP accounts?")
+  (starttls?
+   (boolean #t)
+   "Should Start TLS be used for all MSMTP accounts?")
+  (tls-trust-file
+   (string "/etc/ssl/certs/ca-certificates.crt") ;; Find package /etc/ssl/certs/ca-certificates.crt comes from
+   "Certificate Authority certificates file.")
   (prefix msmtp-))
 
 (define (add-msmtp-package config)
