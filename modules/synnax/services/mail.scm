@@ -17,6 +17,7 @@
             home-mbsync-group-configuration
             home-mbsync-maildir-store-configuration
             home-mbsync-imap-store-configuration
+            home-mbsync-account-configuration
 
             home-mu-service-type
             home-mu-configuration
@@ -156,6 +157,51 @@ ACCOUNT-NAME."
      (mbsync-serialize-string "IMAPStore" (string-append account-name "-" imap-store-name))
      "\n" ;; TODO: Use something better than in-line "\n"?
      (mbsync-serialize-string "Account" account-name))))
+
+(define (list-of-home-mbsync-group-configurations? lst)
+  (every home-mbsync-group-configuration? lst))
+
+(define-configuration/no-serialization home-mbsync-account-configuration
+  (name
+   string
+   "Name to give to this IMAP account.")
+  (auth-mechs
+   string ;; Should really be an enum...
+   "Authentication mechanism to use.")
+  (certificate-file
+   string ;; TODO: Should be file-like. nss-certs provides /etc/ssl/certs/ca-certificates.crt
+   "Root Certificate Authority file.")
+  (host
+   string
+   "IMAP/POP3 mail host storing emails.")
+  (user
+   string
+   "Email address of the user to log in using.")
+  (pass-cmd
+   string ;; TODO: file-like?
+   "Command to read the password for this email address.")
+  (pipeline-depth
+   number
+   "Maximum number of IMAP commands to be in-flight simultaneously.")
+  (port
+   (number 993)
+   "IMAP port to connect to on remote server.")
+  (ssl-type
+   (string "IMAPS") ;; TODO: Should be enum
+   "Type of security/encryption to use.")
+  (ssl-versions
+   (string "TLSv1.3") ;; TODO: Should be list-of-strings
+   "SSL/TLS standard to use.")
+  (remote-mail-store
+   home-mbsync-imap-store-configuration
+   "The remote store for this account.")
+  (local-mail-store
+   home-mbsync-maildir-store-configuration
+   "The local store for this account.")
+  (groups
+   (list-of-home-mbsync-group-configurations '())
+   "Groups associated with this @code{mbsync} account that should be
+synchronized."))
 
 (define (serialize-mbsync-config field-name val)
   "Serialize the extra-config field of an home-mbsync-configuration item."
