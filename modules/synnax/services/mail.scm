@@ -13,6 +13,7 @@
 
   #:export (home-mbsync-service-type
             home-mbsync-configuration
+            home-mbsync-channel-configuration
 
             home-mu-service-type
             home-mu-configuration
@@ -25,6 +26,47 @@
 ;;;
 ;;; isync/mbsync
 ;;;
+
+;; The channel is the simplest thing that isync/mbsync deals with. A channel
+;; maps a remote/far mail server's directory to a local/near directory.
+;; mbsync fetches channels, but users should not fetch channels themselves.
+;; Instead, users should go through groups, see home-mbsync-group-configuration.
+(define-configuration/no-serialization home-mbsync-channel-configuration
+  ;; Most of the actual configuration options for channels are omitted here, as
+  ;; I do not need it, though they could be added easily enough. See
+  ;; https://isync.sourceforge.io/mbsync.html (under Channels) for all possible
+  ;; options. Many of them are used to override global defaults that I prefer to
+  ;; keep.
+  (name
+   string
+   "Name for this channel.")
+  (far
+   string
+   "Pattern on @emph{remote/far} server for this channel.")
+  (near
+   string
+   "Pattern for @emph{local/near} mail store for storing this channel's mail."))
+
+(define (serialize-home-mbsync-channel-configuration config group-name
+                                                     far-store-name near-store-name)
+  "Both far-store-name and near-store-name must be the full name of the store.
+For example, for an account with a group named \"account\", group with name
+\"group\" and a remote IMAP store named \"remote\", far-store-name must be \"account-remote\"."
+  (define (build-fq-channel-target store dir-name) (format #f ":~a:~a" store dir-name))
+  (let* ((channel-name (home-mbsync-channel-configuration-name config))
+        ;; fully-qualified-far-name
+        (far-name (home-mbsync-channel-configuration-far config))
+        (near-name (home-mbsync-channel-configuration-near config))
+        (fq-far-name (build-fq-channel-target far-store-name far-name))
+        (fq-near-name (build-fq-channel-target near-store-name near-name)))
+    (string-join
+     (list
+      (mbsync-serialize-string "Channel" (string-append group-name "-" channel-name))
+      (mbsync-serialize-string "Far" fq-far-name)
+      (mbsync-serialize-string "Near" fq-near-name))
+      "\n"
+      'infix)))
+
 (define (serialize-mbsync-config field-name val)
   "Serialize the extra-config field of an home-mbsync-configuration item."
   (define (serialize-term term)
