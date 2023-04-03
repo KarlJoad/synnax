@@ -15,6 +15,7 @@
             home-mbsync-configuration
             home-mbsync-channel-configuration
             home-mbsync-group-configuration
+            home-mbsync-maildir-store-configuration
 
             home-mu-service-type
             home-mu-configuration
@@ -83,6 +84,35 @@ The group is the finest granularity of synchronization that is supported by
    (list-of-home-mbsync-channel-configurations '())
    "List of @code{home-mbsync-channel-configuration}s to put in this group.
 NOTE: You @emph{can} have the same channel be in multiple groups!"))
+
+(define-configuration/no-serialization home-mbsync-maildir-store-configuration
+  (name
+   (string "local")
+   "Name of this maildir store.")
+  (inbox
+   string
+   "Path to inbox for this account. No trailing @code{/} is allowed.")
+  (path
+   string
+   "Path to maildir directory for this account. Trailing @code{/} is required.")
+  (subfolders
+   (string "Verbatim") ;; TODO: Should be enum: verbatim, maildir++, or legacy
+   "How to name folders on-disk for hierarchical mailboxes."))
+
+(define (serialize-home-mbsync-maildir-store md-store-config account-name)
+  (let ((md-store-name (home-mbsync-maildir-store-configuration-name md-store-config))
+        (md-store-inbox (home-mbsync-maildir-store-configuration-inbox md-store-config))
+        (md-store-path (home-mbsync-maildir-store-configuration-path md-store-config)))
+    (when (not (equal? "/" (string-take-right md-store-path 1)))
+      (error-out (format #f "Maildir store path for ~a must end in a /" md-store-name)))
+    (when (equal? "/" (string-take-right md-store-inbox 1))
+      (error-out (format #f "Maildir Inbox path for ~a cannot end with a /" md-store-name)))
+    (string-append
+     (mbsync-serialize-string "MaildirStore" (string-append account-name "-" md-store-name))
+     "\n"
+     (mbsync-serialize-string "Inbox" md-store-inbox) "\n"
+     (mbsync-serialize-string "Path" md-store-path) "\n"
+     (mbsync-serialize-string "SubFolders" (home-mbsync-maildir-store-configuration-subfolders md-store-config)))))
 
 (define (serialize-mbsync-config field-name val)
   "Serialize the extra-config field of an home-mbsync-configuration item."
