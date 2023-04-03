@@ -97,6 +97,22 @@ The group is the finest granularity of synchronization that is supported by
    "List of @code{home-mbsync-channel-configuration}s to put in this group.
 NOTE: You @emph{can} have the same channel be in multiple groups!"))
 
+(define (serialize-home-mbsync-group-configuration config far-store-name near-store-name)
+  ;; FIXME: Serialization should produce "" if channels list is empty.
+  (let ((group-name (home-mbsync-group-configuration-name config)))
+    (define (make-channel-group-member channel-name) (format #f "~a-~a" group-name channel-name))
+    (string-join `(,@(map (lambda (channel-config)
+                            (serialize-home-mbsync-channel-configuration channel-config
+                                                                         group-name far-store-name near-store-name))
+                          (home-mbsync-group-configuration-channels config))
+                   ""
+                   ,(mbsync-serialize-string "Group" group-name)
+                   ,@(map (lambda (channel-config)
+                            (mbsync-serialize-string "Channel" (make-channel-group-member
+                                                                (home-mbsync-channel-configuration-name channel-config))))
+                          (home-mbsync-group-configuration-channels config)))
+                 "\n" 'suffix)))
+
 (define-configuration/no-serialization home-mbsync-maildir-store-configuration
   (name
    (string "local")
