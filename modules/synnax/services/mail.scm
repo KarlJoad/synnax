@@ -32,7 +32,7 @@
 ;;;
 (define mbsync-serialize-file-like serialize-file-like)
 (define (mbsync-serialize-list field-name list)
-  (serialize-mbsync-config field-name list))
+  (serialize-mbsync-global-config field-name list))
 (define (mbsync-serialize-boolean field-name b)
   (if b "yes" "no"))
 (define (mbsync-serialize-number field-name n)
@@ -236,7 +236,7 @@ synchronized."))
            )
      "\n" 'infix)))
 
-(define (serialize-mbsync-config field-name val)
+(define (serialize-mbsync-global-config field-name val)
   "Serialize the extra-config field of an home-mbsync-configuration item."
   (define (serialize-term term)
     "Serialize a single term."
@@ -265,7 +265,7 @@ synchronized."))
    (boolean #t)
    "Whether to use the XDG specification for the isync/mbsync's configuration
 file, @file{$XDG_CONFIG_HOME/isync/mbsyncrc}.")
-  (extra-config
+  (global-config
    (list '())
    "List-of-lists of configurations. The first element in each list must be a
 configuration term for mbsync.")
@@ -292,7 +292,7 @@ available for use."
           ".mbsyncrc")
      ,(mixed-text-file
        "mbsyncrc"
-       (serialize-mbsync-config #f (home-mbsync-configuration-extra-config mbsync-config))))))
+       (serialize-mbsync-global-config #f (home-mbsync-configuration-global-config mbsync-config))))))
 
 (define (add-mbsync-dot-configuration mbsync-config)
   "Link the built mbsync configuration to the user's home directory, naming
@@ -311,7 +311,7 @@ naming the resulting file $XDG_CONFIG_HOME/isync/mbsyncrc."
 (define (home-mbsync-extensions cfg extensions)
   (home-mbsync-configuration
    (inherit cfg)
-   (extra-config (append (home-mbsync-configuration-extra-config cfg) extensions))))
+   (global-config (append (home-mbsync-configuration-global-config cfg) extensions))))
 
 (define (home-mbsync-periodic-fetch-job mbsync-configuration)
   (let ((mbsync-package (home-mbsync-configuration-package mbsync-configuration)))
