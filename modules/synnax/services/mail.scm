@@ -203,6 +203,39 @@ ACCOUNT-NAME."
    "Groups associated with this @code{mbsync} account that should be
 synchronized."))
 
+(define (build-fq-store-name account-name store-name) (format #f "~a-~a" account-name store-name))
+
+(define (serialize-home-mbsync-account-configuration config)
+  ;; TODO: Check if maildir, imap, passwd-cmd, and username != null
+  (let ((account-name (home-mbsync-account-configuration-name config))
+        (far-store-name (home-mbsync-imap-store-configuration-name
+                         (home-mbsync-account-configuration-remote-mail-store config)))
+        (near-store-name (home-mbsync-maildir-store-configuration-name
+                          (home-mbsync-account-configuration-local-mail-store config))))
+    (string-join
+     `(,(mbsync-serialize-string "IMAPAccount" account-name)
+       ,(mbsync-serialize-string "AuthMechs" (home-mbsync-account-configuration-auth-mechs config))
+       ,(mbsync-serialize-string "CertificateFile" (home-mbsync-account-configuration-certificate-file config))
+       ,(mbsync-serialize-string "Host" (home-mbsync-account-configuration-host config))
+       ,(mbsync-serialize-number "Port" (home-mbsync-account-configuration-port config))
+       ,(mbsync-serialize-string "User" (home-mbsync-account-configuration-user config))
+       ,(mbsync-serialize-string "PassCmd" (home-mbsync-account-configuration-pass-cmd config))
+       ,(mbsync-serialize-number "PipelineDepth" (home-mbsync-account-configuration-pipeline-depth config))
+       ,(mbsync-serialize-string "SSLType" (home-mbsync-account-configuration-ssl-type config))
+       ,(mbsync-serialize-string "SSLVersions" (home-mbsync-account-configuration-ssl-versions config))
+       ""
+       ,(serialize-home-mbsync-imap-store (home-mbsync-account-configuration-remote-mail-store config) account-name)
+       ""
+       ,(serialize-home-mbsync-maildir-store (home-mbsync-account-configuration-local-mail-store config) account-name)
+       ""
+       ,@(map (lambda (group-config)
+                  (serialize-home-mbsync-group-configuration group-config
+                                                             (build-fq-store-name account-name far-store-name)
+                                                             (build-fq-store-name account-name near-store-name)))
+                (home-mbsync-account-configuration-groups config))
+           )
+     "\n" 'infix)))
+
 (define (serialize-mbsync-config field-name val)
   "Serialize the extra-config field of an home-mbsync-configuration item."
   (define (serialize-term term)
