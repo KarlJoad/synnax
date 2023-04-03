@@ -49,8 +49,10 @@
   (if b "yes" "no"))
 (define (mbsync-serialize-number field-name n)
   (number->string n))
-(define (mbsync-serialize-string field-name s)
-  (format #f "~s" s))
+(define (mbsync-serialize-string field-name val)
+    (if (string-any char-whitespace? val)
+        (format #f "~a ~s" field-name val)
+        (format #f "~a ~a" field-name val)))
 
 (define-maybe boolean (prefix mbsync-))
 (define-maybe number (prefix mbsync-))
