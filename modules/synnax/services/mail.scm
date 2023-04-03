@@ -1,5 +1,6 @@
 (define-module (synnax services mail)
   #:use-module (guix gexp)
+  #:use-module (guix modules)
   #:use-module (gnu services configuration)
   #:use-module (gnu services shepherd)
   #:use-module (gnu services mcron)
@@ -320,6 +321,25 @@ naming the resulting file $XDG_CONFIG_HOME/isync/mbsyncrc."
       (get-mbsync-configuration mbsync-config)
       '()))
 
+(define (create-mbsync-local-maildir-directory mbsync-config)
+  "Add to the activation script created by Guix Home to create the local maildir
+directories that isync/mbsync will require."
+  ;; Import (gnu build activation) for mkdir-p/perms
+  (with-imported-modules (source-module-closure '((gnu build activation)))
+    #~(begin
+        (use-modules (gnu build activation))
+        (define mail-dirs
+          #$(let* ((accounts (home-mbsync-configuration-accounts mbsync-config))
+                   (local-stores (map home-mbsync-account-configuration-local-mail-store accounts))
+                   (mail-dirs (map home-mbsync-maildir-store-configuration-path local-stores)))
+              `(list ,@mail-dirs)))
+        (define (create-maildir dir-path)
+          (format #t "Creating ~a as mbsync maildir directory~%" dir-path)
+          (mkdir-p/perms dir-path (getpw (getuid)) #o700))
+
+        (for-each create-maildir mail-dirs)
+        (format #t "~%"))))
+
 (define (home-mbsync-extensions cfg extensions)
   (home-mbsync-configuration
    (inherit cfg)
@@ -351,6 +371,9 @@ naming the resulting file $XDG_CONFIG_HOME/isync/mbsyncrc."
                        ;;  home-mbsync-periodic-fetch-job)
                        ;; Extend home-mcron-service-type's job list with this job
                        ;; See (gnu home services mcron)'s home-mcron-extend procedure?
+                       (service-extension
+                        home-activation-service-type
+                        create-mbsync-local-maildir-directory)
                        ))
                 (compose concatenate)
                 (extend home-mbsync-extensions)
