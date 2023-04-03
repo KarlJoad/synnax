@@ -300,7 +300,10 @@ available for use."
           ".mbsyncrc")
      ,(mixed-text-file
        "mbsyncrc"
-       (serialize-mbsync-global-config #f (home-mbsync-configuration-global-config mbsync-config))))))
+       (serialize-mbsync-global-config #f (home-mbsync-configuration-global-config mbsync-config)) "\n"
+       (string-join (map serialize-home-mbsync-account-configuration
+                         (home-mbsync-configuration-accounts mbsync-config))
+                  "\n" 'infix)))))
 
 (define (add-mbsync-dot-configuration mbsync-config)
   "Link the built mbsync configuration to the user's home directory, naming
