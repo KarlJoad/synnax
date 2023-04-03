@@ -16,6 +16,7 @@
             home-mbsync-channel-configuration
             home-mbsync-group-configuration
             home-mbsync-maildir-store-configuration
+            home-mbsync-imap-store-configuration
 
             home-mu-service-type
             home-mu-configuration
@@ -113,6 +114,21 @@ NOTE: You @emph{can} have the same channel be in multiple groups!"))
      (mbsync-serialize-string "Inbox" md-store-inbox) "\n"
      (mbsync-serialize-string "Path" md-store-path) "\n"
      (mbsync-serialize-string "SubFolders" (home-mbsync-maildir-store-configuration-subfolders md-store-config)))))
+
+(define-configuration/no-serialization home-mbsync-imap-store-configuration
+  (name
+   (string "remote")
+    "Name of this IMAP store, after being appended to the account name (see
+@code{home-mbsync-account-configuration}."))
+
+(define (serialize-home-mbsync-imap-store imap-store-config account-name)
+  "Serialize an mbsync IMAP (remote) mail store configuration for a given
+ACCOUNT-NAME."
+  (let ((imap-store-name (home-mbsync-imap-store-configuration-name imap-store-config)))
+    (string-append
+     (mbsync-serialize-string "IMAPStore" (string-append account-name "-" imap-store-name))
+     "\n" ;; TODO: Use something better than in-line "\n"?
+     (mbsync-serialize-string "Account" account-name))))
 
 (define (serialize-mbsync-config field-name val)
   "Serialize the extra-config field of an home-mbsync-configuration item."
