@@ -29,6 +29,17 @@
 ;;;
 ;;; isync/mbsync
 ;;;
+(define mbsync-serialize-file-like serialize-file-like)
+(define (mbsync-serialize-list field-name list)
+  (serialize-mbsync-config field-name list))
+(define (mbsync-serialize-boolean field-name b)
+  (if b "yes" "no"))
+(define (mbsync-serialize-number field-name n)
+  (format #f "~a ~a" field-name (number->string n)))
+(define (mbsync-serialize-string field-name val)
+    (if (string-any char-whitespace? val)
+        (format #f "~a ~s" field-name val)
+        (format #f "~a ~a" field-name val)))
 
 ;; The channel is the simplest thing that isync/mbsync deals with. A channel
 ;; maps a remote/far mail server's directory to a local/near directory.
@@ -146,18 +157,6 @@ ACCOUNT-NAME."
       ((? list lst) #~(string-join '#$(map serialize-term lst)))))
 
   #~(string-append #$@(interpose (map serialize-item val) "\n" 'suffix)))
-
-(define mbsync-serialize-file-like serialize-file-like)
-(define (mbsync-serialize-list field-name list)
-  (serialize-mbsync-config field-name list))
-(define (mbsync-serialize-boolean field-name b)
-  (if b "yes" "no"))
-(define (mbsync-serialize-number field-name n)
-  (number->string n))
-(define (mbsync-serialize-string field-name val)
-    (if (string-any char-whitespace? val)
-        (format #f "~a ~s" field-name val)
-        (format #f "~a ~a" field-name val)))
 
 (define-maybe boolean (prefix mbsync-))
 (define-maybe number (prefix mbsync-))
