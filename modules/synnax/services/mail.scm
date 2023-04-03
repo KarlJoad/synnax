@@ -14,6 +14,7 @@
   #:export (home-mbsync-service-type
             home-mbsync-configuration
             home-mbsync-channel-configuration
+            home-mbsync-group-configuration
 
             home-mu-service-type
             home-mu-configuration
@@ -66,6 +67,22 @@ For example, for an account with a group named \"account\", group with name
       (mbsync-serialize-string "Near" fq-near-name))
       "\n"
       'infix)))
+
+;; The group is the lowest-level (finest-granularity) a user has for synchronization
+;; with isync/mbsync. A group is just a named collection of channels.
+(define (list-of-home-mbsync-channel-configurations? lst)
+  (every home-mbsync-channel-configuration? lst))
+
+(define-configuration/no-serialization home-mbsync-group-configuration
+  (name
+   string
+   "Name for this grouping of channels.
+The group is the finest granularity of synchronization that is supported by
+@code{mbsync}. You can synchronize groups, but not single channels.")
+  (channels
+   (list-of-home-mbsync-channel-configurations '())
+   "List of @code{home-mbsync-channel-configuration}s to put in this group.
+NOTE: You @emph{can} have the same channel be in multiple groups!"))
 
 (define (serialize-mbsync-config field-name val)
   "Serialize the extra-config field of an home-mbsync-configuration item."
