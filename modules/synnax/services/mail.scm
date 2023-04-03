@@ -257,6 +257,11 @@ synchronized."))
 (define-maybe number (prefix mbsync-))
 (define-maybe string (prefix mbsync-))
 
+(define (list-of-home-mbsync-account-configurations? lst)
+  (every home-mbsync-account-configuration? lst))
+(define (mbsync-serialize-list-of-home-mbsync-account-configurations field-name val)
+  (map serialize-home-mbsync-account-configuration val))
+
 (define-configuration home-mbsync-configuration
   (package
     (file-like isync)
@@ -265,6 +270,9 @@ synchronized."))
    (boolean #t)
    "Whether to use the XDG specification for the isync/mbsync's configuration
 file, @file{$XDG_CONFIG_HOME/isync/mbsyncrc}.")
+  (accounts
+   (list-of-home-mbsync-account-configurations '())
+   "List of accounts to fetch for.")
   (global-config
    (list '())
    "List-of-lists of configurations. The first element in each list must be a
