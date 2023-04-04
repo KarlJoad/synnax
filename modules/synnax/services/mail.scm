@@ -474,7 +474,7 @@ already exist."
 (define (msmtp-serialize-boolean field-name val)
   (format #f "~a ~a" field-name (if val "on" "off")))
 
-(define (serialize-home-msmtp-account-configuration-pass-cmd field-name val)
+(define (home-msmtp-account-configuration-serialize-pass-cmd field-name val)
   (format #f "passwordeval ~a" val))
 (define (home-msmtp-serialize-tls field-name val)
   (msmtp-serialize-boolean "tls" val))
@@ -502,7 +502,7 @@ already exist."
   (pass-cmd
    (string "") ;; #$(file-append coreutils /bin/cat) "/home/karljoad/<pw-file>"
    "Command to use to get the password for this account."
-   serialize-home-msmtp-account-configuration-pass-cmd)
+   home-msmtp-account-configuration-serialize-pass-cmd)
   (port
    (number 587)
    "Port number to use with SMTP.")
