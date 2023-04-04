@@ -43,6 +43,12 @@
         (format #f "~a ~s" field-name val)
         (format #f "~a ~a" field-name val)))
 
+(define (file-like-gexp-or-string? flgs) (or (file-like? flgs) (gexp? flgs) (string? flgs)))
+(define (mbsync-serialize-file-like-gexp-or-string field-name val)
+  #~(if (string-any char-whitespace? #$val)
+        (format #f "~a ~s" #$field-name #$val)
+        (format #f "~a ~a" #$field-name #$val)))
+
 ;; The channel is the simplest thing that isync/mbsync deals with. A channel
 ;; maps a remote/far mail server's directory to a local/near directory.
 ;; mbsync fetches channels, but users should not fetch channels themselves.
@@ -178,8 +184,23 @@ ACCOUNT-NAME."
    string
    "Email address of the user to log in using.")
   (pass-cmd
-   string ;; TODO: file-like?
-   "Command to read the password for this email address.")
+   file-like-gexp-or-string
+   "Command to read the password for this email address.
+Can be a simple string, a file-like object (i.e. @code{(file-append ...)}), or a
+string-valued gexp that expands to a single string containing the entire command.
+
+All of the example definitions below are valid, though they should never be used
+as the email password is stored in plain-text.
+@example
+;; Simple string
+(pass-cmd \"cat /home/user/pw-file\")
+;; File-like
+(pass-cmd (file-append coreutils \"/bin/cat\" \" \" \"home/user/pw-file\"))
+;; Gexp
+(pass-cmd #~(string-join (list #$(file-append coreutils \"/bin/cat\")
+                               \"/home/user/pw-file\")
+                         \" \" 'infix))
+@end example")
   (pipeline-depth
    number
    "Maximum number of IMAP commands to be in-flight simultaneously.")
@@ -212,29 +233,30 @@ synchronized."))
                          (home-mbsync-account-configuration-remote-mail-store config)))
         (near-store-name (home-mbsync-maildir-store-configuration-name
                           (home-mbsync-account-configuration-local-mail-store config))))
-    (string-join
-     `(,(mbsync-serialize-string "IMAPAccount" account-name)
-       ,(mbsync-serialize-string "AuthMechs" (home-mbsync-account-configuration-auth-mechs config))
-       ,(mbsync-serialize-string "CertificateFile" (home-mbsync-account-configuration-certificate-file config))
-       ,(mbsync-serialize-string "Host" (home-mbsync-account-configuration-host config))
-       ,(mbsync-serialize-number "Port" (home-mbsync-account-configuration-port config))
-       ,(mbsync-serialize-string "User" (home-mbsync-account-configuration-user config))
-       ,(mbsync-serialize-string "PassCmd" (home-mbsync-account-configuration-pass-cmd config))
-       ,(mbsync-serialize-number "PipelineDepth" (home-mbsync-account-configuration-pipeline-depth config))
-       ,(mbsync-serialize-string "SSLType" (home-mbsync-account-configuration-ssl-type config))
-       ,(mbsync-serialize-string "SSLVersions" (home-mbsync-account-configuration-ssl-versions config))
-       ""
-       ,(serialize-home-mbsync-imap-store (home-mbsync-account-configuration-remote-mail-store config) account-name)
-       ""
-       ,(serialize-home-mbsync-maildir-store (home-mbsync-account-configuration-local-mail-store config) account-name)
-       ""
-       ,@(map (lambda (group-config)
-                (serialize-home-mbsync-group-configuration group-config
-                                                           (build-fq-store-name account-name far-store-name)
-                                                           (build-fq-store-name account-name near-store-name)))
-              (home-mbsync-account-configuration-groups config))
-       "")
-     "\n" 'infix)))
+    #~(string-join
+       (list
+        #$(mbsync-serialize-string "IMAPAccount" account-name)
+        #$(mbsync-serialize-string "AuthMechs" (home-mbsync-account-configuration-auth-mechs config))
+        #$(mbsync-serialize-string "CertificateFile" (home-mbsync-account-configuration-certificate-file config))
+        #$(mbsync-serialize-string "Host" (home-mbsync-account-configuration-host config))
+        #$(mbsync-serialize-number "Port" (home-mbsync-account-configuration-port config))
+        #$(mbsync-serialize-string "User" (home-mbsync-account-configuration-user config))
+        #$(mbsync-serialize-file-like-gexp-or-string "PassCmd" (home-mbsync-account-configuration-pass-cmd config))
+        #$(mbsync-serialize-number "PipelineDepth" (home-mbsync-account-configuration-pipeline-depth config))
+        #$(mbsync-serialize-string "SSLType" (home-mbsync-account-configuration-ssl-type config))
+        #$(mbsync-serialize-string "SSLVersions" (home-mbsync-account-configuration-ssl-versions config))
+        ""
+        #$(serialize-home-mbsync-imap-store (home-mbsync-account-configuration-remote-mail-store config) account-name)
+        ""
+        #$(serialize-home-mbsync-maildir-store (home-mbsync-account-configuration-local-mail-store config) account-name)
+        ""
+        #$@(map (lambda (group-config)
+                  (serialize-home-mbsync-group-configuration group-config
+                                                             (build-fq-store-name account-name far-store-name)
+                                                             (build-fq-store-name account-name near-store-name)))
+                (home-mbsync-account-configuration-groups config))
+        "")
+       "\n" 'infix)))
 
 (define (serialize-mbsync-global-config field-name val)
   "Serialize the extra-config field of an home-mbsync-configuration item."
@@ -298,9 +320,9 @@ available for use."
        "mbsyncrc"
        "# Generated by Guix Home.\n\n"
        (serialize-mbsync-global-config #f (home-mbsync-configuration-global-config mbsync-config)) "\n"
-       (string-join (map serialize-home-mbsync-account-configuration
-                         (home-mbsync-configuration-accounts mbsync-config))
-                  "\n" 'infix)))))
+       #~(string-join (list #$@(map serialize-home-mbsync-account-configuration
+                                    (home-mbsync-configuration-accounts mbsync-config)))
+                      "\n" 'infix)))))
 
 (define (add-mbsync-dot-configuration mbsync-config)
   "Link the built mbsync configuration to the user's home directory, naming
