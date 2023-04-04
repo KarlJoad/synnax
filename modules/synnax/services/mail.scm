@@ -389,8 +389,6 @@ optional periodic task")))
 ;;;
 ;;; mu
 ;;;
-;; TODO: An activation script that is run on the first time mu is used, but we
-;; could also skip that and print a message to the user about it.
 (define mu-serialize-file-like serialize-file-like)
 (define (mu-serialize-list-of-strings field-name vals)
   (define (create-cli-flag address)
@@ -416,12 +414,36 @@ optional periodic task")))
 use."
   (list (home-mu-configuration-package config)))
 
+(define (init-mu-database config)
+  "Initializes the Xapian database that Mu uses, if the database does not
+already exist."
+  (with-imported-modules (source-module-closure '((guix build utils)))
+    #~(begin
+        (let ((mu/bin #$(file-append mu "/bin/mu"))
+              (maildir #$(string-append "--maildir=" (home-mu-configuration-mail-base-path config)))
+              (my-addrs (list #$@(mu-serialize-list-of-strings 'addresses (home-mu-configuration-addresses config))))
+              (db-path #$(home-mu-configuration-db-dir config)))
+          (define (path-exists-and-dir path)
+            (and (file-exists? db-path) (eq? 'directory (stat:type (lstat db-path)))))
+
+          ;; If the database directory exists, then `mu init` should NOT be run.
+          ;; In theory, mu is the only thing that creates that directory, and it
+          ;; is only created during the initial index.
+          (unless (path-exists-and-dir db-path)
+            (format #t "Initializing the Mu database with ~a and addresses/aliases=~s.~%"
+                    maildir my-addrs)
+            (apply system* `(,mu/bin "init" ,maildir ,@my-addrs))
+            (format #t "~%"))))))
+
 (define home-mu-service-type
   (service-type (name 'home-mu)
                 (extensions
                  (list (service-extension
                         home-profile-service-type
-                        add-mu-package)))
+                        add-mu-package)
+                       (service-extension
+                        home-activation-service-type
+                        init-mu-database)))
                 (compose concatenate)
                 (extend #f) ;; TODO: Use other extension function?
                 (default-value (home-mu-configuration))
