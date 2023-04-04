@@ -406,7 +406,10 @@ optional periodic task")))
    "Addresses @emph{and} aliases to use as keywords in Mu's Xapian database.")
   (mail-base-path
    (string (string-append (getenv "HOME") "/Mail"))
-   "Base path of directory holding mail."))
+   "Base path of directory holding mail.")
+  (db-dir
+   (string (string-append (getenv "XDG_CACHE_HOME") "/mu"))
+   "Directory to store mu's Xapian database."))
 
 (define (add-mu-package config)
   "Adds the mu package to the profile, installing it, and making it available for
