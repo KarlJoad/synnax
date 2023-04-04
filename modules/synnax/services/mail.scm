@@ -393,11 +393,10 @@ optional periodic task")))
 ;; could also skip that and print a message to the user about it.
 (define mu-serialize-file-like serialize-file-like)
 
-(define-configuration home-mu-configuration
+(define-configuration/no-serialization home-mu-configuration
   (package
     (file-like mu)
-    "@code{mu} package to use.")
-  (prefix mu-))
+    "@code{mu} package to use."))
 
 (define (add-mu-package config)
   "Adds the mu package to the profile, installing it, and making it available for
