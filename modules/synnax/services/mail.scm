@@ -357,10 +357,14 @@ directories that isync/mbsync will require."
         (for-each create-maildir mail-dirs)
         (format #t "~%"))))
 
+;; Given an already-present configuration CFG, and a list of configurations
+;; extending it, how should this configuration be extended?"
 (define (home-mbsync-extensions cfg extensions)
+  "Extend the mbsync configuration CFG with a list of EXTENSIONS configurations."
   (home-mbsync-configuration
    (inherit cfg)
-   (global-config (append (home-mbsync-configuration-global-config cfg) extensions))))
+   (global-config (append (home-mbsync-configuration-global-config cfg) extensions))
+   (accounts (append (home-mbsync-configuration-accounts cfg) extensions))))
 
 (define (home-mbsync-periodic-sync-job config)
   "Given the entire isync/mbsync configuration, return a list of mcron jobs that
