@@ -254,7 +254,6 @@ synchronized."))
   #~(string-append #$@(interpose (map serialize-item val) "\n" 'suffix)))
 
 (define-maybe boolean (prefix mbsync-))
-(define-maybe string (prefix mbsync-))
 
 (define (list-of-home-mbsync-account-configurations? lst)
   (every home-mbsync-account-configuration? lst))
@@ -283,7 +282,7 @@ configuration term for mbsync.")
    (number (* 60 5))
    "Interval for which to run the automatically-syncing mbsync job, in seconds.")
   (post-sync-cmd
-   (maybe-string "")
+   (string "")
    "Command to run after mbsync completes its mail fetching.")
   (prefix mbsync-))
 
@@ -538,6 +537,8 @@ already exist."
   (if (not (equal? val %unset-value))
       (format #f "account default : ~a" val)
       ""))
+
+(define-maybe string (prefix msmtp-))
 
 (define-configuration home-msmtp-configuration
   (package
