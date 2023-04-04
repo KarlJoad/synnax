@@ -254,7 +254,6 @@ synchronized."))
   #~(string-append #$@(interpose (map serialize-item val) "\n" 'suffix)))
 
 (define-maybe boolean (prefix mbsync-))
-(define-maybe number (prefix mbsync-))
 (define-maybe string (prefix mbsync-))
 
 (define (list-of-home-mbsync-account-configurations? lst)
@@ -281,7 +280,7 @@ configuration term for mbsync.")
    (boolean #t)
    "Whether to create an mcron job to periodically fetch your email.")
   (interval
-   (maybe-number (* 60 5))
+   (number (* 60 5))
    "Interval for which to run the automatically-syncing mbsync job, in seconds.")
   (post-sync-cmd
    (maybe-string "")
