@@ -344,11 +344,23 @@ directories that isync/mbsync will require."
    (inherit cfg)
    (global-config (append (home-mbsync-configuration-global-config cfg) extensions))))
 
-(define (home-mbsync-periodic-fetch-job mbsync-configuration)
-  (let ((mbsync-package (home-mbsync-configuration-package mbsync-configuration)))
-    #~(job (lambda (current-time)
-             (+ current-time #$(home-mbsync-configuration-interval mbsync-configuration)))
-           #$(file-append mbsync-package "/bin/mbsync"))))
+(define (home-mbsync-periodic-sync-job config)
+  "Given the entire isync/mbsync configuration, return a list of mcron jobs that
+will fetch ALL the user's emails with the configured interval."
+  (let ((mbsync (home-mbsync-configuration-package config))
+        (interval (home-mbsync-configuration-interval config)))
+    (list
+     #~(job (lambda (current-time)
+              (+ current-time #$interval))
+            #$(file-append mbsync "/bin/mbsync -Va")))))
+
+(define (add-home-mbsync-periodic-sync-job config)
+  "If the user has enabled automatic synchronization, return the list of jobs
+that are added to the user's mcron instance. Otherwise, return an empty list,
+preventing this job from being added."
+  (if (home-mbsync-configuration-auto-sync? config)
+      (home-mbsync-periodic-sync-job config)
+      '()))
 
 (define home-mbsync-service-type
   (service-type (name 'home-mbsync)
@@ -364,10 +376,9 @@ directories that isync/mbsync will require."
                        (service-extension
                         home-xdg-configuration-files-service-type
                         add-mbsync-xdg-configuration)
-                       ;; TODO: Get periodic fetching working.
-                       ;; (service-extension
-                       ;;  home-mcron-service-type
-                       ;;  home-mbsync-periodic-fetch-job)
+                       (service-extension
+                        home-mcron-service-type
+                        add-home-mbsync-periodic-sync-job)
                        ;; Extend home-mcron-service-type's job list with this job
                        ;; See (gnu home services mcron)'s home-mcron-extend procedure?
                        (service-extension
