@@ -81,7 +81,7 @@ For example, for an account with a group named \"account\", group with name
       (mbsync-serialize-string "Far" fq-far-name)
       (mbsync-serialize-string "Near" fq-near-name))
       "\n"
-      'infix)))
+      'suffix)))
 
 ;; The group is the lowest-level (finest-granularity) a user has for synchronization
 ;; with isync/mbsync. A group is just a named collection of channels.
@@ -107,7 +107,6 @@ NOTE: You @emph{can} have the same channel be in multiple groups!"))
                             (serialize-home-mbsync-channel-configuration channel-config
                                                                          group-name far-store-name near-store-name))
                           (home-mbsync-group-configuration-channels config))
-                   ""
                    ,(mbsync-serialize-string "Group" group-name)
                    ,@(map (lambda (channel-config)
                             (mbsync-serialize-string "Channel" (make-channel-group-member
@@ -230,11 +229,11 @@ synchronized."))
        ,(serialize-home-mbsync-maildir-store (home-mbsync-account-configuration-local-mail-store config) account-name)
        ""
        ,@(map (lambda (group-config)
-                  (serialize-home-mbsync-group-configuration group-config
-                                                             (build-fq-store-name account-name far-store-name)
-                                                             (build-fq-store-name account-name near-store-name)))
-                (home-mbsync-account-configuration-groups config))
-           )
+                (serialize-home-mbsync-group-configuration group-config
+                                                           (build-fq-store-name account-name far-store-name)
+                                                           (build-fq-store-name account-name near-store-name)))
+              (home-mbsync-account-configuration-groups config))
+       "")
      "\n" 'infix)))
 
 (define (serialize-mbsync-global-config field-name val)
