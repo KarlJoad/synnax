@@ -474,8 +474,12 @@ already exist."
 (define (msmtp-serialize-boolean field-name val)
   (format #f "~a ~a" field-name (if val "on" "off")))
 
+(define (file-like-gexp-or-string? flgs) (or (file-like? flgs) (gexp? flgs) (string? flgs)))
+(define (msmtp-serialize-file-like-gexp-or-string field-name val)
+  #~(format #f "~a" #$val))
+
 (define (home-msmtp-account-configuration-serialize-pass-cmd field-name val)
-  (format #f "passwordeval ~a" val))
+  #~(format #f "passwordeval ~a" #$val))
 (define (home-msmtp-serialize-tls field-name val)
   (msmtp-serialize-boolean "tls" val))
 (define (home-msmtp-serialize-starttls field-name val)
@@ -500,8 +504,23 @@ already exist."
    (string "")
    "User to log in as")
   (pass-cmd
-   (string "") ;; #$(file-append coreutils /bin/cat) "/home/karljoad/<pw-file>"
-   "Command to use to get the password for this account."
+   (file-like-gexp-or-string "")
+   "Command to use to get the password for this account.
+Can be a simple string, a file-like object (i.e. @code{(file-append ...)}), or a
+string-valued gexp that expands to a single string containing the entire command.
+
+All of the example definitions below are valid, though they should never be used
+as the email password is stored in plain-text.
+@example
+;; Simple string
+(pass-cmd \"cat /home/user/pw-file\")
+;; File-like
+(pass-cmd (file-append coreutils \"/bin/cat\" \" \" \"home/user/pw-file\"))
+;; Gexp
+(pass-cmd #~(string-join (list #$(file-append coreutils \"/bin/cat\")
+                               \"/home/user/pw-file\")
+                         \" \" 'infix))
+@end example"
    home-msmtp-account-configuration-serialize-pass-cmd)
   (port
    (number 587)
@@ -582,12 +601,13 @@ use."
 file, in MSMTP's format."
   ;; (serialize-configuration account-config home-msmtp-account-configuration-fields)
   ;; Requires that each serialization function define a newline at the end
-  (string-join (map (lambda (field)
-                      ((configuration-field-serializer field)
-                       (configuration-field-name field)
-                       ((configuration-field-getter field) account-config)))
-                    home-msmtp-account-configuration-fields)
-               "\n" 'suffix))
+  #~(string-join
+     (list #$@(map (lambda (field)
+                     ((configuration-field-serializer field)
+                      (configuration-field-name field)
+                      ((configuration-field-getter field) account-config)))
+                   home-msmtp-account-configuration-fields))
+     "\n" 'suffix))
 
 (define (serialize-home-msmtp-configuration config)
   "Serialize the Scheme configuration of MSMTP to a configuration file, in
@@ -600,9 +620,9 @@ MSMTP's format."
      #$(msmtp-serialize-boolean "tls_starttls" (home-msmtp-configuration-starttls? config)) "\n"
      #$(msmtp-serialize-string "tls_trust_file" (home-msmtp-configuration-tls-trust-file config)) "\n"
      "\n"
-     #$(string-join (map serialize-home-msmtp-account-configuration
-                         (home-msmtp-configuration-accounts config))
-                    "\n" 'suffix)
+     #$@(interpose (map serialize-home-msmtp-account-configuration
+                        (home-msmtp-configuration-accounts config))
+                   "\n" 'suffix)
      #$(msmtp-serialize-default-account #f (home-msmtp-configuration-default-account config))))
 
 (define (add-msmtp-xdg-configuration config)
