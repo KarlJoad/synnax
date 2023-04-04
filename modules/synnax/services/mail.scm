@@ -347,11 +347,15 @@ directories that isync/mbsync will require."
   "Given the entire isync/mbsync configuration, return a list of mcron jobs that
 will fetch ALL the user's emails with the configured interval."
   (let ((mbsync (home-mbsync-configuration-package config))
-        (interval (home-mbsync-configuration-interval config)))
+        (interval (home-mbsync-configuration-interval config))
+        (post-sync-cmd (home-mbsync-configuration-post-sync-cmd config)))
     (list
-     #~(job (lambda (current-time)
-              (+ current-time #$interval))
-            #$(file-append mbsync "/bin/mbsync -Va")))))
+     #~(job (lambda (current-time) (+ current-time #$interval))
+            #$(file-append
+               mbsync "/bin/mbsync -Va"
+               (if (not (string-null? post-sync-cmd))
+                   (string-append " && " post-sync-cmd)
+                   ""))))))
 
 (define (add-home-mbsync-periodic-sync-job config)
   "If the user has enabled automatic synchronization, return the list of jobs
