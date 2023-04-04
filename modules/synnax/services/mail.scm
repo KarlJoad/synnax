@@ -392,11 +392,18 @@ optional periodic task")))
 ;; TODO: An activation script that is run on the first time mu is used, but we
 ;; could also skip that and print a message to the user about it.
 (define mu-serialize-file-like serialize-file-like)
+(define (mu-serialize-list-of-strings field-name vals)
+  (define (create-cli-flag address)
+    (format #f "--my-address=~a" address))
+  (map create-cli-flag vals))
 
 (define-configuration/no-serialization home-mu-configuration
   (package
     (file-like mu)
-    "@code{mu} package to use."))
+    "@code{mu} package to use.")
+  (addresses
+   (list-of-strings '())
+   "Addresses @emph{and} aliases to use as keywords in Mu's Xapian database."))
 
 (define (add-mu-package config)
   "Adds the mu package to the profile, installing it, and making it available for
