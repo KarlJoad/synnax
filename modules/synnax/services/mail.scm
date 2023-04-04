@@ -253,8 +253,6 @@ synchronized."))
 
   #~(string-append #$@(interpose (map serialize-item val) "\n" 'suffix)))
 
-(define-maybe boolean (prefix mbsync-))
-
 (define (list-of-home-mbsync-account-configurations? lst)
   (every home-mbsync-account-configuration? lst))
 (define (mbsync-serialize-list-of-home-mbsync-account-configurations field-name val)
