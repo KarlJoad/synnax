@@ -57,10 +57,10 @@
    string
    "Name for this channel.")
   (far
-   string
+   (string "")
    "Pattern on @emph{remote/far} server for this channel.")
   (near
-   string
+   (string "")
    "Pattern for @emph{local/near} mail store for storing this channel's mail."))
 
 (define (serialize-home-mbsync-channel-configuration config group-name
