@@ -524,7 +524,6 @@ already exist."
   ;; We want to use the same serialization procedures as msmtp.
   (prefix msmtp-))
 
-;; TODO: Serialize the msmtprc config file
 (define msmtp-serialize-file-like serialize-file-like)
 
 (define (list-of-msmtp-accounts? lst)
