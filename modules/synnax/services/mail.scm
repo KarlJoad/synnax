@@ -403,7 +403,10 @@ optional periodic task")))
     "@code{mu} package to use.")
   (addresses
    (list-of-strings '())
-   "Addresses @emph{and} aliases to use as keywords in Mu's Xapian database."))
+   "Addresses @emph{and} aliases to use as keywords in Mu's Xapian database.")
+  (mail-base-path
+   (string (string-append (getenv "HOME") "/Mail"))
+   "Base path of directory holding mail."))
 
 (define (add-mu-package config)
   "Adds the mu package to the profile, installing it, and making it available for
