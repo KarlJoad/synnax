@@ -47,6 +47,7 @@
  virtualization ; virt-manager
  gdb
  code           ; global
+ shellutils
  engineering    ; lepton-eda, poke
  text-editors   ; texmacs
  cmake
@@ -143,6 +144,7 @@
         cscope
 	      git
         poke ;; Interactive editor for binary files
+        direnv
         texinfo))
 
 (define %email-packages
