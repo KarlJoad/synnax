@@ -142,6 +142,7 @@
         perl ;; For magit to work correctly (Rebase, commit-ammend, etc.)
         cscope
 	      git
+        poke ;; Interactive editor for binary files
         texinfo))
 
 (define %email-packages
