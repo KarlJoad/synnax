@@ -165,6 +165,12 @@ is turned into
                      'ext4))
               (type "ext4"))
             (file-system
+              (mount-point "/mnt/VM_Disks")
+              (device
+               (uuid "892ca4b1-5ffa-45ef-ba27-c6e6a55097c5"
+                     'ext4))
+              (type "ext4"))
+            (file-system
               (type "cifs")
               (mount-point "/mnt/store")
               (device "//karl-nas.raven/store")
