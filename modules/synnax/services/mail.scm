@@ -27,6 +27,10 @@
             home-msmtp-configuration
             home-msmtp-account-configuration))
 
+;; The /etc/ssl/certs/ca-certificates.crt certificate file is built by the
+;; ca-certificate-bundle procedure in guix/guix/profiles.scm. Because this is
+;; not a package, but a procedure/script taking in a manifest, this does not work.
+
 
 ;;;
 ;;; isync/mbsync
@@ -174,8 +178,12 @@ ACCOUNT-NAME."
   (auth-mechs
    string ;; Should really be an enum...
    "Authentication mechanism to use.")
+  ;; TODO: Make file-like-or-string. This file is provided by a script built out
+  ;; of a procedure and a manifest, whose output is not accessible at build time.
+  ;; (file-like (file-append (ca-certificate-bundle (packages->manifest (list nss-certs)))
+  ;;                         "/etc/ssl/certs/ca-certificates.crt"))
   (certificate-file
-   string ;; TODO: Should be file-like. nss-certs provides /etc/ssl/certs/ca-certificates.crt
+   string
    "Root Certificate Authority file.")
   (host
    string
@@ -562,8 +570,9 @@ as the email password is stored in plain-text.
    (boolean #t)
    "Should Start TLS be used?"
    home-msmtp-serialize-starttls)
+  ;; TODO: Make file-like-or-string
   (tls-trust-file
-   (string "/etc/ssl/certs/ca-certificates.crt") ;; Find package /etc/ssl/certs/ca-certificates.crt comes from
+   (string "/etc/ssl/certs/ca-certificates.crt")
    "Certificate Authority certificates file."
    home-msmtp-serialize-tls-trust-file)
   ;; We want to use the same serialization procedures as msmtp.
@@ -602,8 +611,9 @@ being sent later.")
    (boolean #t)
    "Should Start TLS be used for all MSMTP accounts?"
    home-msmtp-serialize-starttls)
+  ;; TODO: Make file-like-or-string
   (tls-trust-file
-   (string "/etc/ssl/certs/ca-certificates.crt") ;; Find package /etc/ssl/certs/ca-certificates.crt comes from
+   (string "/etc/ssl/certs/ca-certificates.crt")
    "Certificate Authority certificates file."
    home-msmtp-serialize-tls-trust-file)
   (accounts
