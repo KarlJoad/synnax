@@ -87,6 +87,9 @@
    (service home-bash-service-type
             (home-bash-configuration
              (guix-defaults? #t)
+             (environment-variables
+              ;; See (bash) Bash Variables info for documentation.
+              `(("HISTSIZE" . "10000")))
              (aliases
               '(("grep='grep --color'" . "auto")
                   ("ll" . "'ls -la'")
