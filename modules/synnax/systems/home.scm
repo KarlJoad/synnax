@@ -48,12 +48,12 @@
 				                 #$(format #f "/emacs-~a.log"
                                    (server-name->server-socket-name server-name)))))
    (stop ;; #~(make-kill-destructor)
-         #~(make-system-destructor
-            #$(file-append emacs "/bin/emacsclient" " "
-                           (format #f "--socket-name=~a"
-                                   (server-name->server-socket-name server-name))
-                                 " " "--eval '(kill-emacs)'"))
-         )
+    #~(make-system-destructor
+       #$(file-append emacs "/bin/emacsclient" " "
+                      (format #f "--socket-name=~a"
+                              (server-name->server-socket-name server-name))
+                      " " "--eval '(kill-emacs)'"))
+    )
    (documentation (string-append "Emacs server"
                                  (if (string-null? server-name)
                                      ""
@@ -93,8 +93,8 @@
                 ("HISTCONTROL" . "ignoreboth:erasedups")))
              (aliases
               '(("grep='grep --color'" . "auto")
-                  ("ll" . "'ls -la'")
-                  ("ls='ls -p --color'" . "auto")))
+                ("ll" . "'ls -la'")
+                ("ls='ls -p --color'" . "auto")))
              (bashrc
               (list (local-file "bashrc" "bashrc")))
              (bash-profile

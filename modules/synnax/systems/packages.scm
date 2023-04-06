@@ -142,7 +142,7 @@
         gdb
         perl ;; For magit to work correctly (Rebase, commit-ammend, etc.)
         cscope
-	      git
+        git
         poke ;; Interactive editor for binary files
         direnv
         texinfo))
