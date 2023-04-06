@@ -5,10 +5,6 @@
 ** User Account
   * Specify user's email address(es)? (Might be done in System too)
     - This is primarily for Git
-  * Guile scripts to restart Emacs Shepherd services
-  * Specify Git config using a home-service-type
-  * ~mu-home-service-type~, just like in home-manager
-  * ~mbsync-home-service-type~, just like in home-manager
 
 ** Packages
   * Look into [[https://git-annex.branchable.com/][Git-annex]]
@@ -20,14 +16,6 @@
 
 ** Configuration
   * Merge configs similar between machines
-
-** Desktop-Specific
-  * Use ~xrandr~ or another tool to fix the HP monitor's resolution.
-    1. ~guix shell xrandr~
-    2. ~xrandr --output DVI-D-1 --mode 1280x1024~
-    3. ~xrandr --output DVI-D-1 --mode 1600x900~
-    4. ~xrandr --output HDMI-1 --left-of DVI-D-1~
-  * Probably easier to just buy new monitors.
 
 * Guix
 ** Packaging
