@@ -89,7 +89,8 @@
              (guix-defaults? #t)
              (environment-variables
               ;; See (bash) Bash Variables info for documentation.
-              `(("HISTSIZE" . "10000")))
+              `(("HISTSIZE" . "10000")
+                ("HISTCONTROL" . "ignoreboth:erasedups")))
              (aliases
               '(("grep='grep --color'" . "auto")
                   ("ll" . "'ls -la'")
