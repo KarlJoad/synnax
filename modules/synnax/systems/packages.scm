@@ -58,6 +58,7 @@
  python-xyz     ; python-pygments
  aspell         ; ispell
  kde            ; okular
+ gnome          ; yelp (documentation generator)
  libreoffice
  fonts
  package-management ; stow, nix
@@ -182,7 +183,8 @@
 (define %desktop-home-packages
   (append
    (list vlc obs
-         gnucash calibre
+         gnucash (list gnucash "doc") yelp
+         calibre
          sbcl cl-asdf cl-slynk sbcl-slynk
          wally-cli)
    %mailing-list-packages))
