@@ -6,7 +6,8 @@
   #:use-module (gnu packages linux)
   #:use-module (gnu packages pulseaudio)
   #:use-module (gnu home services)
-  #:use-module (gnu home services shepherd))
+  #:use-module (gnu home services shepherd)
+  #:use-module (synnax services utils))
 
 (define (home-pipewire-files-service _)
   `(("alsa/asoundrc"
@@ -31,13 +32,6 @@ ctl_type.pipewire {
            "/lib/alsa-lib/libasound_module_ctl_pipewire.so") "
 }
 ")))))
-
-(define (get-log-file-path daemon-name)
-  "Given DAEMON-NAME, return file path for the daemon's log file as a string."
-  (format #f "~a/~a.log"
-          (or (getenv "XDG_LOG_HOME")
-              (format #f "~a/.local/var/log" (getenv "HOME")))
-          daemon-name))
 
 (define (home-pipewire-shepherd-service _)
   (list
