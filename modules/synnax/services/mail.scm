@@ -679,7 +679,9 @@ naming the resuling file @file{$XDG_CONFIG_HOME/msmtp/config}."
 
 (define (add-msmtp-queue-dir-env-var config)
   "Set MSMTP's $QUEUEDIR for delayed sending of emails."
-  `(("QUEUEDIR" . ,(home-msmtp-configuration-queue-dir config))))
+  `(("QUEUEDIR" . ,(home-msmtp-configuration-queue-dir config))
+    ;; Specifically for MSMTP's queuing program msmtpq (and msmtp-queue)
+    ("MSMTPQ_Q" . ,(home-msmtp-configuration-queue-dir config))))
 
 (define (home-msmtp-extensions cfg extensions)
   (home-msmtp-configuration
