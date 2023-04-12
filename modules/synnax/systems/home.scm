@@ -124,18 +124,11 @@
                            ,(plain-file "config"
                                         "[user]
 \tname = Karl Hallsby
-\temail = karl@hallsby.com
-
-[diff \"latex_diff\"]
-\tcommand = git-latexdiff
-binary = true"))
+\temail = karl@hallsby.com"))
                          `("git/ignore"
                            ,(plain-file "ignore"
                                         "*~
-*.swp"))
-                         `("git/attributes"
-                           ,(plain-file "attributes"
-                                        "*.tex diff=latex_diff"))))
+*.swp"))))
    (simple-service 'nix-config-files-service
                    home-files-service-type
                    (list `(".nix-channels"
