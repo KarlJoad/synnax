@@ -22,6 +22,7 @@
             %desktop-home-packages))
 
 (use-package-modules
+ base             ; glibc, locales, etc.
  gnuzilla ; Icecat
  web-browsers ; Nyxt
  emacs emacs-xyz
@@ -91,6 +92,7 @@
 (define %system-packages
   (append
    (list pwgen
+         glibc-locales
          xdg-utils
          xautolock ; Run command for user after some time has passed with no input
          alsa-utils pavucontrol
