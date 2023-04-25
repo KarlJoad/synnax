@@ -62,7 +62,7 @@
 (define fontconfig-update-mcron-job
   #~(job '(next-hour '(10))
          (lambda ()
-           (string-append #$fontconfig "/bin/fc-cache -fv"))
+           #$(file-append fontconfig "/bin/fc-cache -fv"))
          "fontconfig-daily-update"))
 
 (home-environment
