@@ -53,6 +53,8 @@
         (format #f "~a ~s" #$field-name #$val)
         (format #f "~a ~a" #$field-name #$val)))
 
+(define (gexp-or-string? gs) (or (gexp? gs) (string? gs)))
+
 ;; The channel is the simplest thing that isync/mbsync deals with. A channel
 ;; maps a remote/far mail server's directory to a local/near directory.
 ;; mbsync fetches channels, but users should not fetch channels themselves.
@@ -439,6 +441,9 @@ optional periodic task")))
     (format #f "--my-address=~a" address))
   (map create-cli-flag vals))
 
+(define (mu-serialize-gexp-or-string field-name val)
+  #~(format #f "~a" #$val))
+
 (define-configuration/no-serialization home-mu-configuration
   (package
     (file-like mu)
@@ -447,7 +452,7 @@ optional periodic task")))
    (list-of-strings '())
    "Addresses @emph{and} aliases to use as keywords in Mu's Xapian database.")
   (mail-base-path
-   (string (string-append (getenv "HOME") "/Mail"))
+   (gexp-or-string #~(string-append (getenv "HOME") "/Mail"))
    "Base path of directory holding mail.")
   (db-dir
    (string "$XDG_CACHE_HOME/mu")
@@ -464,7 +469,9 @@ already exist."
   (with-imported-modules (source-module-closure '((guix build utils)))
     #~(begin
         (let ((mu/bin #$(file-append mu "/bin/mu"))
-              (maildir #$(string-append "--maildir=" (home-mu-configuration-mail-base-path config)))
+              (maildir (string-append "--maildir="
+                                      #$(mu-serialize-gexp-or-string 'mail-base-path
+                                                                     (home-mu-configuration-mail-base-path config))))
               (my-addrs (list #$@(mu-serialize-list-of-strings 'addresses (home-mu-configuration-addresses config))))
               (db-path #$(home-mu-configuration-db-dir config)))
           (define (path-exists-and-dir path)
