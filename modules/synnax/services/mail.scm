@@ -450,7 +450,7 @@ optional periodic task")))
    (string (string-append (getenv "HOME") "/Mail"))
    "Base path of directory holding mail.")
   (db-dir
-   (string (string-append (getenv "XDG_CACHE_HOME") "/mu"))
+   (string "$XDG_CACHE_HOME/mu")
    "Directory to store mu's Xapian database."))
 
 (define (add-mu-package config)
@@ -596,7 +596,7 @@ as the email password is stored in plain-text.
     (file-like msmtp)
     "@code{msmtp} package to use.")
   (queue-dir
-   (string (string-append (getenv "HOME") "/.msmtpqueue"))
+   (string "$HOME/.msmtpqueue")
    ;; An alternative $XDG_DATA_HOME/msmtpqueue
    "Directory where emails queued to send (with msmtpqueue) will be stored before
 being sent later.")
