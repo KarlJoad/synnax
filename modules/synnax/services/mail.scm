@@ -455,7 +455,7 @@ optional periodic task")))
    (gexp-or-string #~(string-append (getenv "HOME") "/Mail"))
    "Base path of directory holding mail.")
   (db-dir
-   (string "$XDG_CACHE_HOME/mu")
+   (gexp-or-string #~(string-append (getenv "XDG_CACHE_HOME") "/mu"))
    "Directory to store mu's Xapian database."))
 
 (define (add-mu-package config)
@@ -473,7 +473,8 @@ already exist."
                                       #$(mu-serialize-gexp-or-string 'mail-base-path
                                                                      (home-mu-configuration-mail-base-path config))))
               (my-addrs (list #$@(mu-serialize-list-of-strings 'addresses (home-mu-configuration-addresses config))))
-              (db-path #$(home-mu-configuration-db-dir config)))
+              (db-path #$(mu-serialize-gexp-or-string 'db-dir
+                                                      (home-mu-configuration-db-dir config))))
           (define (path-exists-and-dir path)
             (and (file-exists? db-path) (eq? 'directory (stat:type (lstat db-path)))))
 
