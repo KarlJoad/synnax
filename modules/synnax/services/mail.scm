@@ -563,7 +563,7 @@ as the email password is stored in plain-text.
                                \"/home/user/pw-file\")
                          \" \" 'infix))
 @end example"
-   home-msmtp-account-configuration-serialize-pass-cmd)
+   (serializer home-msmtp-account-configuration-serialize-pass-cmd))
   (port
    (number 587)
    "Port number to use with SMTP.")
@@ -573,16 +573,16 @@ as the email password is stored in plain-text.
   (tls?
    (boolean #t)
    "Should TLS be used?"
-   home-msmtp-serialize-tls)
+   (serializer home-msmtp-serialize-tls))
   (starttls?
    (boolean #t)
    "Should Start TLS be used?"
-   home-msmtp-serialize-starttls)
+   (serializer home-msmtp-serialize-starttls))
   ;; TODO: Make file-like-or-string
   (tls-trust-file
    (string "/etc/ssl/certs/ca-certificates.crt")
    "Certificate Authority certificates file."
-   home-msmtp-serialize-tls-trust-file)
+   (serializer home-msmtp-serialize-tls-trust-file))
   ;; We want to use the same serialization procedures as msmtp.
   (prefix msmtp-))
 
@@ -614,16 +614,16 @@ being sent later.")
   (tls?
    (boolean #t)
    "Should TLS be used for all MSMTP accounts?"
-   home-msmtp-serialize-tls)
+   (serializer home-msmtp-serialize-tls))
   (starttls?
    (boolean #t)
    "Should Start TLS be used for all MSMTP accounts?"
-   home-msmtp-serialize-starttls)
+   (serializer home-msmtp-serialize-starttls))
   ;; TODO: Make file-like-or-string
   (tls-trust-file
    (string "/etc/ssl/certs/ca-certificates.crt")
    "Certificate Authority certificates file."
-   home-msmtp-serialize-tls-trust-file)
+   (serializer home-msmtp-serialize-tls-trust-file))
   (accounts
    (list-of-msmtp-accounts '())
    "List of MSMTP accounts to send with.")
@@ -632,7 +632,7 @@ being sent later.")
     "Account name that should be used as the default by MSMTP. This must match
 one of the @code{account} fields for a @code{home-msmtp-account-configuration}
 instance."
-    msmtp-serialize-default-account)
+    (serializer msmtp-serialize-default-account))
   (prefix msmtp-))
 
 (define (add-msmtp-package config)
