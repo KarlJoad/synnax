@@ -15,6 +15,7 @@
  ssh
  syncthing
  xorg
+ nix
  virtualization docker)
 
 (define-public laptop
@@ -52,6 +53,7 @@
            (set-xorg-configuration
             (xorg-configuration
              (keyboard-layout keyboard-layout)))
+           (service nix-service-type)
            (service syncthing-service-type
                     (syncthing-configuration
                      (user "karljoad") ;; TODO: Refactor `user' field to use variable.
