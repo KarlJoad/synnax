@@ -54,7 +54,8 @@
              (keyboard-layout keyboard-layout)))
            (service syncthing-service-type
                     (syncthing-configuration
-                     (user "karljoad"))) ;; TODO: Refactor `user' field to use variable.
+                     (user "karljoad") ;; TODO: Refactor `user' field to use variable.
+                     (arguments '("-gui-address=127.0.0.1:8384"))))
            (service libvirt-service-type
                     (libvirt-configuration
                      (unix-sock-group "libvirt-users")))
