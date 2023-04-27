@@ -114,6 +114,7 @@
         emacs
         emacs-guix
         emacs-vterm
+        emacs-org-roam
         password-store ;; pass
         stow
         last-reconfigure-date))
