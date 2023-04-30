@@ -87,7 +87,8 @@
 
 (define %utils-packages
   (list coreutils moreutils pciutils lsof hwdata binutils
-        (list isc-bind "utils")))
+        (list isc-bind "utils")
+        util-linux))
 
 (define %system-packages
   (append
