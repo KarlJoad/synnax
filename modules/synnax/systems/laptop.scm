@@ -41,7 +41,7 @@
                  %base-user-accounts))
    (packages
     (append
-     (list )
+     (list brightnessctl)
      %system-packages
      %base-packages))
 
