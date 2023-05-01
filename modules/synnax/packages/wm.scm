@@ -3,7 +3,10 @@
   #:use-module (guix packages)
   #:use-module (guix gexp)
   #:use-module (guix git-download)
-  #:use-module (guix build-system copy))
+  #:use-module (guix build-system copy)
+  #:use-module (guix build-system asdf)
+  #:use-module (gnu packages)
+  #:use-module (gnu packages wm))
 
 (define-public stumpwm-contrib
   (define stumpwm-contrib-git-branch "master")
@@ -34,3 +37,15 @@
     (description "StumpWM-contributed module to portably be able to display the
 device's battery levels in StumpWM's modeline.")
     (license license:gpl3)))
+
+(define-public stumpwm+slynk+contrib
+  (package
+    (inherit stumpwm+slynk)
+    (name "stumpwm-with-slynk-contrib")
+    (inputs
+     (append `(("stumpwm-contrib" ,stumpwm-contrib))
+             (package-inputs stumpwm+slynk)))
+    ;; Add a phase after create-asdf-configuration and before build-program that
+    ;; replaces stumpwm:*module-dir*'s default of (concat (getenv "HOME") "/.stumpwm.d/modules")
+    ;; with #$stumpwm-contrib's output.
+    ))
