@@ -1,0 +1,1 @@
+./pre-inst-env guix home -L ~/Repos/synnax/modules container ~/Repos/synnax/modules/synnax/systems/home.scm --network --expose=/tmp/queue-test.mail --expose="$HOME"/personal --expose=/etc/ssl/certs/ca-certificates.crt
