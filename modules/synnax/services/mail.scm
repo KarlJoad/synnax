@@ -682,7 +682,12 @@ naming the resuling file @file{$XDG_CONFIG_HOME/msmtp/config}."
   `(("QUEUEDIR" . ,(home-msmtp-configuration-queue-dir config))
     ;; Specifically for MSMTP's queuing program msmtpq (and msmtp-queue)
     ("MSMTPQ_Q" . ,(home-msmtp-configuration-queue-dir config))
-    ("MSMTPQ_LOG" . ,(get-log-file-path "msmtp.queue"))))
+    ("MSMTPQ_LOG" . ,(get-log-file-path "msmtpq"))
+    ;; Make msmtpq's queue management feedback quiet. Important for mu4e.
+    ("EMAIL_QUEUE_QUIET" . "t")
+    ;; Control/Disable msmtpq's network connection checks
+    ("EMAIL_CONN_TEST" . "x")
+    ("EMAIL_CONN_NOTEST" . "y")))
 
 (define (home-msmtp-extensions cfg extensions)
   (home-msmtp-configuration
