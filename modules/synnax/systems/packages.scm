@@ -67,7 +67,8 @@
  video          ; vlc
  ebook          ; calibre
  lisp lisp-xyz
- perl)
+ perl
+ rsync)
 
 (define %nonguix-packages (list firefox zoom element-desktop))
 
@@ -118,7 +119,8 @@
         emacs-org-roam
         password-store ;; pass
         stow
-        last-reconfigure-date))
+        last-reconfigure-date
+        rsync))
 
 (define %extra-guix-packages
   (list guix-icons ;; Guix icons & artwork
