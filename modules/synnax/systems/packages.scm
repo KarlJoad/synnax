@@ -68,7 +68,8 @@
  ebook          ; calibre
  lisp lisp-xyz
  perl
- rsync)
+ rsync
+ vpn)
 
 (define %nonguix-packages (list firefox zoom element-desktop))
 
@@ -120,7 +121,8 @@
         password-store ;; pass
         stow
         last-reconfigure-date
-        rsync))
+        rsync
+        openvpn))
 
 (define %extra-guix-packages
   (list guix-icons ;; Guix icons & artwork
