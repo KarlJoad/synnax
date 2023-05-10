@@ -121,12 +121,12 @@
    (simple-service 'git-config-files
                    home-xdg-configuration-files-service-type
                    (list `("git/config"
-                           ,(plain-file "config"
+                           ,(plain-file "gitconfig"
                                         "[user]
 \tname = Karl Hallsby
 \temail = karl@hallsby.com"))
                          `("git/ignore"
-                           ,(plain-file "ignore"
+                           ,(plain-file "gitignore"
                                         "*~
 *.swp"))))
    (simple-service 'cl-source-registry-file-service
