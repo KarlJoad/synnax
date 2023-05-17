@@ -62,7 +62,8 @@
                     (libvirt-configuration
                      (unix-sock-group "libvirt-users")))
            (service virtlog-service-type)
-           (service docker-service-type))
+           (service docker-service-type)
+           (service bluetooth-service-type))
      %desktop-services))
 
    (bootloader
