@@ -121,10 +121,7 @@ is turned into
             (service fstrim-service-type)
             (set-xorg-configuration
              (xorg-configuration
-              (keyboard-layout keyboard-layout)
-              (modules (cons* nvidia-driver %default-xorg-modules))
-              (drivers '("nvidia"))))
-            (service nvidia-service-type)
+              (keyboard-layout keyboard-layout)))
             (service libvirt-service-type
                      (libvirt-configuration
                       (unix-sock-group "libvirt")))
