@@ -69,7 +69,8 @@
  lisp lisp-xyz
  perl
  rsync
- vpn)
+ vpn
+ cups)
 
 (define %nonguix-packages (list firefox zoom element-desktop))
 
@@ -105,7 +106,8 @@
          zip unzip
          nix
          rxvt-unicode alacritty
-         nss-certs)
+         nss-certs
+         cups)
    %utils-packages
    %wm-packages
    %web-browser-packages
