@@ -117,7 +117,9 @@ is turned into
      (append
       (list (service xfce-desktop-service-type)
             (service openssh-service-type)
-            (service cups-service-type)
+            (service cups-service-type
+                     (cups-configuration
+                      (web-interface? #t)))
             (service fstrim-service-type)
             (set-xorg-configuration
              (xorg-configuration
