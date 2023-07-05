@@ -346,11 +346,54 @@
                                              (home-mbsync-channel-configuration
                                               (name "triangle")
                                               (far "Triangle")
-                                              (near "Triangle"))))))))))
+                                              (near "Triangle"))))))))
+                    (home-mbsync-account-configuration
+                     (name "northwestern")
+                     (auth-mechs "LOGIN")
+                     (certificate-file "/etc/ssl/certs/ca-certificates.crt")
+                     (host "imap.gmail.com")
+                     (user "karlhallsby2027@u.northwestern.edu")
+                     (pass-cmd (string-join (list "cat" (string-append (getenv "HOME") "/northwestern"))
+                                            " " 'infix))
+                     (pipeline-depth 50)
+                     (port 993)
+                     (ssl-type "IMAPS")
+                     (ssl-versions "TLSv1.3")
+                     (remote-mail-store
+                      (home-mbsync-imap-store-configuration
+                       (name "remote")))
+                     (local-mail-store
+                      (home-mbsync-maildir-store-configuration
+                       (name "local")
+                       (path (string-append (getenv "HOME") "/Mail/Northwestern/"))
+                       (inbox (string-append (getenv "HOME") "/Mail/Northwestern/Inbox"))
+                       (subfolders "Verbatim")))
+                     (groups
+                      (list (home-mbsync-group-configuration
+                             (name "northwestern")
+                             (channels (list (home-mbsync-channel-configuration
+                                              (name "inbox"))
+                                             (home-mbsync-channel-configuration
+                                              (name "drafts")
+                                              (far "[Gmail]/Drafts")
+                                              (near "Drafts"))
+                                             (home-mbsync-channel-configuration
+                                              (name "sent")
+                                              (far "[Gmail]/Sent Mail")
+                                              (near "Sent"))
+                                             (home-mbsync-channel-configuration
+                                              (name "starred")
+                                              (far "[Gmail]/Starred")
+                                              (near "Starred"))
+                                             (home-mbsync-channel-configuration
+                                              (name "trash")
+                                              (far "[Gmail]/Trash")
+                                              (near "Trash"))))))))))
              (post-sync-cmd "mu index")))
    (service home-mu-service-type
             (home-mu-configuration
-             (addresses (list "karl@hallsby.com" "khallsby@hawk.iit.edu"))))
+             (addresses (list "karl@hallsby.com" "khallsby@hawk.iit.edu"
+                              "karlhallsby2027@u.northwestern.edu"))))
    (service home-msmtp-service-type
             (home-msmtp-configuration
              (accounts (list
@@ -377,6 +420,20 @@
                          (user "khallsby@hawk.iit.edu")
                          (pass-cmd (string-join (list "cat"
                                                       (string-append (getenv "HOME") "/iit"))
+                                                " " 'infix))
+                         (protocol "smtp")
+                         (tls? #t)
+                         (starttls? #t)
+                         (tls-trust-file "/etc/ssl/certs/ca-certificates.crt"))
+                        (home-msmtp-account-configuration
+                         (account "northwestern")
+                         (auth "on")
+                         (from "karlhallsby2027@u.northwestern.edu")
+                         (host "smtp.gmail.com")
+                         (port 587)
+                         (user "karlhallsby2027@u.northwestern.edu")
+                         (pass-cmd (string-join (list "cat"
+                                                      (string-append (getenv "HOME") "/northwestern"))
                                                 " " 'infix))
                          (protocol "smtp")
                          (tls? #t)
