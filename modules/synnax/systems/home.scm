@@ -96,11 +96,11 @@
                 ("ll" . "'ls -la'")
                 ("ls='ls -p --color'" . "auto")))
              (bashrc
-              (list (local-file "bashrc" "bashrc")
+              (list (local-file "files/bashrc" "bashrc")
                     ;; NOTE: Adding direnv support should come last!
                     (plain-file "bashrc-add-direnv" "eval \"$(direnv hook bash)\"")))
              (bash-profile
-              (list (local-file "bash_profile" "bash_profile")))))
+              (list (local-file "files/bash_profile" "bash_profile")))))
    (service home-openssh-service-type
             (home-openssh-configuration
              (hosts
