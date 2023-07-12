@@ -3,6 +3,7 @@
   #:use-module (guix)
   #:use-module (nongnu packages mozilla)
   #:use-module (nongnu packages messaging) ;; zoom, element-desktop
+  #:use-module (nongnu packages emacs) ;; clhs
   #:use-module (synnax packages wally)
   #:use-module (synnax packages scripts)
   #:export (%nonguix-packages
@@ -168,7 +169,8 @@
   (list l2md))
 
 (define %documentation-packages
-  (list gnu-c-manual ;; The GNU manual for their C implementation
+  (list clhs ;; Common Lisp HyperSpec, with Emacs mode
+        gnu-c-manual ;; The GNU manual for their C implementation
         (list cmake "doc")))
 
 (define %font-packages
