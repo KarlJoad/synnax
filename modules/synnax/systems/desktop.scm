@@ -37,15 +37,17 @@
   "Given an alist of Linux kernel config options, convert to a list of strings
 with the form show below.
   '((\"CONFIG_TO_SET\" . #t)
-    (\"CONFIG_TO_CLEAR\" . #f))
+    (\"CONFIG_TO_CLEAR\" . #f)
+    (\"CONFIG_AS_MODULE\" . m))
 is turned into
-  '(\"CONFIG_TO_SET=y\" \"CONFIG_TO_CLEAR\")"
+  '(\"CONFIG_TO_SET=y\" \"CONFIG_TO_CLEAR=n\" \"CONFIG_AS_MODULE=m\")"
   (define (config->string config)
-    (let ((config-name (car config))
-          (config-set (cdr config)))
-      (if config-set
-          (string-append config-name "=" "y")
-          config-name)))
+    (let* ((config-name (car config))
+           (config-set (cdr config))
+           (config-str (cond ((eq? config-set #t) "y")
+                             ((eq? config-set #f) "n")
+                             ((eq? config-set 'm) "m"))))
+      (string-append config-name "=" config-str)))
   (map config->string configs))
 
 (define* (extra-linux-config-options #:rest options)
