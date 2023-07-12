@@ -3,30 +3,20 @@
 
 (use-modules (gnu)
              (gnu packages linux)
-             (guix download)
-             (guix packages)
+             (gnu system)
              ;; Modules below require nonguix be a pulled channel
-             (nongnu packages linux)
-             (nongnu system linux-initrd)
-             (nongnu packages mozilla)
+             (nongnu packages linux) ;; Needed for corrupt-linux
              (nongnu packages nvidia)
              (nongnu services nvidia)
              ;; Modules below are from my own Synnax channel
              (synnax packages scripts)
-             (synnax systems packages)
-             (synnax services fstrim))
+             (synnax systems base-system))
 
 (use-package-modules bash freeipmi)
 
 (use-service-modules
- cups
- desktop
  networking
- ssh
- syncthing
- xorg
- nix
- virtualization docker)
+ virtualization)
 
 (define %ipmi-linux-options
   `(("CONFIG_ACPI_IPMI" . #t)
@@ -87,61 +77,24 @@ is turned into
 
 (define desktop
   (operating-system
-    (locale "en_US.utf8")
+    (inherit %base-system)
     (kernel linux-corrupted/desktop)
-    (initrd microcode-initrd)
-    (firmware (list linux-firmware))
-    (timezone "America/Chicago")
-    (keyboard-layout (keyboard-layout "us"))
     (host-name "Karl-Desktop")
-    (users (cons* (user-account
-                   (name "karljoad")
-                   (comment "Karl Hallsby")
-                   (group "users")
-                   (home-directory "/home/karljoad")
-                   (supplementary-groups
-                    `("wheel" "netdev" "audio" "video"
-                      "kvm" "libvirt" "docker"
-                      "dialout" "plugdev")))
-                  %base-user-accounts))
-    (groups (cons* (user-group (name "plugdev")
-                               (system? #t))
-                   %base-groups))
     (packages
      (append
       (list freeipmi
             fix-desktop-monitors)
-      %system-packages
-      %base-packages))
+      (operating-system-packages %base-system)))
     (services
      (append
-      (list (service xfce-desktop-service-type)
-            (service openssh-service-type)
-            (service cups-service-type
-                     (cups-configuration
-                      (web-interface? #t)))
-            (service fstrim-service-type)
-            (set-xorg-configuration
-             (xorg-configuration
-              (keyboard-layout keyboard-layout)))
-            (service libvirt-service-type
-                     (libvirt-configuration
-                      (unix-sock-group "libvirt")))
-            (service virtlog-service-type)
-            (service docker-service-type)
-            (service nix-service-type)
-            ;; Add GNU Hurd VM that is small, but always exists.
-            (service hurd-vm-service-type
-                     (hurd-vm-configuration
-                      (disk-size (* 3 (expt 2 30))) ;3GiB Volatile disk
-                      (memory-size 1024)))          ;1024MiB vRAM
-            (service syncthing-service-type
-                     (syncthing-configuration
-                      (user "karljoad"))) ;; TODO: Refactor `user' field to use variable.
-            (udev-rules-service 'zsa-moonlander zsa-moonlander-udev-rule)
-            (extra-special-file "/bin/bash" (file-append bash "/bin/bash"))
-            (extra-special-file "/usr/bin/env" (file-append coreutils "/bin/env")))
-      %desktop-services))
+      (list
+       ;; Add GNU Hurd VM that is small, but always exists.
+       (service hurd-vm-service-type
+                (hurd-vm-configuration
+                 (disk-size (* 3 (expt 2 30))) ;3GiB Volatile disk
+                 (memory-size 1024)))          ;1024MiB vRAM
+       (udev-rules-service 'zsa-moonlander zsa-moonlander-udev-rule))
+      (operating-system-user-services %base-system)))
 
     (bootloader
      (bootloader-configuration
