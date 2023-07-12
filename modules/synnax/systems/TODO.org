@@ -14,9 +14,6 @@
 ** User
   * Specify user's email address? (Might be done in Home too)
 
-** Configuration
-  * Merge configs similar between machines
-
 * Guix
 ** Packaging
   * Octave Packages
