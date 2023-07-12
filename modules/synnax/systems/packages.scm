@@ -70,7 +70,8 @@
  perl
  rsync
  vpn
- cups)
+ cups
+ web)
 
 (define %nonguix-packages (list firefox zoom element-desktop))
 
@@ -130,6 +131,7 @@
   (list guix-icons ;; Guix icons & artwork
         guix-modules ;; Incremental development of guix-shell-like module environments
         gwl ;; Declarative workflow management system using Guile & Guix
+        guix-data-service ;; Monitor Guix mailing lists, store in DB, and show on web
         ))
 
 (define %eda-packages (list lepton-eda kicad))
