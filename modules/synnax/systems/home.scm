@@ -98,7 +98,7 @@
              (bashrc
               (list (local-file "files/bashrc" "bashrc")
                     ;; NOTE: Adding direnv support should come last!
-                    (plain-file "bashrc-add-direnv" "eval \"$(direnv hook bash)\"")))
+                    (plain-file "bashrc-add-direnv" "eval \"$(direnv hook bash)\"\n")))
              (bash-profile
               (list (local-file "files/bash_profile" "bash_profile")))))
    (service home-openssh-service-type
