@@ -40,6 +40,7 @@
  certs
  moreutils pciutils lsof
  dns            ; isc-bind (host, dig, etc.)
+ networking     ; ethtools
  disk             ; dosfstools (mkfs.fat)
  cryptsetup samba
  freedesktop      ; XDG stuff
@@ -93,6 +94,7 @@
 (define %utils-packages
   (list coreutils moreutils pciutils lsof hwdata binutils
         (list isc-bind "utils")
+        ethtool
         util-linux))
 
 (define %system-packages
