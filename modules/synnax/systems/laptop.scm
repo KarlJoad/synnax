@@ -27,11 +27,6 @@
      (list (service bluetooth-service-type))
      (operating-system-user-services %base-system)))
 
-   (bootloader
-    (bootloader-configuration
-     (bootloader grub-efi-bootloader)
-     (targets (list "/boot/efi"))
-     (keyboard-layout keyboard-layout)))
    (mapped-devices
     (list (mapped-device
            (source
