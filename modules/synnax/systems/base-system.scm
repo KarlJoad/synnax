@@ -74,8 +74,9 @@
       %desktop-services))
     (bootloader
      (bootloader-configuration
-                (bootloader grub-efi-bootloader)
-                (targets '("/boot/efi"))))
+      (bootloader grub-efi-bootloader)
+      (targets '("/boot/efi"))
+      (keyboard-layout keyboard-layout)))
     (file-systems
      (append
       (list (file-system
