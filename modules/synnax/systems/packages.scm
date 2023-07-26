@@ -142,7 +142,7 @@
   (list texmacs
         texlive ;; Include ALL of TeXLive, because I am lazy and disks are large
         python-pygments ;; To make texlive-minted work
-        biber ;; I prefer biber over old-school bibtex
+        texlive-biber ;; I prefer biber over old-school bibtex
         gnuplot
         okular
         ispell
