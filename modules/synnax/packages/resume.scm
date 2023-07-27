@@ -6,19 +6,20 @@
   #:use-module (gnu packages tex))
 
 (define-public resume
-  (let ((revision "1"))
+  (let ((commit "91ad41a60b8be9a0243a6d4365afd96f2c702662")
+        (revision "1"))
     (package
      (name "karl-resume")
-     (version (string-append "git" "-" revision))
+     (version (git-version "0.0.0" revision commit))
      (source (origin
               (method git-fetch)
               (uri (git-reference
                     (url "git://git.karl.hallsby.com/resume.git")
-                    (commit "master")))
+                    (commit commit)))
               (file-name (git-file-name name version))
               (sha256
                (base32
-                "09139npqd01k7gl33g7vfdcr6ghdya39jw3fwgcifbhlpnlnghiw"))))
+                "094ryrxifpjni4grm09l80k3vkicbzrjs53y406kwrzyd07602q9"))))
      (build-system gnu-build-system)
      (native-inputs
       (list texlive))
