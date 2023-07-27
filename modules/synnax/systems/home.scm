@@ -112,6 +112,8 @@
                                   (host-name "redhood.raven")
                                   (user "root")
                                   (identity-file "~/.ssh/ci_rsa"))
+                    (openssh-host (name "karl.hallsby.com")
+                                  (identity-file "~/.ssh/website_rsa"))
                     (openssh-host (name "*github.com")
                                   (user "git")
                                   (identity-file "~/.ssh/github"))
