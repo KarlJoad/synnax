@@ -141,6 +141,7 @@
 (define %document-prep-packages
   (list texmacs
         texlive ;; Include ALL of TeXLive, because I am lazy and disks are large
+        texlive-scheme-basic
         python-pygments ;; To make texlive-minted work
         texlive-biber ;; I prefer biber over old-school bibtex
         gnuplot
