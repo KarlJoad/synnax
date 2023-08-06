@@ -57,7 +57,8 @@ is turned into
 
 (define-public linux-libre/desktop
   (customize-linux #:name "linux-ipmi-uncorrupted"
-                   #:configs (extra-linux-config-options %ipmi-linux-options)))
+                   #:configs (extra-linux-config-options %ipmi-linux-options
+                                                         %container-linux-options)))
 
 ;; Will only work if nonguix channel is present.
 (define-public linux-corrupted/desktop
