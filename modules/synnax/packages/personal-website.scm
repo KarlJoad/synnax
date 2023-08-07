@@ -35,10 +35,11 @@
                                          (symlink #$resume (string-append #$output "/assets/pdf/resume/Hallsby_Karl.pdf")))))))
      (native-inputs
       `(("guile" ,guile-3.0)
-        ("haunt" ,haunt)
         ("guile-reader" ,guile-reader)
         ("guile-commonmark" ,guile-commonmark)
         ("guile-syntax-highlight", guile-syntax-highlight)))
+     (inputs
+      `(("haunt" ,haunt)))
      (home-page "https://karl.hallsby.com")
      (synopsis "Personal website built using Haunt static site generator")
      (description "Karl Hallsby's personal website built using the Haunt static site
