@@ -53,6 +53,9 @@ https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/#Config
                  "\" "
                  (if always-add? "always" "") ";"))
 
+(define nginx-x-content-type-options-header
+  "add_header X-Content-Type-Options nosniff;")
+
 (define cgit-syntax-highlight-script
   (program-file
    "cgit-highlight-script"
@@ -144,7 +147,8 @@ if there is no matching extension."
                           ;; If you browse, you will always get a black webpage
                           (git-http-nginx-location-configuration
                            (git-http-configuration))))
-                        (raw-content `(,(nginx-hsts-header))))))))
+                        (raw-content (list (nginx-hsts-header)
+                                           nginx-x-content-type-options-header)))))))
            (service fcgiwrap-service-type) ;; Needed for git-http
            ;; TODO: Debug and fix certbot once we go live
            ;; Cannot refresh certs for karl.hallsby.com without running on that host.
@@ -173,7 +177,8 @@ if there is no matching extension."
                         (index '("index.html"))
                         (try-files (list "$uri" "@cgit"))
                         (server-tokens? #f)
-                        (raw-content `(,(nginx-hsts-header)))
+                        (raw-content (list (nginx-hsts-header)
+                                           nginx-x-content-type-options-header))
                         (locations
                          (list
                           (nginx-location-configuration ;; So CSS & co. are found
