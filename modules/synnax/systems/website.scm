@@ -71,6 +71,22 @@ https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/#Config
                  policy-string
                  ";"))
 
+(define nginx-content-security-policy-header
+  (string-append "add_header "
+                 "Content-Security-Policy "
+                 "\""
+                 (string-join
+                  (list "default-src 'self' https:"
+                        "img-src 'self' https:"
+                        "font-src 'self' https:"
+                        "object-src 'self' https:"
+                        "script-src 'self' 'unsafe-inline' https:"
+                        "style-src 'self' 'unsafe-inline' https:"
+                        "frame-ancestors 'self' https:")
+                  "; " 'infix)
+                 "\""
+                 ";"))
+
 (define cgit-syntax-highlight-script
   (program-file
    "cgit-highlight-script"
@@ -166,7 +182,8 @@ if there is no matching extension."
                                            nginx-x-content-type-options-header
                                            nginx-x-frame-options-header
                                            (nginx-x-xss-protection-header)
-                                           (nginx-referrer-policy-header))))))))
+                                           (nginx-referrer-policy-header)
+                                           nginx-content-security-policy-header)))))))
            (service fcgiwrap-service-type) ;; Needed for git-http
            ;; TODO: Debug and fix certbot once we go live
            ;; Cannot refresh certs for karl.hallsby.com without running on that host.
@@ -199,7 +216,8 @@ if there is no matching extension."
                                            nginx-x-content-type-options-header
                                            nginx-x-frame-options-header
                                            (nginx-x-xss-protection-header)
-                                           (nginx-referrer-policy-header)))
+                                           (nginx-referrer-policy-header)
+                                           nginx-content-security-policy-header))
                         (locations
                          (list
                           (nginx-location-configuration ;; So CSS & co. are found
