@@ -65,6 +65,12 @@ https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/#Config
                  (if enable? "\"1; mode=block\"" "0")
                  ";"))
 
+(define* (nginx-referrer-policy-header #:key (policy-string "strict-origin-when-cross-origin"))
+  (string-append "add_header "
+                 "Referrer-Policy "
+                 policy-string
+                 ";"))
+
 (define cgit-syntax-highlight-script
   (program-file
    "cgit-highlight-script"
@@ -159,7 +165,8 @@ if there is no matching extension."
                         (raw-content (list (nginx-hsts-header)
                                            nginx-x-content-type-options-header
                                            nginx-x-frame-options-header
-                                           (nginx-x-xss-protection-header))))))))
+                                           (nginx-x-xss-protection-header)
+                                           (nginx-referrer-policy-header))))))))
            (service fcgiwrap-service-type) ;; Needed for git-http
            ;; TODO: Debug and fix certbot once we go live
            ;; Cannot refresh certs for karl.hallsby.com without running on that host.
@@ -191,7 +198,8 @@ if there is no matching extension."
                         (raw-content (list (nginx-hsts-header)
                                            nginx-x-content-type-options-header
                                            nginx-x-frame-options-header
-                                           (nginx-x-xss-protection-header)))
+                                           (nginx-x-xss-protection-header)
+                                           (nginx-referrer-policy-header)))
                         (locations
                          (list
                           (nginx-location-configuration ;; So CSS & co. are found
