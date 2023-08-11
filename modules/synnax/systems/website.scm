@@ -166,11 +166,11 @@ if there is no matching extension."
                         (root personal-website)
                         (locations
                          (list
-                          ;; Redirect /cgit traffic to cgit server
+                          ;; Redirect /cgit -> cgit.karl.hallsby.com
                           (nginx-location-configuration
-                           (uri "/cgit")
+                           (uri "= /cgit")
                            (body '("return 308 $scheme://cgit.karl.hallsby.com ;")))
-                          ;; /cgit/repo.git redirects to cgit.karl.hallsby.com/repo.git
+                          ;; Redirect /cgit/repo.git -> cgit.karl.hallsby.com/repo.git
                           (nginx-location-configuration
                            (uri "~ /cgit(/.*)")
                            (body '("return 308 $scheme://cgit.karl.hallsby.com$1 ;")))
