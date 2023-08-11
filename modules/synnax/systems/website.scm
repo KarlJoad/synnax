@@ -30,6 +30,29 @@
    #~(let ((pid (call-with-input-file "/var/run/nginx/pid" read)))
        (kill pid SIGHUP))))
 
+(define* (nginx-hsts-header #:key (duration (* 60 60 24 365))
+                            (include-subdomains? #t)
+                            (preload? #t)
+                            (always-add? #t))
+  "Build add_header Nginx directive to add an HSTS header that is valid for
+DURATION in seconds. If INCLUDE-SUBDOMAINS? is #t, then this includes all
+subdomains which this server may redirect to. If ALWAYS-ADD? is #t, then the
+header is added, regardless of the request's returned status code.
+
+By default, DURATION is set to 1 year (31536000 seconds), and both
+INCLUDE-SUBDOMAINS? and ALWAYS-ADD? are set to #t.
+
+https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/#Configuring-HSTS-in-NGINX-and-NGINX&nbsp;Plus"
+  (string-append "add_header Strict-Transport-Security \""
+                 (string-join (filter
+                               (lambda (s) (not (string-null? s)))
+                               (list (format #f "max-age=~a" duration)
+                                     (if include-subdomains? "includeSubDomains" "")
+                                     (if preload? "preload" "")))
+                              "; " 'suffix)
+                 "\" "
+                 (if always-add? "always" "") ";"))
+
 (define cgit-syntax-highlight-script
   (program-file
    "cgit-highlight-script"
@@ -120,7 +143,8 @@ if there is no matching extension."
                           ;; NOTE: git-http is for cloning using HTTP, not browsing!
                           ;; If you browse, you will always get a black webpage
                           (git-http-nginx-location-configuration
-                           (git-http-configuration)))))))))
+                           (git-http-configuration))))
+                        (raw-content `(,(nginx-hsts-header))))))))
            (service fcgiwrap-service-type) ;; Needed for git-http
            ;; TODO: Debug and fix certbot once we go live
            ;; Cannot refresh certs for karl.hallsby.com without running on that host.
@@ -149,6 +173,7 @@ if there is no matching extension."
                         (index '("index.html"))
                         (try-files (list "$uri" "@cgit"))
                         (server-tokens? #f)
+                        (raw-content `(,(nginx-hsts-header)))
                         (locations
                          (list
                           (nginx-location-configuration ;; So CSS & co. are found
