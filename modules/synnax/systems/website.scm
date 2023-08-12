@@ -252,7 +252,15 @@ if there is no matching extension."
                        (fail2ban-jail-configuration
                         (name "sshd")
                         (enabled? #t)))))))
-     %base-services))
+     (modify-services %base-services
+       (guix-service-type config =>
+                          (guix-configuration
+                           (inherit config)
+                           (authorized-keys
+                            (append (list (local-file
+                                           (string-append (getenv "HOME")
+                                                          "/Repos/synnax/deploys/desktop-guix-signing-key.pub")))
+                                    %default-authorized-guix-keys)))))))
    (bootloader
     (bootloader-configuration
      (bootloader grub-bootloader)
