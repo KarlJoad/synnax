@@ -141,7 +141,11 @@ if there is no matching extension."
     (append
      (list (service openssh-service-type
                     (openssh-configuration
-                     (openssh openssh-sans-x)))
+                     (openssh openssh-sans-x)
+                     (password-authentication? #f)
+                     (permit-root-login #t)
+                     (authorized-keys
+                      `(("root" ,(local-file (string-append (getenv "HOME") "/.ssh/website_rsa.pub")))))))
            (service fstrim-service-type)
            (service dhcp-client-service-type)
            (service git-daemon-service-type) ;; Allow cloning repos with git://
