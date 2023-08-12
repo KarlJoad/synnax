@@ -217,7 +217,10 @@ if there is no matching extension."
                                            nginx-x-frame-options-header
                                            (nginx-x-xss-protection-header)
                                            (nginx-referrer-policy-header)
-                                           nginx-content-security-policy-header))
+                                           nginx-content-security-policy-header
+                                           "add_header Cache-Control \"no-cache, no-store, must-revalidate\";"
+                                           "add_header Pragma no-cache;"
+                                           "add_header Expires 0;"))
                         (locations
                          (list
                           (nginx-location-configuration ;; So CSS & co. are found
