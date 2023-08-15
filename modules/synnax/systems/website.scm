@@ -144,7 +144,7 @@ if there is no matching extension."
    (packages
     (append
      (list vim
-           git ;; FIXME: Remove git pakcage
+           git ;; Useful to have git for git operations.
            nss-certs)
      %base-packages))
    (services
