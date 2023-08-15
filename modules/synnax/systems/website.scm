@@ -87,6 +87,14 @@ https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/#Config
                  "\""
                  ";"))
 
+(define* (nginx-client-side-cache-header #:key (age (* 60 60 24 365)))
+  "Add a header to files with the provided EXTENSIONS allowing clients to cache
+the content for AGE amount of time in seconds.
+By default, age defaults to 1 year."
+  (list "access_log off;"
+        (string-append "add_header Cache-Control \"max-age=" (number->string age)
+                       "\";")))
+
 (define cgit-syntax-highlight-script
   (program-file
    "cgit-highlight-script"
@@ -181,6 +189,14 @@ if there is no matching extension."
                         ;; (root "/var/www") ;; Only needed for certbot key create & refresh(?)
                         (locations
                          (list
+                          ;; Allow for caching of static assets for 30 days
+                          (nginx-location-configuration
+                           (uri "~* \\.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|mp4|ogg|ogv|webm|htc|webp|avif)$ ")
+                           (body `(,@(nginx-client-side-cache-header #:age (* 60 60 24 30)))))
+                          ;; Cache the CSS & JS for my _STATIC_ page for 1 year
+                          (nginx-location-configuration
+                           (uri "~* \\.(?:css|js)$ ")
+                           (body `(,@(nginx-client-side-cache-header))))
                           ;; Redirect /cgit -> cgit.karl.hallsby.com
                           (nginx-location-configuration
                            (uri "= /cgit")
