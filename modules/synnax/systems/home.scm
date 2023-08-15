@@ -122,7 +122,13 @@
                                   (identity-file "~/.ssh/gitlab"))
                     (openssh-host (name "*.cs.northwestern.edu")
                                   (user "kgh0080")
-                                  (identity-file "~/.ssh/nu"))))))
+                                  (identity-file "~/.ssh/nu"))
+                    (openssh-host (name "45.63.75.121") ;; Old website
+                                  (user "root")
+                                  (identity-file "~/.ssh/website_rsa"))
+                    (openssh-host (name "107.191.51.74") ;; New website
+                                  (user "root")
+                                  (identity-file "~/.ssh/website_rsa"))))))
    (simple-service 'git-config-files
                    home-xdg-configuration-files-service-type
                    (list `("git/config"
