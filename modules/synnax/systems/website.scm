@@ -171,14 +171,14 @@ if there is no matching extension."
                       (list
                        ;; Personal website virtual server
                        (nginx-server-configuration
-                        (listen '("80";; "443 ssl"
-                                  ))
+                        (listen '("443 ssl"))
                         (server-name '("karl.hallsby.com"))
-                        ;; (ssl-certificate
-                        ;;  "/etc/letsencrypt/live/karl.hallsby.com/fullchain.pem")
-                        ;; (ssl-certificate-key
-                        ;;  "/etc/letsencrypt/live/karl.hallsby.com/privkey.pem")
+                        (ssl-certificate
+                         "/etc/letsencrypt/live/website/fullchain.pem")
+                        (ssl-certificate-key
+                         "/etc/letsencrypt/live/website/privkey.pem")
                         (root personal-website)
+                        ;; (root "/var/www") ;; Only needed for certbot key create & refresh(?)
                         (locations
                          (list
                           ;; Redirect /cgit -> cgit.karl.hallsby.com
@@ -200,17 +200,23 @@ if there is no matching extension."
                                            (nginx-referrer-policy-header)
                                            nginx-content-security-policy-header)))))))
            (service fcgiwrap-service-type) ;; Needed for git-http
-           ;; TODO: Debug and fix certbot once we go live
            ;; Cannot refresh certs for karl.hallsby.com without running on that host.
-           ;; (service certbot-service-type
-           ;;          (certbot-configuration
-           ;;           (email "karl@hallsby.com")
-           ;;           (certificates
-           ;;            (list
-           ;;             ;; Just one domain. The git page is under /git now.
-           ;;             (certificate-configuration
-           ;;              (domains '("karl.hallsby.com" "www.karl.hallsby.com"))
-           ;;              (deploy-hook %certbot-nginx-deploy-hook))))))
+           ;; NOTE: You must run nginx with all domains' root set to /var/www for
+           ;; certbot to work
+           (service certbot-service-type
+                    (certbot-configuration
+                     (email "karl@hallsby.com")
+                     (certificates
+                      (list
+                       ;; The git page is under /cgit now.
+                       (certificate-configuration
+                        (name "website")
+                        (domains '("karl.hallsby.com"))
+                        (deploy-hook %certbot-nginx-deploy-hook))
+                       (certificate-configuration
+                        (name "cgit")
+                        (domains '("cgit.karl.hallsby.com"))
+                        (deploy-hook %certbot-nginx-deploy-hook))))))
            (service cgit-service-type
                     (cgit-configuration
                      (root-desc "Code is made for sharing!") ;; Thanks samplet!
@@ -221,9 +227,14 @@ if there is no matching extension."
                      (nginx
                       (list
                        (nginx-server-configuration
-                        (listen '("80"))
+                        (listen '("443 ssl"))
                         (server-name '("cgit.karl.hallsby.com"))
+                        (ssl-certificate
+                         "/etc/letsencrypt/live/cgit/fullchain.pem")
+                        (ssl-certificate-key
+                         "/etc/letsencrypt/live/cgit/privkey.pem")
                         (root "/srv/git/") ;; Sets $document_root
+                        ;; (root "/var/www") ;; Only needed for certbot key create & refresh(?)
                         (index '("index.html"))
                         (try-files (list "$uri" "@cgit"))
                         (server-tokens? #f)
