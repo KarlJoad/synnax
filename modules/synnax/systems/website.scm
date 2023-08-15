@@ -266,10 +266,12 @@ if there is no matching extension."
      (bootloader grub-bootloader)
      (targets '("/dev/vda"))
      (keyboard-layout keyboard-layout)))
+   (swap-devices (list (swap-space
+                        (target "/dev/vda2"))))
    (file-systems
     (append
      (list (file-system
-            (device "/dev/vda1")
+            (device "/dev/vda3")
             (mount-point "/")
             (type "ext4")))
      %base-file-systems))))
