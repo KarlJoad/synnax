@@ -131,6 +131,16 @@ if there is no matching extension."
    (timezone "America/Chicago")
    (keyboard-layout (keyboard-layout "us"))
    (host-name "website")
+   (users (cons* (user-account
+                   (name "git")
+                   (group "git")
+                   (comment "Git separation user")
+                   (home-directory "/home/git")
+                   (supplementary-groups `("git-daemon")))
+                 %base-user-accounts))
+   (groups (cons* (user-group (name "git")
+                              (system? #t))
+                  %base-groups))
    (packages
     (append
      (list vim
@@ -145,7 +155,8 @@ if there is no matching extension."
                      (password-authentication? #f)
                      (permit-root-login #t)
                      (authorized-keys
-                      `(("root" ,(local-file (string-append (getenv "HOME") "/.ssh/website_rsa.pub")))))))
+                      `(("root" ,(local-file (string-append (getenv "HOME") "/.ssh/website_rsa.pub")))
+                        ("git" ,(local-file (string-append (getenv "HOME") "/.ssh/website_rsa.pub")))))))
            (service fstrim-service-type)
            (service dhcp-client-service-type)
            (service git-daemon-service-type) ;; Allow cloning repos with git://
