@@ -4,7 +4,8 @@
 (use-modules (gnu)
              (gnu system)
              (synnax packages personal-website)
-             (synnax services fstrim))
+             (synnax services fstrim)
+             (synnax services web-deploy))
 
 (use-package-modules
  vim
@@ -133,6 +134,8 @@ if there is no matching extension."
                 "-O" "xhtml"         ;; Output format
                 "-S" (file-extension file-to-highlight))))))
 
+(define personal-website-destination "/srv/http/personal")
+
 (define-public %website-system
   (operating-system
    (locale "en_US.utf8")
@@ -168,6 +171,13 @@ if there is no matching extension."
            (service fstrim-service-type)
            (service dhcp-client-service-type)
            (service git-daemon-service-type) ;; Allow cloning repos with git://
+           (service website-deploy-service-type
+                    (website-deploy-configuration
+                     (sites (list
+                             (site-configuration
+                              (name "personal")
+                              (website-package personal-website)
+                              (target personal-website-destination))))))
            (service nginx-service-type
                     (nginx-configuration
                      ;; (global-directives
@@ -185,8 +195,7 @@ if there is no matching extension."
                          "/etc/letsencrypt/live/website/fullchain.pem")
                         (ssl-certificate-key
                          "/etc/letsencrypt/live/website/privkey.pem")
-                        (root personal-website)
-                        ;; (root "/var/www") ;; Only needed for certbot key create & refresh(?)
+                        (root personal-website-destination)
                         (locations
                          (list
                           ;; Allow for caching of static assets for 30 days
@@ -250,7 +259,6 @@ if there is no matching extension."
                         (ssl-certificate-key
                          "/etc/letsencrypt/live/cgit/privkey.pem")
                         (root "/srv/git/") ;; Sets $document_root
-                        ;; (root "/var/www") ;; Only needed for certbot key create & refresh(?)
                         (index '("index.html"))
                         (try-files (list "$uri" "@cgit"))
                         (server-tokens? #f)
