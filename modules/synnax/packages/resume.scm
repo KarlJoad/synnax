@@ -14,7 +14,7 @@
      (source (origin
               (method git-fetch)
               (uri (git-reference
-                    (url "git://git.karl.hallsby.com/resume.git")
+                    (url "git://karl.hallsby.com/resume.git")
                     (commit commit)))
               (file-name (git-file-name name version))
               (sha256
