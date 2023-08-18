@@ -8,20 +8,20 @@
   #:use-module (synnax packages resume))
 
 (define-public personal-website
-  (let ((commit "dde8ea286cd47a252e47caf3fb3c77ffee228922")
-        (revision "2"))
+  (let ((commit "dcfbd76f2d8c2db8a6860f2f7dc68acc72863902")
+        (revision "3"))
     (package
      (name "karl-personal-website")
      (version (git-version "0.0.0" revision commit))
      (source (origin
               (method git-fetch)
               (uri (git-reference
-                    (url "git://git.karl.hallsby.com/haunt-website.git")
+                    (url "git://karl.hallsby.com/website.git")
                     (commit commit)))
               (file-name (git-file-name name version))
               (sha256
                (base32
-                "19aywqqic2ai41z1dmmahcy644bklv3dzmwfqdbrm2cbwfz4ijm1"))))
+                "1mcikp6i4jsps2vxiygyc1jixmz5fjhy8rl9i4sfg5p7d3nnn8pf"))))
      (build-system gnu-build-system)
      (arguments
       (list
