@@ -25,6 +25,9 @@
  certbot
  security)
 
+(define git-http-regex
+  "^.*/(HEAD|info/refs|objects/info/.*|git-(upload|receive)-pack)$")
+
 (define %certbot-nginx-deploy-hook
   (program-file
    "certbot-nginx-deploy-hook"
@@ -291,7 +294,20 @@ if there is no matching extension."
                                    "fastcgi_param PATH_INFO $uri;"
                                    "fastcgi_param QUERY_STRING $args;"
                                    "fastcgi_param HTTP_HOST $server_name;"
-                                   "fastcgi_pass 127.0.0.1:9000;"))))))))))
+                                   "fastcgi_pass 127.0.0.1:9000;")))
+                          ;; For cloning with cgit
+                          ;; (nginx-location-configuration
+                          ;;  (uri (string-append "~ " git-http-regex))
+                          ;;  (body `("fastcgi_param CONTENT_LENGTH $content_length;"
+                          ;;          "fastcgi_param CONTENT_TYPE $content_type;"
+                          ;;          "fastcgi_param GIT_PROJECT_ROOT /srv/git;"
+                          ;;          "fastcgi_param PATH_INFO $uri;"
+                          ;;          "fastcgi_param QUERY_STRING $args;"
+                          ;;          "fastcgi_param REQUEST_METHOD $request_method;"
+                          ;;          ("fastcgi_param SCRIPT_FILENAME " ,git
+                          ;;           "/libexec/git-core/git-http-backend;")
+                          ;;          "fastcgi_pass 127.0.0.1:9000;")))
+                          )))))))
            (service fail2ban-service-type
                     (fail2ban-configuration
                      (extra-jails
