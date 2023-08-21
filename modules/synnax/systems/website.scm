@@ -164,7 +164,7 @@ if there is no matching extension."
                     (openssh-configuration
                      (openssh openssh-sans-x)
                      (password-authentication? #f)
-                     (permit-root-login #t)
+                     (permit-root-login 'prohibit-password)
                      (authorized-keys
                       `(("root" ,(local-file (string-append (getenv "HOME") "/.ssh/website_rsa.pub")))
                         ("git" ,(local-file (string-append (getenv "HOME") "/.ssh/website_rsa.pub")))))))
