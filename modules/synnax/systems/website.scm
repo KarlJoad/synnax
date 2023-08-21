@@ -249,6 +249,7 @@ if there is no matching extension."
                      (repository-directory "/srv/git/")
                      (enable-git-config? #t) ;; cgit reads repo info from .git/config
                      (virtual-root "/") ;; Build links relative to this
+                     (favicon (file-append personal-website "/assets/favicon/favicon.ico"))
                      (nginx
                       (list
                        (nginx-server-configuration
