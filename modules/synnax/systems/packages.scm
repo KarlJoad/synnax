@@ -73,7 +73,8 @@
  rsync
  vpn
  cups
- web)
+ web
+ tmux screen)
 
 (define %nonguix-packages (list firefox zoom element-desktop))
 
@@ -161,6 +162,7 @@
         git
         poke ;; Interactive editor for binary files
         direnv
+        tmux screen
         texinfo))
 
 (define %email-packages
