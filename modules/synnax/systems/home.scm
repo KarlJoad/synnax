@@ -163,7 +163,7 @@
                    home-files-service-type
                    (list `(".nix-channels"
                            ,(plain-file "nix-channels"
-                                        "https://nixos.org/channels/nixos-22.11 nixpkgs"))
+                                        "https://nixos.org/channels/nixos-23.05 nixpkgs"))
                          `(".config/nixpkgs/config.nix"
                            ,(plain-file "config.nix"
                                         "{
