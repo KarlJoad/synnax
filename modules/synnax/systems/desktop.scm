@@ -103,7 +103,7 @@ is turned into
      (bootloader-configuration
       (bootloader grub-efi-removable-bootloader)
       (targets (list "/boot/efi"))
-      (keyboard-layout keyboard-layout)))
+      (keyboard-layout (operating-system-keyboard-layout %base-system))))
     (swap-devices
      (list (swap-space
             (target
