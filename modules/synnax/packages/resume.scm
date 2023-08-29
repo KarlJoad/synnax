@@ -3,7 +3,7 @@
   #:use-module (guix packages)
   #:use-module (guix git-download)
   #:use-module (guix build-system gnu)
-  #:use-module (gnu packages tex))
+  #:use-module (gnu packages texlive))
 
 (define-public resume
   (let ((commit "91ad41a60b8be9a0243a6d4365afd96f2c702662")
