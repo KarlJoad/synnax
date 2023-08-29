@@ -54,7 +54,8 @@
  engineering    ; lepton-eda, poke
  text-editors   ; texmacs
  cmake
- tex            ; texlive, biber
+ tex            ; texlive packages, biber
+ texlive        ; Big texlive bundle
  texinfo
  maths          ; GNUPlot
  gcc            ; GNU C Manual
