@@ -309,6 +309,10 @@ setw -g aggressive-resize on"))))
                                               (far "GitHub")
                                               (near "GitHub"))
                                              (home-mbsync-channel-configuration
+                                              (name "github")
+                                              (far "GitHub/Waterly")
+                                              (near "Waterly"))
+                                             (home-mbsync-channel-configuration
                                               (name "ieee")
                                               (far "Academic_Orgs/IEEE")
                                               (near "IEEE"))
