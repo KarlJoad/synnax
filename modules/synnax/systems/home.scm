@@ -121,7 +121,7 @@
                                   (user "git")
                                   (identity-file "~/.ssh/gitlab"))
                     (openssh-host (name "*.cs.northwestern.edu")
-                                  (user "kgh0080")
+                                  (user "karl")
                                   (identity-file "~/.ssh/nu"))
                     (openssh-host (name "45.63.75.121") ;; Old website
                                   (user "root")
