@@ -132,6 +132,10 @@
                     (openssh-host (name "roquefort")
                                   (host-name "roquefort.cs.northwestern.edu")
                                   (user "karl")
+                                  (identity-file "~/.ssh/nu"))
+                    (openssh-host (name "dubliner")
+                                  (host-name "dubliner.cs.northwestern.edu")
+                                  (user "karl")
                                   (identity-file "~/.ssh/nu"))))))
    (simple-service 'git-config-files
                    home-xdg-configuration-files-service-type
