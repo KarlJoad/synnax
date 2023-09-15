@@ -128,7 +128,11 @@
                                   (identity-file "~/.ssh/website_rsa"))
                     (openssh-host (name "107.191.51.74") ;; New website
                                   (user "root")
-                                  (identity-file "~/.ssh/website_rsa"))))))
+                                  (identity-file "~/.ssh/website_rsa"))
+                    (openssh-host (name "roquefort")
+                                  (host-name "roquefort.cs.northwestern.edu")
+                                  (user "karl")
+                                  (identity-file "~/.ssh/nu"))))))
    (simple-service 'git-config-files
                    home-xdg-configuration-files-service-type
                    (list `("git/config"
