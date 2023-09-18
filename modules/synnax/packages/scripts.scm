@@ -45,6 +45,45 @@ my monitors to work correctly.")
                      (xrandr-cmd "HDMI-1" "--mode 1920x1080 --rate 144.00")
                      (xrandr-cmd "DP-1" "--mode 1920x1080 --rate 144.00")))))
 
+(define-public fix-office-monitors
+  (package
+   (name "fix-office-monitors")
+   (version "git")
+   (source #f)
+   (native-inputs `(("xrandr" ,xrandr) ("monitor-script" ,office-monitor-script)))
+   (build-system trivial-build-system)
+   (arguments
+    `(#:modules ((guix build utils) (srfi srfi-13))
+      #:builder
+      (begin
+        (use-modules (guix build utils)
+                     (srfi srfi-13))
+        (let* ((bin (string-append (assoc-ref %outputs "out") "/bin"))
+               (monitor-script (assoc-ref %build-inputs "monitor-script"))
+               (target-script-file (string-append bin "/" "fix-office-monitors.scm")))
+          (mkdir-p bin)
+          (symlink monitor-script target-script-file)))))
+   (home-page "https://github.com/KarlJoad/synnax")
+   (synopsis "Script that fixes my office monitors")
+   (description "Uses @code{xrandr} to change the display configuration, forcing
+my monitors to work correctly.")
+   (license #f)))
+
+(define office-monitor-script
+  (program-file "fix-office-monitors.scm"
+                (with-imported-modules
+                 `((srfi srfi-13))
+                 #~(begin
+                     (use-modules (srfi srfi-13))
+                     (define* (xrandr-cmd output #:optional (extra ""))
+                       (let* ((xrandr-bin (string-append #$xrandr "/bin/xrandr"))
+                              (cmd-to-run (string-join `(,xrandr-bin "--output" ,output ,extra) " ")))
+                           (format #t "~a~%" (string-append cmd-to-run))
+                           (system cmd-to-run)))
+                     (xrandr-cmd "HDMI-1" "--right-of DP-1")
+                     (xrandr-cmd "HDMI-1" "--mode 1920x1080 --rate 60.00")
+                     (xrandr-cmd "DP-1" "--mode 1920x1080 --rate 60.00")))))
+
 (define-public last-reconfigure-date
   (package
    (name "last-reconfigure-date")
