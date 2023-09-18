@@ -9,6 +9,9 @@
              (synnax systems packages)
              (synnax services fstrim))
 
+(use-package-modules
+ bash)
+
 (use-service-modules
  desktop
  networking
@@ -66,8 +69,9 @@
                      (syncthing-configuration
                       (user "karljoad") ;; TODO: Refactor `user' field to use variable.
                       (arguments '("-gui-address=127.0.0.1:8384"))))
-            ;; /bin/bash and /usr/bin/env are already made extra-special-files
+            ;; /bin/sh and /usr/bin/env are already made extra-special-files
             ;; by %base-services, which %desktop-services extends
+            (extra-special-file "/bin/bash" (file-append bash "/bin/bash"))
             ;; TODO: Add this?
             ;; (name-service-switch %mdns-host-lookup-nss) ;; Resolve .local with mDNS
             )
