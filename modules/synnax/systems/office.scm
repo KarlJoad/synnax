@@ -2,7 +2,8 @@
   #:export (office))
 
 (use-modules (gnu)
-             (synnax systems base-system))
+             (synnax systems base-system)
+             (synnax packages scripts))
 
 (use-package-modules
  linux
@@ -19,7 +20,8 @@
 
    (packages
     (append
-     (list bluez)
+     (list bluez
+           fix-office-monitors)
      (operating-system-packages %base-system)))
 
    (services
