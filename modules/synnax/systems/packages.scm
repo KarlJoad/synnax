@@ -53,7 +53,7 @@
  gdb
  code           ; global
  shellutils
- engineering    ; lepton-eda, poke
+ engineering    ; lepton-eda, poke, radare2
  text-editors   ; texmacs
  cmake
  tex            ; texlive packages, biber
@@ -164,6 +164,7 @@
         cscope
         git
         poke ;; Interactive editor for binary files
+        radare2 ;; Reverse engineering tools (good for diff of assembly)
         direnv
         tmux screen
         texinfo))
