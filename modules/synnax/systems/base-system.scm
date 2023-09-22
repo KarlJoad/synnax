@@ -64,7 +64,10 @@
                       (unix-sock-group "libvirt")))
             (service virtlog-service-type)
             (service docker-service-type)
-            (service nix-service-type)
+            (service nix-service-type
+                     (nix-configuration
+                      (extra-config
+                       (list "experimental-features = nix-command flakes"))))
             (service syncthing-service-type
                      (syncthing-configuration
                       (user "karljoad") ;; TODO: Refactor `user' field to use variable.
