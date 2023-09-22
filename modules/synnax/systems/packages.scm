@@ -15,6 +15,7 @@
             %system-packages
             %base-home-packages
             %email-packages
+            %messaging-packages
             %eda-packages
             %document-prep-packages
             %development-packages
@@ -31,6 +32,7 @@
  admin
  password-utils ; passwd
  mail ; mbsync & mu
+ telegram
  xorg
  xdisorg          ; X11 helper programs
  wget curl
@@ -173,6 +175,9 @@
 (define %mailing-list-packages
   (list l2md))
 
+(define %messaging-packages
+  (list telegram-desktop))
+
 (define %documentation-packages
   (list clhs ;; Common Lisp HyperSpec, with Emacs mode
         gnu-c-manual ;; The GNU manual for their C implementation
@@ -194,6 +199,7 @@
    %documentation-packages
    %document-prep-packages
    %eda-packages
+   %messaging-packages
    %email-packages
    %font-packages
    %filesystems-packages
