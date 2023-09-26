@@ -19,6 +19,7 @@
             %eda-packages
             %document-prep-packages
             %development-packages
+            %emacs-metapackage
             %font-packages
             %home-packages
             %desktop-home-packages))
@@ -28,6 +29,7 @@
  gnuzilla ; Icecat
  web-browsers ; Nyxt
  emacs emacs-xyz
+ tree-sitter
  vim
  admin
  password-utils ; passwd
@@ -122,17 +124,44 @@
    %virtualization-packages))
 
 
-(define %base-home-packages
-  (list vim  ;; While this may be heresy, having vim is useful sometimes
-        emacs
+(define %emacs-metapackage
+  (list emacs-next-tree-sitter
         emacs-guix
         emacs-vterm
         emacs-org-roam
-        password-store ;; pass
-        stow
-        last-reconfigure-date
-        rsync
-        openvpn))
+        tree-sitter
+        tree-sitter-cli
+        tree-sitter-bash
+        tree-sitter-c tree-sitter-cpp
+        tree-sitter-cmake
+        tree-sitter-scheme tree-sitter-clojure tree-sitter-racket
+        tree-sitter-javascript tree-sitter-typescript tree-sitter-json
+        tree-sitter-rust
+        tree-sitter-ruby
+        tree-sitter-python
+        tree-sitter-php
+        tree-sitter-org
+        tree-sitter-ocaml
+        tree-sitter-meson
+        tree-sitter-markdown tree-sitter-markdown-gfm
+        tree-sitter-java
+        tree-sitter-html
+        tree-sitter-haskell
+        tree-sitter-gomod
+        tree-sitter-go
+        tree-sitter-dockerfile
+        tree-sitter-css
+        tree-sitter-bibtex))
+
+(define %base-home-packages
+  (append
+   (list vim  ;; While this may be heresy, having vim is useful sometimes
+         password-store ;; pass
+         stow
+         last-reconfigure-date
+         rsync
+         openvpn)
+   %emacs-metapackage))
 
 (define %extra-guix-packages
   (list guix-icons ;; Guix icons & artwork
