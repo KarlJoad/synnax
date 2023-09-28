@@ -6,8 +6,8 @@
   #:use-module (gnu packages texlive))
 
 (define-public resume
-  (let ((commit "91ad41a60b8be9a0243a6d4365afd96f2c702662")
-        (revision "1"))
+  (let ((commit "3786ef50d9c777ce488e1977ae5dc34cbc9d8a36")
+        (revision "2"))
     (package
      (name "karl-resume")
      (version (git-version "0.0.0" revision commit))
@@ -19,7 +19,7 @@
               (file-name (git-file-name name version))
               (sha256
                (base32
-                "094ryrxifpjni4grm09l80k3vkicbzrjs53y406kwrzyd07602q9"))))
+                "1xzacky7yg7fcqr2jh58bm0ssdixyygknv23j6fzsr8f59qcskpd"))))
      (build-system gnu-build-system)
      (native-inputs
       (list texlive))
