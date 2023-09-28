@@ -5,6 +5,7 @@
   #:use-module (gnu services networking)
   #:use-module (gnu services ssh)
   #:use-module (gnu services cuirass)
+  #:use-module (gnu services mcron)
   #:export (ci-test))
 
 (use-package-modules
@@ -97,6 +98,12 @@
                            (channel (inherit %default-guix-channel)))
                %default-channels)))))
 
+(define guix-gc-job
+  #~(job (lambda (current-time)
+           (+ current-time (* 60 60 24 5)))
+         "guix gc"
+         "Run Guix GC on regular interval"))
+
 (define ci-test
   (operating-system
    (locale "en_US.utf8")
@@ -123,7 +130,10 @@
                      (host "0.0.0.0")
                      (specifications %ci-specifications)
                      ;; Only poll upstreams once every x seconds
-                     (interval (* 60 15)))))
+                     (interval (* 60 15))))
+           (service mcron-service-type
+                    (mcron-configuration
+                     (jobs (list guix-gc-job)))))
      (modify-services %base-services
        (guix-service-type config =>
                           (guix-configuration
