@@ -28,6 +28,7 @@
  base             ; glibc, locales, etc.
  gnuzilla ; Icecat
  web-browsers ; Nyxt
+ gstreamer
  emacs emacs-xyz
  tree-sitter
  vim
@@ -83,7 +84,10 @@
 
 (define %nonguix-packages (list firefox zoom element-desktop))
 
-(define %web-browser-packages (list icecat nyxt xclip xsel))
+(define %web-browser-packages
+  (list icecat
+        ;; Nyxt & associated packages
+        nyxt xclip xsel gst-plugins-base gst-plugins-good))
 
 (define %virtualization-packages
   (list libvirt virt-manager))
