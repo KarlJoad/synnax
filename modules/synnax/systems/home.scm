@@ -60,9 +60,9 @@
                 ("ll" . "ls -l")
                 ("ls" . "ls -p --color=auto")))
              (bashrc
-              (list (local-file "files/bashrc" "bashrc")
-                    ;; NOTE: Adding direnv support should come last!
-                    (plain-file "bashrc-add-direnv" "eval \"$(direnv hook bash)\"\n")))))
+              (list
+               ;; NOTE: Adding direnv support should come last!
+               (plain-file "bashrc-add-direnv" "eval \"$(direnv hook bash)\"\n")))))
    (service home-openssh-service-type
             (home-openssh-configuration
              (hosts
