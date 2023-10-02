@@ -43,3 +43,7 @@ By default, fstrim runs weekly.")
                                         fstrim-job)))
    (compose concatenate)
    (default-value (fstrim-configuration))))
+
+(define (generate-fstrim-documentation)
+  (generate-documentation `((fstrim-configuration ,fstrim-configuration-fields))
+                          'fstrim-configuration))
