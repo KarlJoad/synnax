@@ -6,7 +6,8 @@
   #:use-module (gnu packages linux)
   #:use-module (gnu packages pulseaudio)
   #:use-module (gnu home services)
-  #:use-module (gnu home services shepherd))
+  #:use-module (gnu home services shepherd)
+  #:use-module (synnax services home utils))
 
 (define (home-pipewire-files-service _)
   `(("alsa/asoundrc"
@@ -32,13 +33,6 @@ ctl_type.pipewire {
 }
 ")))))
 
-(define (get-log-file-path daemon-name)
-  "Given DAEMON-NAME, return file path for the daemon's log file as a string."
-  (format #f "~a/~a.log"
-          (or (getenv "XDG_LOG_HOME")
-              (format #f "~a/.local/var/log" (getenv "HOME")))
-          daemon-name))
-
 (define (home-pipewire-shepherd-service _)
   (list
    (shepherd-service
@@ -47,7 +41,7 @@ ctl_type.pipewire {
     (stop  #~(make-kill-destructor))
     (start #~(make-forkexec-constructor
               (list #$(file-append pipewire "/bin/pipewire"))
-              #:log-file #$(get-log-file-path "pipewire")))
+              #:log-file #$(home-service-log-file-path "pipewire")))
     (documentation "Pipewire service"))
 
    (shepherd-service
@@ -56,7 +50,7 @@ ctl_type.pipewire {
     (stop  #~(make-kill-destructor))
     (start #~(make-forkexec-constructor
               (list #$(file-append wireplumber "/bin/wireplumber"))
-              #:log-file #$(get-log-file-path "wireplumber")))
+              #:log-file #$(home-service-log-file-path "wireplumber")))
     (documentation "Wireplumber service for Pipewire"))
 
    (shepherd-service
@@ -65,7 +59,7 @@ ctl_type.pipewire {
     (stop  #~(make-kill-destructor))
     (start #~(make-forkexec-constructor
               (list #$(file-append pipewire "/bin/pipewire-pulse"))
-              #:log-file #$(get-log-file-path "pipewire-pulse")))
+              #:log-file #$(home-service-log-file-path "pipewire-pulse")))
     (documentation "Pulseaudio integration for Pipewire"))))
 
 (define-public home-pipewire-service-type
