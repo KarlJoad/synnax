@@ -56,9 +56,9 @@
               `(("HISTSIZE" . "10000")
                 ("HISTCONTROL" . "ignoreboth:erasedups")))
              (aliases
-              '(("grep='grep --color'" . "auto")
-                ("ll" . "'ls -la'")
-                ("ls='ls -p --color'" . "auto")))
+              '(("grep" . "grep --color=auto")
+                ("ll" . "ls -l")
+                ("ls" . "ls -p --color=auto")))
              (bashrc
               (list (local-file "files/bashrc" "bashrc")
                     ;; NOTE: Adding direnv support should come last!
