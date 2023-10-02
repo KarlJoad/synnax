@@ -494,5 +494,4 @@ setw -g aggressive-resize on"))))
             (home-mcron-configuration
              (jobs
               (list
-               fontconfig-update-mcron-job))))
-   )))
+               fontconfig-update-mcron-job)))))))
