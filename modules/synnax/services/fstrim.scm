@@ -1,21 +1,23 @@
 (define-module (synnax services fstrim)
+  #:use-module (guix packages)
   #:use-module (gnu services)
+  #:use-module (gnu services configuration)
   #:use-module (gnu services shepherd)
   #:use-module (gnu services mcron)
   #:use-module (guix gexp)
-  #:use-module (guix records)
   #:use-module (gnu packages linux)
   #:use-module (srfi srfi-1)
   #:export (fstrim-service-type
             fstrim-configuration fstrim-configuration?))
 
-(define-record-type* <fstrim-configuration>
-  fstrim-configuration make-fstrim-configuration
-  fstrim-configuration?
-  (package  fstrim-configuration-package  ;file-like
-            (default util-linux))
-  (interval fstrim-configuration-interval ;integer (seconds)
-            (default (* 60 60 24 7))))
+(define-configuration/no-serialization fstrim-configuration
+  (package
+    (package util-linux)
+    "Package providing the @code{fstrim} program.")
+  (interval
+   (integer (* 60 60 24 7))
+   "The number of seconds between fstrim job runs.
+The default is 7 days (a week)."))
 
 (define (fstrim-job configuration)
   ;; The time to run the job must be set by calculating the offset from now to
