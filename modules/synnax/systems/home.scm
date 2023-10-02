@@ -54,7 +54,12 @@
              (environment-variables
               ;; See (bash) Bash Variables info for documentation.
               `(("HISTSIZE" . "10000")
-                ("HISTCONTROL" . "ignoreboth:erasedups")))
+                ("HISTCONTROL" . "ignoreboth:erasedups")
+                ;; NOTE: This PS1 overrides the PS1 provided by guix-defaults? above
+                ("PS1" .
+                 ;; Need literal-string to enclose this string with just single quotes
+                 ,(literal-string
+                   "${GUIX_ENVIRONMENT:+\\e[1;34m\\]}\\u@\\h \\w${GUIX_ENVIRONMENT:+ [env]}\\$\\e[0m\\] "))))
              (aliases
               '(("grep" . "grep --color=auto")
                 ("ll" . "ls -l")
