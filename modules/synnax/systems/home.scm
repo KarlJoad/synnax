@@ -485,7 +485,7 @@ setw -g aggressive-resize on"))))
              (default-account "personal")))
    (service home-emacs-server-service-type
             (home-emacs-server-configuration
-             (package emacs-next-tree-sitter)))
+             (package emacs)))
    (service home-mcron-service-type
             (home-mcron-configuration
              (jobs

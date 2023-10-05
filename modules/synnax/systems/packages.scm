@@ -129,7 +129,7 @@
 
 
 (define %emacs-metapackage
-  (list emacs-next-tree-sitter
+  (list emacs
         emacs-guix
         emacs-vterm
         emacs-org-roam
