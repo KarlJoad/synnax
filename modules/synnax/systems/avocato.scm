@@ -2,7 +2,8 @@
   #:export (avocato))
 
 (use-modules (gnu)
-             (synnax systems base-system))
+             (synnax systems base-system)
+             (nongnu packages linux))
 
 (use-package-modules
  linux ;; brightnessctl
@@ -15,6 +16,9 @@
   (operating-system
    (inherit %base-system)
    (host-name "avocato")
+   (firmware
+    (append (list sof-firmware)
+            (operating-system-firmware %base-system)))
 
    (packages
     (append
