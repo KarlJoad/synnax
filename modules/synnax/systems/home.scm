@@ -54,12 +54,7 @@
              (environment-variables
               ;; See (bash) Bash Variables info for documentation.
               `(("HISTSIZE" . "10000")
-                ("HISTCONTROL" . "ignoreboth:erasedups")
-                ;; NOTE: This PS1 overrides the PS1 provided by guix-defaults? above
-                ("PS1" .
-                 ;; Need literal-string to enclose this string with just single quotes
-                 ,(literal-string
-                   "${GUIX_ENVIRONMENT:+\\e[1;34m\\]}\\u@\\h \\w${GUIX_ENVIRONMENT:+ [env]}\\$\\e[0m\\] "))))
+                ("HISTCONTROL" . "ignoreboth:erasedups")))
              (aliases
               '(("grep" . "grep --color=auto")
                 ("ll" . "ls -l")
@@ -67,6 +62,7 @@
              (bashrc
               ;; Each entry is added to final bashrc and string-join with newline
               (list
+               (plain-file "bashrc-color-ps1" "export PS1='${GUIX_ENVIRONMENT:+\\e[1;34m\\]}\\u@\\h \\w${GUIX_ENVIRONMENT:+ [env]}\\$\\e[0m\\] '")
                ;; NOTE: Adding direnv support should come last!
                (plain-file "bashrc-add-direnv" "eval \"$(direnv hook bash)\"")))))
    (service home-openssh-service-type
