@@ -28,7 +28,8 @@
 
    (services
     (append
-     (list (service bluetooth-service-type))
+     (list (service plasma-desktop-service-type)
+           (service bluetooth-service-type))
      (operating-system-user-services %base-system)))
 
    (mapped-devices (list (mapped-device
