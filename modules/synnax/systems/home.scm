@@ -213,7 +213,8 @@ setw -g aggressive-resize on"))))
                    home-environment-variables-service-type
                    `(("NIX_PROFILE" . "$HOME/.nix-profile")
                      ;; See info (bash) Shell Parameter Expansion for why :+ is used
-                     ("PATH" . "$NIX_PROFILE/bin${PATH:+:}$PATH")))
+                     ("PATH" . "$NIX_PROFILE/bin${PATH:+:}$PATH")
+                     ("XDG_DATA_DIRS" . "$NIX_PROFILE/share${XDG_DATA_DIRS:+:}$XDG_DATA_DIRS")))
    (simple-service 'sqlite3-config-file-service
                    home-files-service-type
                    ;; home-xdg-configuration-files-service-type after sqlite3 3.41
