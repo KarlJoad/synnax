@@ -60,7 +60,6 @@
  text-editors   ; texmacs
  cmake
  tex            ; texlive packages, biber
- texlive        ; Big texlive bundle
  texinfo
  maths          ; GNUPlot
  gcc            ; GNU C Manual
@@ -178,10 +177,9 @@
 
 (define %document-prep-packages
   (list texmacs
-        texlive ;; Include ALL of TeXLive, because I am lazy and disks are large
-        texlive-scheme-basic
-        python-pygments ;; To make texlive-minted work
+        texlive-scheme-full ;; Include ALL of TeXLive, because I am lazy and disks are large
         texlive-biber ;; I prefer biber over old-school bibtex
+        python-pygments ;; To make texlive-minted work
         gnuplot
         okular
         ispell
