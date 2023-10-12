@@ -141,6 +141,7 @@
         tree-sitter-scheme tree-sitter-clojure tree-sitter-racket
         tree-sitter-javascript tree-sitter-typescript tree-sitter-json
         tree-sitter-rust
+        tree-sitter-scala
         tree-sitter-ruby
         tree-sitter-python
         tree-sitter-php
