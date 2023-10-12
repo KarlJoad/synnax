@@ -63,10 +63,18 @@
               ;; Each entry is added to final bashrc and string-join with newline
               (list
                ;; NOTE: A single \ in the output requires \\ in the string here!
-               (plain-file "bashrc-color-ps1" "# \\e is Bash's name for \\033 (escape)
-# Non-printable sequences should be enclosed in \\[ and \\]!
-# https://unix.stackexchange.com/a/105974
-export PS1='${GUIX_ENVIRONMENT:+\\[\\e[1;34m\\]}\\u@\\h \\w${GUIX_ENVIRONMENT:+ [env]}\\$\\[\\e[0m\\] '")
+               (plain-file "bashrc-custom-ps1-prompt-command"
+                           "function guix_shell_color_prompt_command {
+    # PROMPT_COMMAND can contain ordinary Bash statements whereas the PS1 variable
+    # can also contain the special characters, such as '\\h' for hostname, in the variable.
+    # \\e is Bash's name for \\033 (escape)
+    # Non-printable sequences should be enclosed in \\[ and \\]!
+    # https://unix.stackexchange.com/a/105974
+    export PS1='${GUIX_ENVIRONMENT:+\\[\\e[1;34m\\]}\\u@\\h \\w${GUIX_ENVIRONMENT:+ [env]}\\$\\[\\e[0m\\] '
+}
+# Bash community has settled on ; to be the delimiter in PROMPT_COMMAND
+PROMPT_COMMAND=\"guix_shell_color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"
+export PROMPT_COMMAND")
                ;; NOTE: Adding direnv support should come last!
                (plain-file "bashrc-add-direnv" "eval \"$(direnv hook bash)\"")))))
    (service home-openssh-service-type
