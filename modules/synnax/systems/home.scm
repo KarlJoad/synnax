@@ -62,7 +62,11 @@
              (bashrc
               ;; Each entry is added to final bashrc and string-join with newline
               (list
-               (plain-file "bashrc-color-ps1" "export PS1='${GUIX_ENVIRONMENT:+\\e[1;34m\\]}\\u@\\h \\w${GUIX_ENVIRONMENT:+ [env]}\\$\\e[0m\\] '")
+               ;; NOTE: A single \ in the output requires \\ in the string here!
+               (plain-file "bashrc-color-ps1" "# \\e is Bash's name for \\033 (escape)
+# Non-printable sequences should be enclosed in \\[ and \\]!
+# https://unix.stackexchange.com/a/105974
+export PS1='${GUIX_ENVIRONMENT:+\\[\\e[1;34m\\]}\\u@\\h \\w${GUIX_ENVIRONMENT:+ [env]}\\$\\[\\e[0m\\] '")
                ;; NOTE: Adding direnv support should come last!
                (plain-file "bashrc-add-direnv" "eval \"$(direnv hook bash)\"")))))
    (service home-openssh-service-type
