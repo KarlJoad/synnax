@@ -13,7 +13,8 @@
              (synnax services dbus)
              (synnax services pipewire)
              (synnax services mail)
-             (synnax services emacs))
+             (synnax services emacs)
+             (synnax services home vim))
 
 (use-package-modules
  emacs
@@ -59,7 +60,8 @@
               `(("grep" . ,(literal-string "grep --color=auto"))
                 ("ll" . ,(literal-string "ls -l"))
                 ("ls" . ,(literal-string "ls -p --color=auto"))
-                ("ip" . ,(literal-string "ip -color=auto"))))
+                ("ip" . ,(literal-string "ip -color=auto"))
+                ("vim" . ,(literal-string "nvim"))))
              (bashrc
               ;; Each entry is added to final bashrc and string-join with newline
               (list
@@ -500,6 +502,28 @@ setw -g aggressive-resize on"))))
    (service home-emacs-server-service-type
             (home-emacs-server-configuration
              (package emacs)))
+   (service home-vim-service-type
+            (home-vim-configuration
+             (config '((number . #t)
+                       (ruler . #t)
+                       (noswapfile . #t)
+                       (smarttab . #t)
+                       (hlsearch . #t)
+                       (incsearch . #t)
+                       (smartcase . #t)
+                       (ttyfast . #t)
+                       (showmatch . #t)
+                       (noerrorbells . #t)
+                       (novisualbell . #t)
+                       (encoding . "utf8")
+                       (undolevels . 1000)
+                       (backspace . "indent,eol,start")
+                       (confirm . #t)))
+             (extra-config
+              (list (plain-file "vim-enable-syntax-highlight"
+                                "syntax on")
+                    (plain-file "vim-autodetect-filetypes"
+                                "filetype plugin on")))))
    (service home-mcron-service-type
             (home-mcron-configuration
              (jobs

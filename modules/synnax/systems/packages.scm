@@ -159,8 +159,7 @@
 
 (define %base-home-packages
   (append
-   (list vim  ;; While this may be heresy, having vim is useful sometimes
-         password-store ;; pass
+   (list password-store ;; pass
          stow
          last-reconfigure-date
          rsync
