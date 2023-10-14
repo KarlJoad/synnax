@@ -12,7 +12,7 @@
              (synnax systems packages)
              (synnax services dbus)
              (synnax services pipewire)
-             (synnax services mail)
+             (synnax services home mail)
              (synnax services emacs)
              (synnax services home vim))
 

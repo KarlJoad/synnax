@@ -1,4 +1,4 @@
-(define-module (synnax services mail)
+(define-module (synnax services home mail)
   #:use-module (guix gexp)
   #:use-module (guix modules)
   #:use-module (gnu services configuration)
