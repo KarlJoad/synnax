@@ -58,7 +58,8 @@
              (aliases
               `(("grep" . ,(literal-string "grep --color=auto"))
                 ("ll" . ,(literal-string "ls -l"))
-                ("ls" . ,(literal-string "ls -p --color=auto"))))
+                ("ls" . ,(literal-string "ls -p --color=auto"))
+                ("ip" . ,(literal-string "ip -color=auto"))))
              (bashrc
               ;; Each entry is added to final bashrc and string-join with newline
               (list
