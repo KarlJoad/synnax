@@ -13,7 +13,7 @@
              (synnax services dbus)
              (synnax services pipewire)
              (synnax services home mail)
-             (synnax services emacs)
+             (synnax services home emacs)
              (synnax services home vim))
 
 (use-package-modules

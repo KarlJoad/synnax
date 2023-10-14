@@ -1,4 +1,4 @@
-(define-module (synnax services emacs)
+(define-module (synnax services home emacs)
   #:use-module (guix gexp)
   #:use-module (gnu packages emacs)
   #:use-module (gnu services configuration)
