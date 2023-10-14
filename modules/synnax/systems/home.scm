@@ -56,9 +56,9 @@
               `(("HISTSIZE" . "10000")
                 ("HISTCONTROL" . "ignoreboth:erasedups")))
              (aliases
-              '(("grep" . "grep --color=auto")
-                ("ll" . "ls -l")
-                ("ls" . "ls -p --color=auto")))
+              `(("grep" . ,(literal-string "grep --color=auto"))
+                ("ll" . ,(literal-string "ls -l"))
+                ("ls" . ,(literal-string "ls -p --color=auto"))))
              (bashrc
               ;; Each entry is added to final bashrc and string-join with newline
               (list
