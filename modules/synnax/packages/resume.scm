@@ -3,7 +3,7 @@
   #:use-module (guix packages)
   #:use-module (guix git-download)
   #:use-module (guix build-system gnu)
-  #:use-module (gnu packages texlive))
+  #:use-module (gnu packages tex))
 
 (define-public resume
   (let ((commit "af791397a75540419a9ce050d0f779b3cea13695")
@@ -22,7 +22,16 @@
                 "1az1p5cj9j96mpyivf8m4pwkiv64g9sak10qbf6ff1xla3gvq8lh"))))
      (build-system gnu-build-system)
      (native-inputs
-      (list texlive))
+      (list texlive-scheme-medium
+            texlive-csquotes
+            texlive-enumitem
+            texlive-chngcntr
+            texlive-transparent
+            texlive-multirow
+            texlive-titling
+            texlive-titlesec
+            texlive-datetime2 texlive-datetime2-english
+            texlive-tools))
      (arguments
       (list
        #:phases
