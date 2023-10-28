@@ -74,11 +74,11 @@
     # Non-printable sequences should be enclosed in \\[ and \\]!
     # https://unix.stackexchange.com/a/105974
     if [[ -n \"$GUIX_ENVIRONMENT\" ]]; then
-      PS1='\\[\\e[1;34m\\]\\u@\\h \\w [env] \\t \\$\\[\\e[0m\\] '
+      PS1='\\n\\[\\e[1;34m\\]\\u@\\h \\w [env] \\t \\$\\[\\e[0m\\] '
     elif [[ -n \"$IN_NIX_SHELL\" ]]; then
       PS1='\\n\\[\\033[1;32m\\][nix-shell:\\w] \\t \\$\\[\\033[0m\\] '
     else
-      PS1='\\u@\\h \\w\\n\\t \\$ '
+      PS1='\\n\\u@\\h \\w\\n\\t \\$ '
     fi
 }
 # Bash community has settled on ; to be the delimiter in PROMPT_COMMAND
