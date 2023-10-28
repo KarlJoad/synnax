@@ -12,6 +12,17 @@
 (use-service-modules
  desktop)
 
+
+;; Allow members of the "video" group to change the screen brightness.
+(define backlight-udev-rule
+  (udev-rule
+   "90-backlight.rules"
+   (string-append "ACTION==\"add\", SUBSYSTEM==\"backlight\", "
+                  "RUN+=\"/run/current-system/profile/bin/chgrp video /sys/class/backlight/%k/brightness\""
+                  "\n"
+                  "ACTION==\"add\", SUBSYSTEM==\"backlight\", "
+                  "RUN+=\"/run/current-system/profile/bin/chmod g+w /sys/class/backlight/%k/brightness\"")))
+
 (define avocato
   (operating-system
    (inherit %base-system)
@@ -29,7 +40,8 @@
    (services
     (append
      (list (service plasma-desktop-service-type)
-           (service bluetooth-service-type))
+           (service bluetooth-service-type)
+           (udev-rules-service 'change-brightness-service-type backlight-udev-rule))
      (operating-system-user-services %base-system)))
 
    (mapped-devices (list (mapped-device
