@@ -132,7 +132,8 @@ export PROMPT_COMMAND")
                          `("git/ignore"
                            ,(plain-file "gitignore"
                                         "*~
-*.swp"))))
+*.swp
+.\\#*"))))
    (simple-service 'tmux-config-file-service
                    home-xdg-configuration-files-service-type
                    (list `("tmux/tmux.conf"
