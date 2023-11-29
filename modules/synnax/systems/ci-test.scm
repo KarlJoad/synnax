@@ -36,6 +36,16 @@
                  (branch "docs")))
                %default-channels)))
      (specification
+      (name "chilir")
+      (build '(channels chilir))
+      (channels
+       (append (list
+                (channel
+                 (name 'chilir)
+                 (url "https://github.com/KarlJoad/chilir.git")
+                 (branch "main")))
+               %default-channels)))
+     (specification
       (name "tcl2cl")
       (build '(channels tcl2cl))
       (channels
