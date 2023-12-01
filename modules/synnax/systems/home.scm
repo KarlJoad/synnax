@@ -14,7 +14,8 @@
              (synnax services pipewire)
              (synnax services home mail)
              (synnax services home emacs)
-             (synnax services home vim))
+             (synnax services home vim)
+             (synnax services home zathura))
 
 (use-package-modules
  emacs
@@ -531,6 +532,32 @@ setw -g aggressive-resize on"))))
                                 "syntax on")
                     (plain-file "vim-autodetect-filetypes"
                                 "filetype plugin on")))))
+   (service home-zathura-service-type
+            (home-zathura-configuration
+             (config
+              '((recolor . #t)
+                (selection-clipboard . "clipboard")))
+             (key-mapping
+              '(("q") ; Unbind q from quitting, I hit it too easily
+                ("<C-g>" abort)
+                ("<C-i>" zoom in)
+                ("<C-o>" zoom out)
+                ("<C-p>" scroll up)
+                ("<C-n>" scroll down)
+                ("<C-f>" scroll right)
+                ("<C-b>" scroll left)
+                ("<C-a>" scroll full-left)
+                ("<C-e>" scroll full-right)
+                ("<M-v>" scroll half-up)
+                ("<C-v>" scroll half-down)
+                ("<A-p>" scroll full-up)
+                ("<A-n>" scroll full-down)
+                ("<A-<>" goto top)
+                ("<A->>" goto bottom)
+                ("<C-0>" adjust_window width)
+                ("<C-)>" adjust_window width)
+                ;; Goto uses Vim-style motion: Page# <A-g>
+                ("<A-g>" goto)))))
    (service home-mcron-service-type
             (home-mcron-configuration
              (jobs
