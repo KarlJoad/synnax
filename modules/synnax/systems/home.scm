@@ -512,7 +512,7 @@ setw -g aggressive-resize on"))))
             `(("MOZ_ENABLE_WAYLAND" . "1")))
    (service home-emacs-server-service-type
             (home-emacs-server-configuration
-             (package emacs)))
+             (package emacs-pgtk)))
    (service home-vim-service-type
             (home-vim-configuration
              (config '((number . #t)
