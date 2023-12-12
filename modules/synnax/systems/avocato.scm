@@ -2,8 +2,9 @@
   #:export (avocato))
 
 (use-modules (gnu)
-             (synnax systems base-system)
-             (nongnu packages linux))
+             (nongnu packages linux)
+             (synnax services udev-rules)
+             (synnax systems base-system))
 
 (use-package-modules
  linux ;; brightnessctl
@@ -22,20 +23,6 @@
                   "\n"
                   "ACTION==\"add\", SUBSYSTEM==\"backlight\", "
                   "RUN+=\"/run/current-system/profile/bin/chmod g+w /sys/class/backlight/%k/brightness\"")))
-
-(define zsa-moonlander-udev-rule
-  (udev-rule
-   "50-wally.rules"
-   (string-append
-    "# Teensy rules for the Ergodox EZ\n"
-    "ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789B]?\", ENV{ID_MM_DEVICE_IGNORE}=\"1\"\n"
-    "ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789A]?\", ENV{MTP_NO_PROBE}=\"1\"\n"
-    "SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789ABCD]?\", MODE:=\"0666\"\n"
-    "KERNEL==\"ttyACM*\", ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789B]?\", MODE:=\"0666\"\n"
-    "# STM32 rules for the Moonlander and Planck EZ\n"
-    "SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"0483\", ATTRS{idProduct}==\"df11\", \\\n"
-    "MODE:=\"0666\", \\\n"
-    "SYMLINK+=\"stm32_dfu\"\n")))
 
 (define avocato
   (operating-system
@@ -57,7 +44,7 @@
      (list (service plasma-desktop-service-type)
            (service bluetooth-service-type)
            (udev-rules-service 'change-brightness-service-type backlight-udev-rule)
-           (udev-rules-service 'zsa-moonlander zsa-moonlander-udev-rule))
+           (udev-rules-service 'zsa-moonlander zsa-udev-rule))
      (operating-system-user-services %base-system)))
 
    (mapped-devices (list (mapped-device

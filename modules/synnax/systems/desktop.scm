@@ -10,6 +10,7 @@
              (nongnu services nvidia)
              ;; Modules below are from my own Synnax channel
              (synnax packages scripts)
+             (synnax services udev-rules)
              (synnax systems base-system))
 
 (use-package-modules bash freeipmi)
@@ -64,20 +65,6 @@ is turned into
 (define-public linux-corrupted/desktop
   (corrupt-linux linux-libre/desktop #:name "linux-ipmi"))
 
-(define zsa-moonlander-udev-rule
-  (udev-rule
-   "50-wally.rules"
-   (string-append
-    "# Teensy rules for the Ergodox EZ\n"
-    "ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789B]?\", ENV{ID_MM_DEVICE_IGNORE}=\"1\"\n"
-    "ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789A]?\", ENV{MTP_NO_PROBE}=\"1\"\n"
-    "SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789ABCD]?\", MODE:=\"0666\"\n"
-    "KERNEL==\"ttyACM*\", ATTRS{idVendor}==\"16c0\", ATTRS{idProduct}==\"04[789B]?\", MODE:=\"0666\"\n"
-    "# STM32 rules for the Moonlander and Planck EZ\n"
-    "SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"0483\", ATTRS{idProduct}==\"df11\", \\\n"
-    "MODE:=\"0666\", \\\n"
-    "SYMLINK+=\"stm32_dfu\"\n")))
-
 (define desktop
   (operating-system
     (inherit %base-system)
@@ -96,7 +83,7 @@ is turned into
                 (hurd-vm-configuration
                  (disk-size (* 3 (expt 2 30))) ;3GiB Volatile disk
                  (memory-size 1024)))          ;1024MiB vRAM
-       (udev-rules-service 'zsa-moonlander zsa-moonlander-udev-rule))
+       (udev-rules-service 'zsa-moonlander zsa-udev-rule))
       (operating-system-user-services %base-system)))
 
     (bootloader
