@@ -78,7 +78,11 @@
             ;; TODO: Add this?
             ;; (name-service-switch %mdns-host-lookup-nss) ;; Resolve .local with mDNS
             )
-      %desktop-services))
+      (modify-services %desktop-services
+                       (gdm-service-type config =>
+                                         (gdm-configuration
+                                          (inherit config)
+                                          (wayland? #t))))))
     (bootloader
      (bootloader-configuration
       (bootloader grub-efi-bootloader)

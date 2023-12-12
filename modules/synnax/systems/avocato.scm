@@ -7,7 +7,7 @@
 
 (use-package-modules
  linux ;; brightnessctl
- )
+ xorg)
 
 (use-service-modules
  desktop)
@@ -33,7 +33,8 @@
 
    (packages
     (append
-     (list brightnessctl
+     (list xorg-server-xwayland
+           brightnessctl
            bluez)
      (operating-system-packages %base-system)))
 
