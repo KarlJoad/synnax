@@ -48,7 +48,7 @@
  networking     ; ethtools
  disk             ; dosfstools (mkfs.fat)
  cryptsetup samba
- freedesktop      ; XDG stuff
+ freedesktop      ; XDG stuff, xdg-desktop-portal
  linux pulseaudio ; ALSA/PulseAudio
  compression
  terminals      ; alacritty, urxvt
@@ -111,6 +111,7 @@
    (list pwgen
          glibc-locales
          xdg-utils
+         xdg-desktop-portal-wlr
          xautolock ; Run command for user after some time has passed with no input
          alsa-utils pavucontrol
          vim
