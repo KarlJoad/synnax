@@ -507,6 +507,9 @@ setw -g aggressive-resize on"))))
                          (starttls? #t)
                          (tls-trust-file "/etc/ssl/certs/ca-certificates.crt"))))
              (default-account "personal")))
+   (simple-service 'wayland-workarounds-env-vars-service
+            home-environment-variables-service-type
+            `(("MOZ_ENABLE_WAYLAND" . "1")))
    (service home-emacs-server-service-type
             (home-emacs-server-configuration
              (package emacs)))
