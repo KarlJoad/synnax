@@ -35,7 +35,7 @@
    (shepherd-service
     (provision (list
                 (server-name->symbol server-name)));; (server-name-suffix server-name))))
-    (requirement '())
+    (requirement '(dbus-home))
     (respawn? #t)
     (start #~(make-forkexec-constructor
               (list #$(file-append emacs-package "/bin/emacs")

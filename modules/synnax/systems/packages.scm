@@ -127,7 +127,7 @@
 
 
 (define %emacs-metapackage
-  (list emacs
+  (list emacs-pgtk
         emacs-guix
         emacs-vterm
         emacs-org-roam
