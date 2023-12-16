@@ -79,7 +79,7 @@
     elif [[ -n \"$IN_NIX_SHELL\" ]]; then
       PS1='\\n\\[\\033[1;32m\\][nix-shell:\\w] \\t \\$\\[\\033[0m\\] '
     else
-      PS1='\\n\\u@\\h \\w\\n\\t \\$ '
+      PS1='\\n\\[\\e[1;35m\\]\\u@\\h \\w\\n\\t \\$\\[\\e[0m\\] '
     fi
 }
 # Bash community has settled on ; to be the delimiter in PROMPT_COMMAND
@@ -577,7 +577,7 @@ colors:
     green: '#70b900'
     yellow: '#c0c530'
     blue: '#79a8ff'
-    magenta: '#f78fe7'
+    magenta: '#fe00f6'
     cyan: '#4ae2f0'
     white: '#989898'
   cursor:
