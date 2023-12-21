@@ -29,7 +29,8 @@
    (initrd microcode-initrd)
    (firmware (list linux-firmware))
    (timezone "America/Chicago")
-   (keyboard-layout (keyboard-layout "us"))
+   (keyboard-layout
+    (keyboard-layout "us" #:options '("ctrl:nocaps")))
    (host-name "synnax-base-system")
    (users (cons* (user-account
                    (name "karljoad")
