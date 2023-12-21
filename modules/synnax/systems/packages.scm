@@ -40,8 +40,7 @@
  xdisorg          ; X11 helper programs
  wget curl
  version-control
- wm ; Stumpwm
- dunst ; dunst
+ wm ; Stumpwm, dunst
  certs
  moreutils pciutils lsof
  dns            ; isc-bind (host, dig, etc.)
