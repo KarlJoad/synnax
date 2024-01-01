@@ -156,6 +156,13 @@ setw -g xterm-keys on
 # set -g status-utf8 on
 # setw -g utf8 on
 
+# Move across panes in directions.
+# These match what I do in my Emacs config too.
+bind C-b select-pane -L
+bind C-n select-pane -D
+bind C-p select-pane -U
+bind C-f select-pane -R
+
 # Use 1-indexing for windows
 set -g base-index 1 #
 setw -g pane-base-index 1 #
