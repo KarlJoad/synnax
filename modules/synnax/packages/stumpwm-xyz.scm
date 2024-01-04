@@ -17,23 +17,21 @@
 ;; Could instead symlink each of the packages into place under *data-dir*/modules,
 ;; which ends up being $HOME/.stumpwm.d/modules.
 
-(define stumpwm-contrib-git-branch "master")
-(define stumpwm-contrib-git-commit "d0c05077eca5257d33083de949c10bca4aac4242")
-(define stumpwm-contrib-revision "1")
+(define stumpwm-contrib-git-commit "54dfbeb553ad68272163c520655b6a4af4ad0430")
+(define stumpwm-contrib-revision "2")
 (define stumpwm-contrib-version
-  (git-version stumpwm-contrib-git-branch stumpwm-contrib-revision
-               stumpwm-contrib-git-commit))
+  (git-version "0.0.0" stumpwm-contrib-revision stumpwm-contrib-git-commit))
 
 (define stumpwm-contrib-source
   (origin
    (method git-fetch)
    (uri (git-reference
          (url "https://github.com/stumpwm/stumpwm-contrib.git")
-         (commit stumpwm-contrib-git-branch)))
+         (commit stumpwm-contrib-git-commit)))
    (file-name (git-file-name "stumpwm-contrib" stumpwm-contrib-version))
    (sha256
     (base32
-     "0zxhqh9wjfk7zas67kmwfx0a47y8rxmh8f1a5rcs300bv1083lkb"))))
+     "1902b84jmwp469sa5lxnirg3qb94833f1knwarji0jfnfh3km8li"))))
 
 (define-public stumpwm-contrib-battery-portable
   (package
