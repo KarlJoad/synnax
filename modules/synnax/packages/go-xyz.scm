@@ -99,16 +99,16 @@
 (define-public go-github-com-sri-csl-gllvm
   (package
    (name "go-github-com-sri-csl-gllvm")
-   (version "git-master")
+   (version "1.3.1")
    (source (origin
             (method git-fetch)
             (uri (git-reference
                   (url "https://github.com/SRI-CSL/gllvm")
-                  (commit "master")))
+                  (commit (string-append "v" version))))
             (file-name (git-file-name name version))
             (sha256
              (base32
-              "04amsgljrc46s92l19pqa9vwzrkbm9iz78rfmsc61r5hxyaz932y"))))
+              "0c0xh3z9wcl9yrxh13xn08bqk40wfwhvpd98z2pzpf0iffmdx2ha"))))
    (build-system go-build-system)
    (arguments
     `(#:unpack-path "github.com/SRI-CSL/gllvm"
