@@ -6,6 +6,7 @@
   #:use-module (gnu services ssh)
   #:use-module (gnu services cuirass)
   #:use-module (gnu services mcron)
+  #:use-module (gnu services avahi)
   #:export (ci-test))
 
 (use-package-modules
@@ -140,7 +141,12 @@
                      (host "0.0.0.0")
                      (specifications %ci-specifications)
                      ;; Only poll upstreams once every x seconds
-                     (interval (* 60 15))))
+                     (interval (* 60 15))
+                     (remote-server
+                      (cuirass-remote-server-configuration))))
+           (service cuirass-remote-worker-service-type
+                    (cuirass-remote-worker-configuration))
+           (service avahi-service-type)
            (service mcron-service-type
                     (mcron-configuration
                      (jobs (list guix-gc-job)))))
