@@ -1,5 +1,5 @@
-(define-module (synnax systems laptop)
-  #:export (laptop))
+(define-module (synnax systems lilcato)
+  #:export (lilcato))
 
 (use-modules (gnu)
              (synnax systems base-system))
@@ -11,10 +11,10 @@
 (use-service-modules
  desktop)
 
-(define-public laptop
+(define-public lilcato
   (operating-system
    (inherit %base-system)
-   (host-name "Guix-Laptop")
+   (host-name "lilcato")
 
    (packages
     (append
@@ -45,4 +45,4 @@
              (dependencies mapped-devices))
            %base-file-systems))))
 
-laptop
+lilcato
