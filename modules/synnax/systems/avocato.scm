@@ -41,8 +41,7 @@
 
    (services
     (append
-     (list (service plasma-desktop-service-type)
-           (service bluetooth-service-type)
+     (list (service bluetooth-service-type)
            (udev-rules-service 'change-brightness-service-type backlight-udev-rule)
            (udev-rules-service 'zsa-moonlander zsa-udev-rule))
      (operating-system-user-services %base-system)))

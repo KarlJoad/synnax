@@ -51,7 +51,7 @@
       %base-packages))
     (services
      (append
-      (list (service xfce-desktop-service-type)
+      (list (service plasma-desktop-service-type)
             (service openssh-service-type)
             (service cups-service-type
                      (cups-configuration
