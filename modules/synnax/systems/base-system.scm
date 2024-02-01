@@ -68,7 +68,8 @@
             (service nix-service-type
                      (nix-configuration
                       (extra-config
-                       (list "experimental-features = nix-command flakes"))))
+                       (list "experimental-features = nix-command flakes\n"
+                             "bash-prompt = \\n\\[\\033[1;32m\\][nix-develop:\\w]\\$\\[\\033[0m\\]\\040\n"))))
             (service syncthing-service-type
                      (syncthing-configuration
                       (user "karljoad") ;; TODO: Refactor `user' field to use variable.
