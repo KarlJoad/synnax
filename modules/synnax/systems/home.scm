@@ -133,7 +133,19 @@ export PROMPT_COMMAND")
                            ,(plain-file "gitconfig"
                                         "[user]
 \tname = Karl Hallsby
-\temail = karl@hallsby.com"))
+\temail = karl@hallsby.com
+
+[transfer]
+\tfsckobjects = true
+
+[fetch]
+\tfsckobjects = true
+
+[receive]
+\tfsckobjects = true
+
+[core]
+\tautocrlf = false"))
                          `("git/ignore"
                            ,(plain-file "gitignore"
                                         "*~
