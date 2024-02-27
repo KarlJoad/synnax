@@ -122,6 +122,10 @@ export PROMPT_COMMAND")
                     (openssh-host (name "dubliner")
                                   (host-name "dubliner.cs.northwestern.edu")
                                   (user "karl")
+                                  (identity-file "~/.ssh/nu"))
+                    (openssh-host (name "peroni")
+                                  (host-name "peroni.cs.northwestern.edu")
+                                  (user "kgh0080")
                                   (identity-file "~/.ssh/nu"))))))
    (simple-service 'git-config-files
                    home-xdg-configuration-files-service-type
