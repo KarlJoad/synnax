@@ -172,6 +172,9 @@ setw -g xterm-keys on
 # set -g status-utf8 on
 # setw -g utf8 on
 
+# Use this to set CWD of new pane when splitting.
+bind c new-window -c \"#{pane_current_path}\"
+
 # Move across panes in directions.
 # These match what I do in my Emacs config too.
 bind C-b select-pane -L
