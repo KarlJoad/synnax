@@ -114,7 +114,7 @@
          xautolock ; Run command for user after some time has passed with no input
          alsa-utils pavucontrol
          vim
-         emacs emacs-guix
+         ;; emacs emacs-guix
          wget curl
          zip unzip
          nix
