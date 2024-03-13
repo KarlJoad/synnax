@@ -1,6 +1,7 @@
 (define-module (synnax systems home))
 
 (use-modules (gnu)
+             (gnu packages mail)
              (gnu home)
              (gnu home services)
              (gnu home services shells)
@@ -278,12 +279,15 @@ setw -g aggressive-resize on"))))
    (service home-mbsync-service-type
             (home-mbsync-configuration
              (use-xdg? #f)
+             ;; This is what I have set, but it is really gross.
              (global-config '((Sync All)
                               (Create Both)
                               (Remove None)
                               (Expunge Both)
                               (CopyArrivalDate yes)
                               (SyncState *)))
+              ;; (post-sync-cmd
+             ;;  (string-append (file-append mu "/bin/mu") "index"))
              (accounts
               (list (home-mbsync-account-configuration
                      (name "personal")
@@ -486,8 +490,7 @@ setw -g aggressive-resize on"))))
                                              (home-mbsync-channel-configuration
                                               (name "trash")
                                               (far "[Gmail]/Trash")
-                                              (near "Trash"))))))))))
-             (post-sync-cmd "mu index")))
+                                              (near "Trash"))))))))))))
    (service home-mu-service-type
             (home-mu-configuration
              (addresses (list "karl@hallsby.com" "khallsby@hawk.iit.edu"

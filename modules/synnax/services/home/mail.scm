@@ -276,6 +276,7 @@ synchronized."))
       ((? symbol? e) (symbol->string e))
       ((? number? e) (format #f "~a" e))
       ((? string? e) (format #f "~s" e))
+      ((? file-like? e) (forma #f "~s" e))
       (e e)))
   (define (serialize-item entry)
     "Serialize an item (list of terms or gexp) into a single string."
@@ -289,6 +290,9 @@ synchronized."))
   (every home-mbsync-account-configuration? lst))
 (define (mbsync-serialize-list-of-home-mbsync-account-configurations field-name val)
   (map serialize-home-mbsync-account-configuration val))
+
+(define-maybe file-like-gexp-or-string)
+(define (file-like-gexp-or-string? flgs) (or (file-like? flgs) (gexp? flgs) (string? flgs)))
 
 (define-configuration home-mbsync-configuration
   (package
@@ -312,8 +316,9 @@ configuration term for mbsync.")
    (number (* 60 5))
    "Interval for which to run the automatically-syncing mbsync job, in seconds.")
   (post-sync-cmd
-   (string "")
-   "Command to run after mbsync completes its mail fetching.")
+   maybe-file-like-gexp-or-string
+   "Command to run after mbsync completes its mail fetching."
+   empty-serializer)
   (prefix mbsync-))
 
 (define (add-mbsync-package config)
@@ -384,11 +389,16 @@ will fetch ALL the user's emails with the configured interval."
         (post-sync-cmd (home-mbsync-configuration-post-sync-cmd config)))
     (list
      #~(job (lambda (current-time) (+ current-time #$interval))
-            #$(file-append
-               mbsync "/bin/mbsync -Va"
-               (if (not (string-null? post-sync-cmd))
-                   (string-append " && " post-sync-cmd)
-                   ""))))))
+            ;; If the user specified a post-sync command, run it after the
+            ;; normal mbsync command.
+            (lambda ()
+              (system* #$(file-append mbsync "/bin/mbsync") "-Va")
+              ;; TODO: Check waitpid return value of mbsync!
+              #$(if (maybe-value-set? post-sync-cmd)
+                    ;; I am not a huge fan of using this apply to make things
+                    ;; work, but it will work for now.
+                    #~(apply system* #$post-sync-cmd)
+                    #~0))))))
 
 (define (add-home-mbsync-periodic-sync-job config)
   "If the user has enabled automatic synchronization, return the list of jobs
@@ -415,8 +425,6 @@ preventing this job from being added."
                        (service-extension
                         home-mcron-service-type
                         add-home-mbsync-periodic-sync-job)
-                       ;; Extend home-mcron-service-type's job list with this job
-                       ;; See (gnu home services mcron)'s home-mcron-extend procedure?
                        (service-extension
                         home-activation-service-type
                         create-mbsync-local-maildir-directory)
