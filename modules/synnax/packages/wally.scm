@@ -5,7 +5,8 @@
   #:use-module (guix build-system go)
   #:use-module (gnu packages golang)
   #:use-module (gnu packages pkg-config)
-  #:use-module (synnax packages go-xyz)
+  #:use-module (synnax packages golang-xyz)
+  #:use-module (synnax packages golang-build)
   #:use-module (gnu packages libusb)
   #:use-module ((guix licenses) #:prefix license:))
 
