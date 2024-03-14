@@ -162,6 +162,7 @@
    (list password-store ;; pass
          stow
          last-reconfigure-date
+         nix-gc-roots
          rsync
          openvpn)
    %emacs-metapackage))
