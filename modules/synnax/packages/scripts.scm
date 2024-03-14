@@ -2,9 +2,12 @@
   #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module (guix download)
+  #:use-module (guix modules)
   #:use-module (guix build-system trivial)
   #:use-module (srfi srfi-13)
-  #:use-module (gnu packages xorg))
+  #:use-module (gnu packages xorg)
+  #:use-module (gnu packages base)
+  #:use-module (gnu packages package-management))
 
 (define-public fix-desktop-monitors
   (package
@@ -132,3 +135,72 @@ most recent system and per-user home profile were built.")
                         (format #t "Home:\t~a~%"
                                 (file-ctime
                                  (format #f "/var/guix/profiles/per-user/~a/guix-home" user-name-running))))))))
+
+(define nix-gc-roots-script
+  (program-file
+   "nix-gc-roots"
+   (with-imported-modules
+       (source-module-closure
+        `((ice-9 popen) (ice-9 receive) (ice-9 textual-ports) (ice-9 regex)
+          (srfi srfi-1)))
+     #~(begin
+         (use-modules (ice-9 popen)
+                      (ice-9 receive)
+                      (ice-9 textual-ports)
+                      (ice-9 regex)
+                      (srfi srfi-1))
+         (let ((commands (list
+                           (list #$(file-append nix "/bin/nix-storeb") "--gc" "--print-roots")
+                           (list #$(file-append grep "/bin/grep") "-E" "-v"
+                                 "\"^(/nix/var|/run/\\w+-system|\\{memory|/proc)\"")))
+               (success? (lambda (pid)
+                           (zero?
+                            (status:exit-val (cdr (waitpid pid)))))))
+           ;; NOTE: back-output is an input-port, which allows reading.
+           ;; front-input is an output-port, which allows writing.
+           (receive (back-output front-input pids)
+               ;; Run the commands
+               (pipeline commands)
+             (begin
+               (close front-input)
+               (let ((pipeline-fail-idx (list-index (negate success?) (reverse pids))))
+                 (when pipeline-fail-idx
+                   (format #t "pipeline failed in command: ~a~%"
+                           (list-ref commands pipeline-fail-idx))
+                   (exit EXIT_FAILURE)))
+
+               (let ((nix-gc-root (get-line back-output)))
+                 (while (not (eof-object? nix-gc-root))
+                   ;; Remove all lines that start with "{censored}"
+                   (unless (string-match "\\{censored\\}" nix-gc-root)
+                     (display nix-gc-root)
+                     (newline))
+                   (set! nix-gc-root (get-line back-output))))
+               (close back-output))))))))
+
+(define-public nix-gc-roots
+  (package
+   (name "nix-gc-roots")
+   (version "git")
+   (source #f)
+   (native-inputs `(("nix-gc-roots-script" ,nix-gc-roots-script)
+                    ("nix" ,nix)
+                    ("grep" ,grep)))
+   (build-system trivial-build-system)
+   (arguments
+    `(#:modules ((guix build utils) (srfi srfi-13))
+      #:builder
+      (begin
+        (use-modules (guix build utils)
+                     (srfi srfi-13))
+        (let* ((bin (string-append (assoc-ref %outputs "out") "/bin"))
+               (script-source (assoc-ref %build-inputs "nix-gc-roots-script"))
+               (target-script-file (string-append bin "/" "nix-gc-roots.scm")))
+          (mkdir-p bin)
+          (symlink script-source target-script-file)))))
+   (home-page "https://github.com/KarlJoad/synnax")
+   (synopsis "Prints all GC roots the Nix (not Guix) daemon knows about")
+   (description "Reads from the Nix store to find all GC roots, printing them out.
+The script will not output roots from certain subdirectories on the system,
+including @t{/nix/var}, @t{/run/}, and others.")
+   (license #f)))
