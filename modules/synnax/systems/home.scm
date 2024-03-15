@@ -286,8 +286,12 @@ setw -g aggressive-resize on"))))
                               (Expunge Both)
                               (CopyArrivalDate yes)
                               (SyncState *)))
-              ;; (post-sync-cmd
-             ;;  (string-append (file-append mu "/bin/mu") "index"))
+             (post-sync-cmd
+              ;; I am not a fan of using a list here, but the problem is "index"
+              ;; must be an argument to the mu binary, not a separate binary.
+              ;; This means that we need a separate entry for the underlying
+              ;; system* function.
+              #~(list #$(file-append mu "/bin/mu") "index"))
              (accounts
               (list (home-mbsync-account-configuration
                      (name "personal")
