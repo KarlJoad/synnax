@@ -69,6 +69,9 @@
                      (nix-configuration
                       (extra-config
                        (list "experimental-features = nix-command flakes\n"
+                             ;; When using flakes, "nix shell" will not change $PS1.
+                             ;; This configuration should make "nix shell" behave
+                             ;; like "nix-shell" in setting $PS1.
                              "bash-prompt = \\n\\[\\033[1;32m\\][nix-develop:\\w]\\$\\[\\033[0m\\]\\040\n"))))
             (service syncthing-service-type
                      (syncthing-configuration
