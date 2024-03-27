@@ -77,6 +77,10 @@
                      (syncthing-configuration
                       (user "karljoad") ;; TODO: Refactor `user' field to use variable.
                       (arguments '("-gui-address=127.0.0.1:8384"))))
+            ;; 4-core VM with RTC set to Jan 2020, using Skylake for building
+            ;; Does NOT run by default. Must explicitly turn on for offload
+            ;; building to work!
+            (service virtual-build-machine-service-type)
             ;; /bin/sh and /usr/bin/env are already made extra-special-files
             ;; by %base-services, which %desktop-services extends
             (extra-special-file "/bin/bash" (file-append bash "/bin/bash"))
