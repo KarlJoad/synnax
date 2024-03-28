@@ -84,8 +84,9 @@
     fi
 }
 # Bash community has settled on ; to be the delimiter in PROMPT_COMMAND
-PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"
-export PROMPT_COMMAND")
+PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
+               ;; All modifications to $PROMPT_COMMAND MUST come before this export!
+               (plain-file "export-final-prompt-command" "export PROMPT_COMMAND")
                ;; NOTE: Adding direnv support should come last!
                (plain-file "bashrc-add-direnv" "eval \"$(direnv hook bash)\"")))))
    (service home-openssh-service-type
