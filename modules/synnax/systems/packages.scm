@@ -6,6 +6,7 @@
   #:use-module (nongnu packages emacs) ;; clhs
   #:use-module (synnax packages wally)
   #:use-module (synnax packages scripts)
+  #:use-module (synnax packages tree-sitter)
   #:export (%nonguix-packages
             %web-browser-packages
             %virtualization-packages
@@ -155,7 +156,8 @@
         tree-sitter-go
         tree-sitter-dockerfile
         tree-sitter-css
-        tree-sitter-bibtex))
+        tree-sitter-bibtex
+        tree-sitter-tlaplus))
 
 (define %base-home-packages
   (append
