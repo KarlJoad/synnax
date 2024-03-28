@@ -68,6 +68,17 @@
               ;; Each entry is added to final bashrc and string-join with newline
               (list
                ;; NOTE: A single \ in the output requires \\ in the string here!
+               (plain-file "bashrc-print-osc7-dir-tracking"
+                           "function osc7-dir-tracking {
+    # Track current directory using OSC 7's URI-style notation.
+    # Emacs 28+ natively understands this information for directory tracking!
+    # NOTE: The URI _is_ actually printed, but uses a terminal escape sequence to
+    # make it invisible!
+    printf \"\\e]7;file://%s%s\\e\\\\\" \"$HOSTNAME\" \"$PWD\"
+}
+
+# Bash community has settled on ; to be the delimiter in PROMPT_COMMAND
+PROMPT_COMMAND=\"osc7-dir-tracking${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                (plain-file "bashrc-color-ps1-prompt-command"
                            "function color_prompt_command {
     # PROMPT_COMMAND can contain ordinary Bash statements whereas the PS1 variable
