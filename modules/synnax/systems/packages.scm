@@ -4,7 +4,6 @@
   #:use-module (nongnu packages mozilla)
   #:use-module (nongnu packages messaging) ;; zoom, element-desktop
   #:use-module (nongnu packages emacs) ;; clhs
-  #:use-module (synnax packages wally)
   #:use-module (synnax packages scripts)
   #:use-module (synnax packages tree-sitter)
   #:export (%nonguix-packages
@@ -66,6 +65,7 @@
  python-xyz     ; python-pygments
  aspell         ; ispell
  kde            ; okular
+ flashing-tools
  gnome          ; yelp (documentation generator)
  libreoffice
  fonts
