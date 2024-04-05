@@ -156,8 +156,9 @@
         tree-sitter-go
         tree-sitter-dockerfile
         tree-sitter-css
-        tree-sitter-bibtex
-        tree-sitter-tlaplus))
+        tree-sitter-latex tree-sitter-bibtex
+        tree-sitter-tlaplus
+        tree-sitter-nix))
 
 (define %base-home-packages
   (append
