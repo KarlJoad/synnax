@@ -18,3 +18,12 @@
    "0lc42x604f04x3kkp88vyqa5dx90wqyisiwl7nn861lyxl6phjnf"
    "0.3.0"
    #:repository-url "https://github.com/latex-lsp/tree-sitter-latex"))
+
+(define-public tree-sitter-nix
+  ((@@ (gnu packages tree-sitter) tree-sitter-grammar)
+   "nix" "Nix"
+   "0nn3ij8k6wkbf3kcvkyyp0vhfjcksi31wyyfwmsbx66maf2xgaii"
+   "0.0.0"
+   ;; The most recent commit at time of packaging, no tags.
+   #:commit "763168fa916a333a459434f1424b5d30645f015d"
+   #:repository-url "https://github.com/nix-community/tree-sitter-nix"))
