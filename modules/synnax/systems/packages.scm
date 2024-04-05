@@ -5,7 +5,6 @@
   #:use-module (nongnu packages messaging) ;; zoom, element-desktop
   #:use-module (nongnu packages emacs) ;; clhs
   #:use-module (synnax packages scripts)
-  #:use-module (synnax packages tree-sitter)
   #:export (%nonguix-packages
             %web-browser-packages
             %virtualization-packages
