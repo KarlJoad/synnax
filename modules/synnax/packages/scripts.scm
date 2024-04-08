@@ -150,7 +150,7 @@ most recent system and per-user home profile were built.")
                       (ice-9 regex)
                       (srfi srfi-1))
          (let ((commands (list
-                           (list #$(file-append nix "/bin/nix-storeb") "--gc" "--print-roots")
+                           (list #$(file-append nix "/bin/nix-store") "--gc" "--print-roots")
                            (list #$(file-append grep "/bin/grep") "-E" "-v"
                                  "\"^(/nix/var|/run/\\w+-system|\\{memory|/proc)\"")))
                (success? (lambda (pid)
