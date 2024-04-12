@@ -7,6 +7,7 @@
              (nongnu system linux-initrd)
              (nongnu packages mozilla)
              (synnax systems packages)
+             ((synnax systems archive-keys) #:prefix keys/)
              (synnax services fstrim))
 
 (use-package-modules
@@ -91,7 +92,16 @@
                        (gdm-service-type config =>
                                          (gdm-configuration
                                           (inherit config)
-                                          (wayland? #t))))))
+                                          (wayland? #t)))
+                       (guix-service-type config =>
+                                          (guix-configuration
+                                           (inherit config)
+                                           (substitute-urls
+                                            (cons* "https://substitutes.nonguix.org"
+                                                   (guix-configuration-substitute-urls config)))
+                                           (authorized-keys
+                                            (cons* keys/%nonguix
+                                                   (guix-configuration-authorized-keys config))))))))
     (bootloader
      (bootloader-configuration
       (bootloader grub-efi-bootloader)
