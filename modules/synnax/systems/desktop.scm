@@ -31,6 +31,9 @@
     ("CONFIG_IPMI_WATCHDOG" . #t)
     ("CONFIG_IPMI_POWEROFF" . #t)))
 
+;; NOTE: Currently Guix catches the fact that the default value for this
+;; configure variable is #f/"n", but I am setting it to #t/"y". I do not
+;; actively use containers on Guix right now, so this is not truly needed for me.
 (define %container-linux-options
   `(("CONFIG_DEVPTS_MULTIPLE_INSTANCES" . #t)))
 
@@ -58,8 +61,7 @@ is turned into
 
 (define-public linux-libre/desktop
   (customize-linux #:name "linux-ipmi-uncorrupted"
-                   #:configs (extra-linux-config-options %ipmi-linux-options
-                                                         %container-linux-options)))
+                   #:configs (extra-linux-config-options %ipmi-linux-options)))
 
 ;; Will only work if nonguix channel is present.
 (define-public linux-corrupted/desktop
