@@ -41,7 +41,9 @@
 
    (services
     (append
-     (list (service bluetooth-service-type)
+     (list (service bluetooth-service-type
+                    (bluetooth-configuration
+                     (auto-enable? #t)))
            (udev-rules-service 'change-brightness-service-type backlight-udev-rule)
            (udev-rules-service 'zsa-moonlander zsa-udev-rule))
      (operating-system-user-services %base-system)))
