@@ -157,7 +157,9 @@
         tree-sitter-css
         tree-sitter-latex tree-sitter-bibtex
         tree-sitter-tlaplus
-        tree-sitter-nix))
+        tree-sitter-nix
+        tree-sitter-erlang
+        tree-sitter-verilog tree-sitter-vhdl))
 
 (define %base-home-packages
   (append
