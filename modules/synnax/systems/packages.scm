@@ -64,6 +64,7 @@
  python-xyz     ; python-pygments
  aspell         ; ispell
  kde            ; okular
+ pdf
  flashing-tools
  gnome          ; yelp (documentation generator)
  libreoffice
@@ -186,6 +187,7 @@
         python-pygments ;; To make texlive-minted work
         gnuplot
         okular
+        sioyek
         ispell
         libreoffice))
 
