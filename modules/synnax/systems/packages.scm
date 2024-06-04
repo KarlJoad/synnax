@@ -71,6 +71,7 @@
  package-management ; stow, nix
  gnucash
  video          ; vlc
+ image-viewers
  ebook          ; calibre
  lisp lisp-xyz
  perl
@@ -166,6 +167,7 @@
          stow
          last-reconfigure-date
          nix-gc-roots
+         geeqie ;; Lightweight GTK+ image-viewer
          rsync
          openvpn)
    %emacs-metapackage))
