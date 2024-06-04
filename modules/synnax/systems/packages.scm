@@ -120,7 +120,6 @@
          zip unzip
          nix
          rxvt-unicode alacritty
-         nss-certs
          cups)
    %utils-packages
    %wm-packages
