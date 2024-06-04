@@ -131,7 +131,6 @@
   (list emacs-pgtk
         emacs-guix
         emacs-vterm
-        emacs-org-roam
         tree-sitter
         tree-sitter-cli
         tree-sitter-bash
