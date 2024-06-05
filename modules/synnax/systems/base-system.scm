@@ -82,6 +82,11 @@
             ;; Does NOT run by default. Must explicitly turn on for offload
             ;; building to work!
             (service virtual-build-machine-service-type)
+            ;; Enable stem darkening to make thin fonts look crisper at small resolutions.
+            ;; This is added to /etc/environment through session-environment-service-type
+            ;; which comes from (gnu system).
+            (simple-service 'font-stem-darkening-env-var session-environment-service-type
+                            '(("FREETYPE_PROPERTIES" . "cff:no-stem-darkening=0 autofitter:no-step-darkening=0")))
             ;; /bin/sh and /usr/bin/env are already made extra-special-files
             ;; by %base-services, which %desktop-services extends
             (extra-special-file "/bin/bash" (file-append bash "/bin/bash"))
