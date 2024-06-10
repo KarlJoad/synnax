@@ -82,6 +82,16 @@
             ;; Does NOT run by default. Must explicitly turn on for offload
             ;; building to work!
             (service virtual-build-machine-service-type)
+            ;; Allow for native compilation of foreign architectures. This is
+            ;; like cross-compilation, but instead of using a compiler for a
+            ;; TARGET architecture, my computer "fakes" being the building SYSTEM
+            ;; architecture.
+            ;; This must be manually enabled/disabled. You can control this with
+            ;; herd start/stop qemu-binfmt
+            (service qemu-binfmt-service-type
+                     (qemu-binfmt-configuration
+                      (platforms
+                       (lookup-qemu-platforms "arm" "aarch64" "riscv64"))))
             ;; Enable stem darkening to make thin fonts look crisper at small resolutions.
             ;; This is added to /etc/environment through session-environment-service-type
             ;; which comes from (gnu system).
