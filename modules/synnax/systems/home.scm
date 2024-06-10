@@ -258,7 +258,7 @@ setw -g aggressive-resize on"))))
                    home-files-service-type
                    (list `(".nix-channels"
                            ,(plain-file "nix-channels"
-                                        "https://nixos.org/channels/nixos-23.11 nixpkgs"))
+                                        "https://nixos.org/channels/nixos-24.05 nixpkgs"))
                          `(".config/nixpkgs/config.nix"
                            ,(plain-file "config.nix"
                                         "{
