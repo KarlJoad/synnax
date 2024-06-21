@@ -63,6 +63,15 @@
                          (mount-point "/")
                          (device "/dev/mapper/cryptroot")
                          (type "ext4")
-                         (dependencies mapped-devices)) %base-file-systems))))
+                         (dependencies mapped-devices)) %base-file-systems))
+   (swap-devices
+    (list
+     ;; /swapfile
+     (swap-space
+       (target "/swapfile")
+       ;; uuid targets only work for swap partitions!
+       ;; (target (uuid "ec711927-a230-40c0-baa0-6ca7895abb5c"))
+       (dependencies (filter (file-system-mount-point-predicate "/")
+                             file-systems)))))))
 
 avocato
