@@ -137,6 +137,40 @@ if there is no matching extension."
                 "-O" "xhtml"         ;; Output format
                 "-S" (file-extension file-to-highlight))))))
 
+(define bad-bots
+  (list
+   "Amazonbot" "Amazonbot/0.1"
+   "Bytespider" "PetalBot" "SemrushBot" "Semrush"
+   "AhrefsBot" "YandexBot" "YandexImages" "MegaIndex.ru" "BLEXbot"
+   "BLEXBot" "ZoominfoBot" "YaK" "VelenPublicWebCrawler" "SentiBot"
+   "Vagabondo" "SEOkicks" "SEOkicks-Robot" "mtbot/1.1.0i" "SeznamBot"
+   "DotBot" "Cliqzbot" "coccocbot" "python" "Scrap" "SiteCheck-sitecrawl"
+   "MauiBot" "Java" "GumGum" "Clickagy" "AspiegelBot" "Yandex" "TkBot"
+   "CCBot" "Qwantify" "MBCrawler" "serpstatbot" "AwarioSmartBot"
+   "Semantici" "ScholarBot" "proximic" "MojeekBot" "GrapeshotCrawler"
+   "IAScrawler" "linkdexbot" "contxbot" "PlurkBot" "PaperLiBot"
+   "BomboraBot" "Leikibot" "weborama-fetcher" "NTENTbot"
+   "Screaming Frog SEO Spider" "admantx-usaspb" "Eyeotabot"
+   "VoluumDSP-content-bot" "SirdataBot" "adbeat_bot" "TTD-Content" "admantx"
+   "Nimbostratus-Bot" "Mail.RU_Bot" "Quantcastboti" "Onespot-ScraperBot"
+   "Taboolabot" "Baidu" "Jobboerse" "VoilaBot" "Sogou" "Jyxobot" "Exabot"
+   "ZGrab" "Proximi" "Sosospider" "Accoona" "aiHitBot" "Genieo" "BecomeBot"
+   "ConveraCrawler" "NerdyBot" "OutclicksBot" "findlinks" "JikeSpider"
+   "Gigabot" "CatchBot" "Huaweisymantecspider" "Offline Explorer"
+   "SiteSnagger" "TeleportPro" "WebCopier" "WebReaper" "WebStripper"
+   "WebZIP" "Xaldon_WebSpider" "BackDoorBot" "AITCSRoboti"
+   "Arachnophilia" "BackRub" "BlowFishi" "perl" "CherryPicker"
+   "CyberSpyder" "EmailCollector" "Foobot" "GetURL" "httplib" "HTTrack"
+   "LinkScan" "Openbot" "Snooper" "SuperBot" "URLSpiderPro" "MAZBot"
+   "EchoboxBot" "SerendeputyBot" "LivelapBot" "linkfluence.com"
+   "TweetmemeBot" "LinkisBot" "CrowdTanglebot"))
+
+(define nginx-block-bad-bots
+  (string-append
+   "if ($http_user_agent ~* \""
+   (string-join bad-bots "|" 'infix)
+   "\") { return 403; }"))
+
 (define personal-website-destination "/srv/http/personal")
 
 (define-public %website-system
@@ -226,7 +260,8 @@ if there is no matching extension."
                                            nginx-x-frame-options-header
                                            (nginx-x-xss-protection-header)
                                            (nginx-referrer-policy-header)
-                                           nginx-content-security-policy-header)))))))
+                                           nginx-content-security-policy-header
+                                           nginx-block-bad-bots)))))))
            (service fcgiwrap-service-type) ;; Needed for git-http
            ;; Cannot refresh certs for karl.hallsby.com without running on that host.
            ;; NOTE: You must run nginx with all domains' root set to /var/www for
