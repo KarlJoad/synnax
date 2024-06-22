@@ -193,7 +193,7 @@ if there is no matching extension."
     (append
      (list vim
            git ;; Useful to have git for git operations.
-           nss-certs)
+           )
      %base-packages))
    (services
     (append
