@@ -112,6 +112,7 @@
    (list pwgen
          glibc-locales
          xdg-utils
+         xdg-desktop-portal
          xdg-desktop-portal-wlr
          xautolock ; Run command for user after some time has passed with no input
          alsa-utils pavucontrol
