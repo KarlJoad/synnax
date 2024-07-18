@@ -190,10 +190,10 @@ bind c new-window -c \"#{pane_current_path}\"
 
 # Move across panes in directions.
 # These match what I do in my Emacs config too.
-bind C-b select-pane -L
-bind C-n select-pane -D
-bind C-p select-pane -U
-bind C-f select-pane -R
+bind -N 'Select pane left'  C-b select-pane -L
+bind -N 'Select pane down'  C-n select-pane -D
+bind -N 'Select pane up'    C-p select-pane -U
+bind -N 'Select pane right' C-f select-pane -R
 
 # Use 1-indexing for windows
 set -g base-index 1 #
