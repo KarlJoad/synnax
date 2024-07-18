@@ -200,6 +200,9 @@ bind -N 'Select pane right' C-f select-pane -R
 # NOTE: Older Tmux-s do not support -T!
 bind-key -N 'Select window by name/index' b { command-prompt -T window-target -p\\\"name/index\\\" { select-window -t ':%%' } }
 
+# When renaming a window, do not fill in the old name automatically
+bind-key -N 'Rename current window' , { command-prompt { rename-window -- '%%' } }
+
 # Use 1-indexing for windows
 set -g base-index 1 #
 setw -g pane-base-index 1 #
