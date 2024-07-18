@@ -195,6 +195,11 @@ bind -N 'Select pane down'  C-n select-pane -D
 bind -N 'Select pane up'    C-p select-pane -U
 bind -N 'Select pane right' C-f select-pane -R
 
+# Switch Tmux windows by name the same way as Emacs
+# This is taken directly from Tmux's default config (key-bindings.c)
+# NOTE: Older Tmux-s do not support -T!
+bind-key -N 'Select window by name/index' b { command-prompt -T window-target -p\\\"name/index\\\" { select-window -t ':%%' } }
+
 # Use 1-indexing for windows
 set -g base-index 1 #
 setw -g pane-base-index 1 #
