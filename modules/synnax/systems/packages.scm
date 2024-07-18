@@ -80,7 +80,7 @@
  vpn
  cups
  web
- tmux screen)
+ screen)
 
 (define %nonguix-packages (list firefox zoom element-desktop))
 
@@ -205,7 +205,7 @@
         poke ;; Interactive editor for binary files
         radare2 ;; Reverse engineering tools (good for diff of assembly)
         direnv
-        tmux screen
+        screen
         texinfo))
 
 (define %email-packages
