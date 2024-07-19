@@ -58,6 +58,10 @@ bind-key -N 'Select window by name/index' b { command-prompt -T window-target -p
 # When renaming a window, do not fill in the old name automatically
 bind-key -N 'Rename current window' , { command-prompt { rename-window -- '%%' } }
 
+# Make <prefix> C-b behave like my Emacs and display all windows across all
+# my Tmux sessions.
+bind-key -N 'Choose window from list' C-b { choose-tree -Zw }
+
 # Use 1-indexing for windows
 set -g base-index 1 #
 setw -g pane-base-index 1 #
