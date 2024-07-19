@@ -62,6 +62,11 @@ bind-key -N 'Rename current window' , { command-prompt { rename-window -- '%%' }
 # my Tmux sessions.
 bind-key -N 'Choose window from list' C-b { choose-tree -Zw }
 
+# Renumber this window and renumber all others if need be.
+# NOTE: If -s <src-window> is omitted, it is implicitly THIS window.
+# FIXME: This can swap across sessions!
+bind-key -N 'Renumber THIS window' w { command-prompt -T window-target -p\"New index\" { swap-window -t ':%%' } }
+
 # Use 1-indexing for windows
 set -g base-index 1 #
 setw -g pane-base-index 1 #
