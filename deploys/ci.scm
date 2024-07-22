@@ -9,7 +9,7 @@
        (environment managed-host-environment-type)
        (configuration (machine-ssh-configuration
            ;; IP or DNS-resolved address of machine(s) to manage
-           (host-name "Karl-CI.raven")
+           (host-name "cuirass.raven")
            (system "x86_64-linux")
            ;; SSH host key of system being configured
            (host-key "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA0V77v/o/3XvaK1daKdzCRu0EaALdJRdXzerGbnYcni root@(none)")

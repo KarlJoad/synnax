@@ -135,7 +135,11 @@
                      (permit-root-login 'prohibit-password)
                      (authorized-keys
                       `(("root" ,(local-file (string-append (getenv "HOME") "/.ssh/cuirass_rsa.pub")))))))
-           (service dhcp-client-service-type)
+           (service dhcp-client-service-type
+                    (dhcp-client-configuration
+                     (config-file
+                      (mixed-text-file "dhclient.conf"
+                                       "send host-name \"" host-name "\";"))))
            (service cuirass-service-type
                     (cuirass-configuration
                      (host "0.0.0.0")
