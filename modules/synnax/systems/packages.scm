@@ -4,6 +4,7 @@
   #:use-module (nongnu packages mozilla)
   #:use-module (nongnu packages messaging) ;; zoom, element-desktop
   #:use-module (nongnu packages emacs) ;; clhs
+  #:use-module (nongnu packages productivity) ;; zotero
   #:use-module (synnax packages scripts)
   #:export (%nonguix-packages
             %web-browser-packages
@@ -186,6 +187,7 @@
         texlive-scheme-full ;; Include ALL of TeXLive, because I am lazy and disks are large
         texlive-biber ;; I prefer biber over old-school bibtex
         python-pygments ;; To make texlive-minted work
+        zotero
         gnuplot
         okular
         sioyek
