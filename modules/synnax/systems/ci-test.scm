@@ -124,7 +124,7 @@
    (packages
     (append
      (list ;; emacs
-           nss-certs)
+      )
      %base-packages))
    (services
     (append
