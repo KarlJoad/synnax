@@ -1,6 +1,7 @@
 (define-module (synnax systems ci-test)
   #:use-module (gnu)
   #:use-module (gnu system)
+  #:use-module (gnu packages vim)
   #:use-module (gnu services)
   #:use-module (gnu services networking)
   #:use-module (gnu services ssh)
@@ -124,7 +125,7 @@
    (packages
     (append
      (list ;; emacs
-      )
+      neovim)
      %base-packages))
    (services
     (append
