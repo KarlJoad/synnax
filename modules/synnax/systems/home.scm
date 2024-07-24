@@ -8,13 +8,16 @@
              (gnu home services shepherd)
              (gnu home services mcron)
              (gnu home services ssh)
+             (gnu packages containers)
              (gnu services)
              (guix gexp)
              (synnax systems packages)
              (synnax services dbus)
              (synnax services pipewire)
+             (synnax services podman)
              (synnax services home mail)
              (synnax services home emacs)
+             (synnax services home podman)
              (synnax services home tmux)
              (synnax services home vim)
              (synnax services home zathura))
@@ -541,6 +544,14 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                 ;; Goto uses Vim-style motion: Page# <A-g>
                 ("<A-g>" goto)))))
    (service home-tmux-service-type)
+   (service home-podman-service-type
+            (home-podman-configuration
+             (packages (list podman podman-compose))
+             (config-files
+              (container-configuration-files
+               (unqualified-search-registries
+                (list "docker.io" "registry.fedoraproject.org"
+                      "registry.access.redhat.com" "registry.centos.org"))))))
    (simple-service 'alacritty-config-files
                    home-xdg-configuration-files-service-type
                    (list `("alacritty/alacritty.toml"
