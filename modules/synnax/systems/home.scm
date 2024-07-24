@@ -1,7 +1,6 @@
 (define-module (synnax systems home))
 
 (use-modules (gnu)
-             (gnu packages mail)
              (gnu home)
              (gnu home services)
              (gnu home services shells)
@@ -9,6 +8,7 @@
              (gnu home services mcron)
              (gnu home services ssh)
              (gnu packages containers)
+             (gnu packages mail)
              (gnu services)
              (guix gexp)
              (synnax systems packages)
