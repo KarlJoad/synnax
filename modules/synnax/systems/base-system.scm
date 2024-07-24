@@ -8,7 +8,8 @@
              (nongnu packages mozilla)
              (synnax systems packages)
              ((synnax systems archive-keys) #:prefix keys/)
-             (synnax services fstrim))
+             (synnax services fstrim)
+             (synnax services podman))
 
 (use-package-modules
  bash)
@@ -66,6 +67,14 @@
                       (unix-sock-group "libvirt")))
             (service virtlog-service-type)
             (service docker-service-type)
+            (service podman-service-type
+                     (podman-configuration
+                      (user-name "karljoad")
+                      (config-files
+                       (container-configuration-files
+                        (unqualified-search-registries
+                         (list "docker.io" "registry.fedoraproject.org"
+                               "registry.access.redhat.com" "registry.centos.org"))))))
             (service nix-service-type
                      (nix-configuration
                       (extra-config
