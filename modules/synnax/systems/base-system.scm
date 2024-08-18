@@ -66,6 +66,7 @@
                      (libvirt-configuration
                       (unix-sock-group "libvirt")))
             (service virtlog-service-type)
+            (service containerd-service-type)
             (service docker-service-type)
             (service podman-service-type
                      (podman-configuration
