@@ -9,6 +9,7 @@
              (synnax systems packages)
              ((synnax systems archive-keys) #:prefix keys/)
              (synnax services fstrim)
+             (synnax services keyboard)
              (synnax services podman))
 
 (use-package-modules
@@ -107,6 +108,13 @@
             ;; which comes from (gnu system).
             (simple-service 'font-stem-darkening-env-var session-environment-service-type
                             '(("FREETYPE_PROPERTIES" . "cff:no-stem-darkening=0 autofitter:no-step-darkening=0")))
+            ;; Set the keyboard repeat rate in the CONSOLE. Setting it for X11
+            ;; must be done for X specifically. Setting the rate for Wayland
+            ;; is Wayland compositor-specific.
+            (service keyboard-console-service-type
+                     (keyboard-repeat-configuration
+                      (repeat-delay 200)
+                      (repeat-rate 40)))
             ;; /bin/sh and /usr/bin/env are already made extra-special-files
             ;; by %base-services, which %desktop-services extends
             (extra-special-file "/bin/bash" (file-append bash "/bin/bash"))
