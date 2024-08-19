@@ -44,7 +44,7 @@
        (append (list
                 (channel
                  (name 'chilir)
-                 (url "https://github.com/KarlJoad/chilir.git")
+                 (url "https://github.com/Chil-HW/chilir.git")
                  (branch "main")))
                %default-channels)))
      (specification
@@ -54,7 +54,7 @@
        (append (list
                 (channel
                  (name 'tcl2cl)
-                 (url "https://github.com/KarlJoad/tcl2cl.git")
+                 (url "https://github.com/Chil-HW/tcl2cl.git")
                  (branch "master")))
                %default-channels)))
      (specification
@@ -64,7 +64,7 @@
        (append (list
                 (channel
                  (name 'chil)
-                 (url "https://github.com/KarlJoad/chil.git")
+                 (url "https://github.com/Chil-HW/chil.git")
                  (branch "main")))
                %default-channels)))
      (specification
