@@ -68,6 +68,16 @@
                  (branch "main")))
                %default-channels)))
      (specification
+      (name "shwatt")
+      (build '(channels shwatt))
+      (channels
+       (append (list
+                (channel
+                 (name 'shwatt)
+                 (url "https://github.com/Chil-HW/shwatt.git")
+                 (branch "main")))
+               %default-channels)))
+     (specification
       (name "gloa")
       (build '(channels gloa))
       (channels
