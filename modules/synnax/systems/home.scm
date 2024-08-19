@@ -14,10 +14,12 @@
              (gnu services)
              (guix gexp)
              (synnax systems packages)
+             (synnax services keyboard)
              (synnax services podman)
              (synnax services home mail)
              (synnax services home emacs)
              (synnax services home gdb)
+             (synnax services home keyboard)
              (synnax services home podman)
              (synnax services home tmux)
              (synnax services home vim)
@@ -56,6 +58,10 @@
                    home-environment-variables-service-type
                    '(("LANGUAGE" . "en_US.utf8")
                      ("LC_ALL" . "en_US.utf8")))
+   (service home-keyboard-x11-service-type
+            (keyboard-repeat-configuration
+             (repeat-delay 200)
+             (repeat-rate 40)))
    (service home-bash-service-type
             (home-bash-configuration
              (guix-defaults? #t)
