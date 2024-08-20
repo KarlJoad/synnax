@@ -17,6 +17,7 @@
              (synnax services podman)
              (synnax services home mail)
              (synnax services home emacs)
+             (synnax services home gdb)
              (synnax services home podman)
              (synnax services home tmux)
              (synnax services home vim)
@@ -552,6 +553,27 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                (unqualified-search-registries
                 (list "docker.io" "registry.fedoraproject.org"
                       "registry.access.redhat.com" "registry.centos.org"))))))
+   (service home-gdb-service-type
+            (home-gdb-configuration
+             (configs
+              (list
+               (plain-file "gdb-set-history"
+                           "set history save on
+set history size unlimited
+
+guile
+(use-modules (gdb))
+(let ((history-dir (string-append (or (getenv \"XDG_CACHE_HOME\") \"~/.cache\")
+                                  \"/gdb\")))
+  (execute (string-append \"set history filename \"
+                           history-dir \"/history\"))
+  (catch 'system-error
+    (lambda () (mkdir history-dir))
+    (lambda exn-args
+      (if (= EEXIST (system-error-errno exn-args))
+          (format #t \"~s already made!~%\" history-dir)
+          (apply throw exn-args)))))
+end")))))
    (simple-service 'alacritty-config-files
                    home-xdg-configuration-files-service-type
                    (list `("alacritty/alacritty.toml"
