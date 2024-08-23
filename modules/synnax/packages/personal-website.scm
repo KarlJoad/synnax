@@ -3,13 +3,14 @@
   #:use-module (guix packages)
   #:use-module (guix git-download)
   #:use-module (guix build-system gnu)
+  #:use-module (gnu packages emacs)
   #:use-module (gnu packages guile)
   #:use-module (gnu packages guile-xyz)
   #:use-module (synnax packages resume))
 
 (define-public personal-website
-  (let ((commit "af915e22cdb60d915c3e4c7d44a3b640b491660d")
-        (revision "13"))
+  (let ((commit "74b1a7dd8e0b757209fc4dbd310a1965cd7e2480")
+        (revision "14"))
     (package
      (name "karl-personal-website")
      (version (git-version "0.0.0" revision commit))
@@ -21,7 +22,7 @@
               (file-name (git-file-name name version))
               (sha256
                (base32
-                "0w7jfw19g6vlkyw6i8w4qadkr2rv9v53my0m4d5v8h20kn60vh0s"))))
+                "0n041lzydx8fl07y81zhdlv1ixc4w260q481b0axvsr7j55i5gpx"))))
      (build-system gnu-build-system)
      (arguments
       (list
@@ -37,7 +38,9 @@
       `(("guile" ,guile-3.0)
         ("guile-reader" ,guile-reader)
         ("guile-commonmark" ,guile-commonmark)
-        ("guile-syntax-highlight", guile-syntax-highlight)))
+        ("guile-syntax-highlight" ,guile-syntax-highlight)
+        ;; Emacs is needed to build the built-in Modus-themes CSS
+        ("emacs" ,emacs-minimal)))
      (inputs
       `(("haunt" ,haunt)))
      (home-page "https://karl.hallsby.com")
