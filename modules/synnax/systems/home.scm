@@ -79,6 +79,18 @@
               ;; Each entry is added to final bashrc and string-join with newline
               (list
                ;; NOTE: A single \ in the output requires \\ in the string here!
+               (plain-file "bashrc-vterm-printf"
+                           "function vterm_printf() {
+    if [ -n \"$TMUX\" ] && ([ \"${TERM%%-*}\" = \"tmux\" ] || [ \"${TERM%%-*}\" = \"screen\" ]); then
+        # Tell tmux to pass the escape sequences through
+        printf \"\\ePtmux;\\e\\e]%s\\007\\e\\\\\" \"$1\"
+    elif [ \"${TERM%%-*}\" = \"screen\" ]; then
+        # GNU screen (screen, screen-256color, screen-256color-bce)
+        printf \"\\eP\\e]%s\\007\\e\\\\\" \"$1\"
+    else
+        printf \"\\e]%s\\e\\\\\" \"$1\"
+    fi
+}")
                (plain-file "bashrc-print-osc7-dir-tracking"
                            "function osc7-dir-tracking {
     # Track current directory using OSC 7's URI-style notation.
@@ -86,6 +98,7 @@
     # NOTE: The URI _is_ actually printed, but uses a terminal escape sequence to
     # make it invisible!
     printf \"\\e]7;file://%s%s\\e\\\\\" \"$HOSTNAME\" \"$PWD\"
+    vterm_printf \"51;A$USER@$HOSTNAME:$PWD\"
 }
 
 # Bash community has settled on ; to be the delimiter in PROMPT_COMMAND
