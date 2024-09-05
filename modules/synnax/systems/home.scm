@@ -146,10 +146,7 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                     (openssh-host (name "*.cs.northwestern.edu")
                                   (user "karl")
                                   (identity-file "~/.ssh/nu"))
-                    (openssh-host (name "45.63.75.121") ;; Old website
-                                  (user "root")
-                                  (identity-file "~/.ssh/website_rsa"))
-                    (openssh-host (name "107.191.51.74") ;; New website
+                    (openssh-host (name "107.191.51.74")
                                   (user "root")
                                   (identity-file "~/.ssh/website_rsa"))
                     (openssh-host (name "roquefort")
