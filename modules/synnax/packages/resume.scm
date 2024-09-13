@@ -7,7 +7,7 @@
 
 (define-public resume
   (let ((commit "af791397a75540419a9ce050d0f779b3cea13695")
-        (revision "3"))
+        (revision "4"))
     (package
      (name "karl-resume")
      (version (git-version "0.0.0" revision commit))
@@ -23,6 +23,7 @@
      (build-system gnu-build-system)
      (native-inputs
       (list texlive-scheme-medium
+            texlive-ec
             texlive-csquotes
             texlive-enumitem
             texlive-chngcntr
