@@ -37,10 +37,13 @@
       (list
        #:phases
        #~(modify-phases %standard-phases
-                        (delete 'configure)
-                        (delete 'check)
-                        (replace 'install
-                                 (lambda _ (copy-file "Hallsby_Karl.pdf" #$output))))))
+           (delete 'configure)
+           (delete 'check)
+           (add-before 'build 'set-HOME
+             (lambda _
+               (setenv "HOME" (getcwd))))
+           (replace 'install
+             (lambda _ (copy-file "Hallsby_Karl.pdf" #$output))))))
      (home-page "https://karl.hallsby.com")
      (synopsis "Personal Resume/CV built using LaTeX")
      (description "Karl Hallsby's personal resume/curriculum vitae built using LaTeX.")
