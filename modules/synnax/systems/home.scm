@@ -172,7 +172,10 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                    home-xdg-configuration-files-service-type
                    (list `("git/config"
                            ,(plain-file "gitconfig"
-                                        "[user]
+                                        "[core]
+\tautocrlf = false
+
+[user]
 \tname = Karl Hallsby
 \temail = karl@hallsby.com
 
@@ -183,10 +186,7 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
 \tfsckobjects = true
 
 [receive]
-\tfsckobjects = true
-
-[core]
-\tautocrlf = false"))
+\tfsckobjects = true"))
                          `("git/ignore"
                            ,(plain-file "gitignore"
                                         "*~
