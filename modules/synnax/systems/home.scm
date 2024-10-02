@@ -326,8 +326,8 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                                             " " 'infix))
                      (pipeline-depth 50)
                      (port 993)
-                     (ssl-type "IMAPS")
-                     (ssl-versions "TLSv1.3")
+                     (tls-type "IMAPS")
+                     (tls-versions "TLSv1.3")
                      (remote-mail-store
                       (home-mbsync-imap-store-configuration
                        (name "remote")))
