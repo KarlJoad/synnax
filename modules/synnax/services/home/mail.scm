@@ -217,10 +217,13 @@ as the email password is stored in plain-text.
   (port
    (number 993)
    "IMAP port to connect to on remote server.")
-  (ssl-type
+  (tls-type
    (string "IMAPS") ;; TODO: Should be enum
    "Type of security/encryption to use.")
-  (ssl-versions
+  ;; TLSVersions has the following format:
+  ;; TLSVersions -1.0 -1.1 +1.2 +1.3
+  ;; NOTE: 1.0 & 1.1 are disabled by default in isync 1.5.0
+  (tls-versions
    (string "TLSv1.3") ;; TODO: Should be list-of-strings
    "SSL/TLS standard to use.")
   (remote-mail-store
@@ -233,6 +236,15 @@ as the email password is stored in plain-text.
    (list-of-home-mbsync-group-configurations '())
    "Groups associated with this @code{mbsync} account that should be
 synchronized."))
+
+;; isync v1.5.0 changed the names of the configuration option in the config file.
+;; Guix got this change in commit 710e041eb910db5a0504427d4717274c48a893a9.
+(define-deprecated/public-alias
+  home-mbsync-account-configuration-ssl-type
+  home-mbsync-account-configuration-tls-type)
+(define-deprecated/public-alias
+  home-mbsync-account-configuration-ssl-version
+  home-mbsync-account-configuration-tls-version)
 
 (define (build-fq-store-name account-name store-name) (format #f "~a-~a" account-name store-name))
 
@@ -253,8 +265,8 @@ synchronized."))
         #$(mbsync-serialize-string "User" (home-mbsync-account-configuration-user config))
         #$(mbsync-serialize-file-like-gexp-or-string "PassCmd" (home-mbsync-account-configuration-pass-cmd config))
         #$(mbsync-serialize-number "PipelineDepth" (home-mbsync-account-configuration-pipeline-depth config))
-        #$(mbsync-serialize-string "SSLType" (home-mbsync-account-configuration-ssl-type config))
-        #$(mbsync-serialize-string "SSLVersions" (home-mbsync-account-configuration-ssl-versions config))
+        #$(mbsync-serialize-string "TLSType" (home-mbsync-account-configuration-tls-type config))
+        #$(mbsync-serialize-string "TLSVersions" (home-mbsync-account-configuration-tls-versions config))
         ""
         #$(serialize-home-mbsync-imap-store (home-mbsync-account-configuration-remote-mail-store config) account-name)
         ""
