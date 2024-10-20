@@ -266,11 +266,11 @@ if there is no matching extension."
                          (list
                           ;; Allow for caching of static assets for 30 days
                           (nginx-location-configuration
-                           (uri "~* \\.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|mp4|ogg|ogv|webm|htc|webp|avif)$ ")
+                           (uri "~* \\.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|mp4|ogg|ogv|webm|htc|webp|avif)$")
                            (body `(,@(nginx-client-side-cache-header #:age (* 60 60 24 30)))))
                           ;; Cache the CSS, JS, and fonts for my _STATIC_ page for 1 year
                           (nginx-location-configuration
-                           (uri "~* \\.(?:css|js|woff|woff2|ttf)$ ")
+                           (uri "~* \\.(?:css|js|woff|woff2|ttf)$")
                            (body `(,@(nginx-client-side-cache-header))))
                           ;; Redirect /cgit -> cgit.karl.hallsby.com
                           (nginx-location-configuration
