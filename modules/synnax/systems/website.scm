@@ -97,7 +97,7 @@ the content for AGE amount of time in seconds.
 By default, age defaults to 1 year."
   (list "access_log off;"
         (string-append "add_header Cache-Control \"max-age=" (number->string age)
-                       "\", public;")))
+                       ", public\";")))
 
 (define cgit-syntax-highlight-script
   (program-file
@@ -239,9 +239,9 @@ if there is no matching extension."
                           (nginx-location-configuration
                            (uri "~* \\.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|mp4|ogg|ogv|webm|htc|webp|avif)$ ")
                            (body `(,@(nginx-client-side-cache-header #:age (* 60 60 24 30)))))
-                          ;; Cache the CSS & JS for my _STATIC_ page for 1 year
+                          ;; Cache the CSS, JS, and fonts for my _STATIC_ page for 1 year
                           (nginx-location-configuration
-                           (uri "~* \\.(?:css|js)$ ")
+                           (uri "~* \\.(?:css|js|woff|woff2|ttf)$ ")
                            (body `(,@(nginx-client-side-cache-header))))
                           ;; Redirect /cgit -> cgit.karl.hallsby.com
                           (nginx-location-configuration
