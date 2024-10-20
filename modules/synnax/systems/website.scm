@@ -86,13 +86,15 @@ https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/#Config
 
 (define nginx-content-security-policy-header
   (let ((policy (string-join
-                 (list "default-src 'self' https:"
-                       "img-src 'self' https:"
-                       "font-src 'self' https:"
-                       "object-src 'self' https:"
-                       "script-src 'self' 'unsafe-inline' https:"
-                       "style-src 'self' 'unsafe-inline' https:"
-                       "frame-ancestors 'self' https:")
+                 (list "default-src 'self'"
+                       "img-src 'self'"
+                       "font-src 'self'"
+                       "object-src 'self'"
+                       "script-src 'self'"
+                       "style-src 'self'"
+                       "frame-ancestors 'self'"
+                       "base-uri 'self'"
+                       "form-action 'self'")
                  "; " 'infix)))
     (nginx-add-header "Content-Security-Policy"
                       `(,(string-append "\"" policy "\"")))))
