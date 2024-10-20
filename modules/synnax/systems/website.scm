@@ -56,16 +56,22 @@ header is added, regardless of the request's returned status code.
 By default, DURATION is set to 1 year (31536000 seconds), and both
 INCLUDE-SUBDOMAINS? and ALWAYS-ADD? are set to #t.
 
+When using preload, the max-age directive must be at least 31536000 (1
+year), and the includeSubDomains directive must be present. Not part
+of the specification.
+
 https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/#Configuring-HSTS-in-NGINX-and-NGINX&nbsp;Plus"
-  (let ((policy (string-append
-                 "\""
-                 (string-join
-                  (filter (lambda (s) (not (string-null? s)))
-                          (list (format #f "max-age=~a" duration)
-                                (if include-subdomains? "includeSubDomains" "")
-                                (if preload? "preload" "")))
-                  "; " 'infix)
-                 "\"")))
+  (let* ((actually-preload? (and preload? include-subdomains?
+                                 (>= duration (* 60 60 24 365))))
+         (policy (string-append
+                  "\""
+                  (string-join
+                   (filter (lambda (s) (not (string-null? s)))
+                           (list (format #f "max-age=~a" duration)
+                                 (if include-subdomains? "includeSubDomains" "")
+                                 (if actually-preload? "preload" "")))
+                   "; " 'infix)
+                  "\"")))
   (nginx-add-header "Strict-Transport-Security"
                     `(,policy
                       ,(if always-add? "always" "")))))
