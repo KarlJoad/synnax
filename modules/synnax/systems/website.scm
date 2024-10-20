@@ -97,7 +97,7 @@ the content for AGE amount of time in seconds.
 By default, age defaults to 1 year."
   (list "access_log off;"
         (string-append "add_header Cache-Control \"max-age=" (number->string age)
-                       "\";")))
+                       "\", public;")))
 
 (define cgit-syntax-highlight-script
   (program-file
