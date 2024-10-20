@@ -171,6 +171,24 @@ if there is no matching extension."
    (string-join bad-bots "|" 'infix)
    "\") { return 403; }"))
 
+(define nginx-gzip-types
+  (string-join
+   (list "text/css"
+         "text/javascript"
+         "text/xml"
+         "text/plain"
+         "text/x-component"
+         "application/javascript"
+         "application/x-javascript"
+         "application/json"
+         "application/xml"
+         "application/rss+xml"
+         "application/atom+xml"
+         "font/truetype"
+         "font/opentype"
+         "application/vnd.ms-fontobject"
+         "image/svg+xml")))
+
 (define personal-website-destination "/srv/http/personal")
 
 (define-public %website-system
@@ -217,11 +235,22 @@ if there is no matching extension."
                               (target personal-website-destination))))))
            (service nginx-service-type
                     (nginx-configuration
-                     ;; (global-directives
-                     ;;  `((pcre_jit . on)
-                     ;; TODO: ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
-                     ;; TODO: ssl_prefer_server_ciphers on;
-                     ;;    ))
+                     (global-directives
+                      `((worker_processes . "auto")
+                        ;; Guix's nginx is compiled with PCRE JIT enabled.
+                        (pcre_jit . on)
+                        (events . ((worker_connections . ,(* 10 1024))))))
+                     ;; Appended to http block
+                     (extra-content
+                      `("ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;" ; Disallow SSL
+                        "ssl_prefer_server_ciphers on;"
+                        "tcp_nopush on;"
+                        "tcp_nodelay on;"
+                        "sendfile on;"
+                        "gzip on;"
+                        "gzip_proxied expired no-cache no-store private auth;"
+                        ;; text/html is always compressed by HTTPGzipModule
+                        ,`("gzip_types " ,nginx-gzip-types ";")))
                      (server-blocks
                       (list
                        ;; Personal website virtual server
