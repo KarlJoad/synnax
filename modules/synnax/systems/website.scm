@@ -34,6 +34,16 @@
    #~(let ((pid (call-with-input-file "/var/run/nginx/pid" read)))
        (kill pid SIGHUP))))
 
+(define (nginx-add-header header-name header-vals)
+  "Constructs an NGINX \"add_header\" directive for HEADER-NAME. HEADER-VALS is
+a list of strings for the values to set for HEADER-NAME.
+
+If something must be quoted and listed (i.e. Cache-Control or
+Strict-Transport-Security), then it must be done by the caller!"
+  (string-append
+   (string-join `("add_header" ,header-name ,@header-vals))
+   ";"))
+
 (define* (nginx-hsts-header #:key (duration (* 60 60 24 365))
                             (include-subdomains? #t)
                             (preload? #t)
@@ -47,60 +57,56 @@ By default, DURATION is set to 1 year (31536000 seconds), and both
 INCLUDE-SUBDOMAINS? and ALWAYS-ADD? are set to #t.
 
 https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/#Configuring-HSTS-in-NGINX-and-NGINX&nbsp;Plus"
-  (string-append "add_header Strict-Transport-Security \""
-                 (string-join (filter
-                               (lambda (s) (not (string-null? s)))
-                               (list (format #f "max-age=~a" duration)
-                                     (if include-subdomains? "includeSubDomains" "")
-                                     (if preload? "preload" "")))
-                              "; " 'infix)
-                 "\" "
-                 (if always-add? "always" "") ";"))
-
-(define nginx-x-content-type-options-header
-  "add_header X-Content-Type-Options nosniff;")
-
-(define nginx-x-frame-options-header
-  "add_header X-Frame-Options deny;")
-
-(define* (nginx-x-xss-protection-header #:optional (enable? #t))
-  (string-append "add_header "
-                 "X-XSS-Protection "
-                 (if enable? "\"1; mode=block\"" "0")
-                 ";"))
-
-(define* (nginx-referrer-policy-header #:key (policy-string "strict-origin-when-cross-origin"))
-  (string-append "add_header "
-                 "Referrer-Policy "
-                 policy-string
-                 ";"))
-
-(define nginx-content-security-policy-header
-  (string-append "add_header "
-                 "Content-Security-Policy "
+  (let ((policy (string-append
                  "\""
                  (string-join
-                  (list "default-src 'self' https:"
-                        "img-src 'self' https:"
-                        "font-src 'self' https:"
-                        "object-src 'self' https:"
-                        "script-src 'self' 'unsafe-inline' https:"
-                        "style-src 'self' 'unsafe-inline' https:"
-                        "frame-ancestors 'self' https:")
+                  (filter (lambda (s) (not (string-null? s)))
+                          (list (format #f "max-age=~a" duration)
+                                (if include-subdomains? "includeSubDomains" "")
+                                (if preload? "preload" "")))
                   "; " 'infix)
-                 "\""
-                 ";"))
+                 "\"")))
+  (nginx-add-header "Strict-Transport-Security"
+                    `(,policy
+                      ,(if always-add? "always" "")))))
+
+(define nginx-x-content-type-options-header
+  (nginx-add-header "X-Content-Type-Options" '("nosniff")))
+
+(define nginx-x-frame-options-header
+  (nginx-add-header "X-Frame-Options" '("deny")))
+
+(define* (nginx-x-xss-protection-header #:optional (enable? #t))
+  (nginx-add-header "X-XSS-Protection"
+                    `(,(if enable? "\"1; mode=block\"" "0"))))
+
+(define* (nginx-referrer-policy-header #:key (policy-string "strict-origin-when-cross-origin"))
+  (nginx-add-header "Referrer-Policy" `(,policy-string)))
+
+(define nginx-content-security-policy-header
+  (let ((policy (string-join
+                 (list "default-src 'self' https:"
+                       "img-src 'self' https:"
+                       "font-src 'self' https:"
+                       "object-src 'self' https:"
+                       "script-src 'self' 'unsafe-inline' https:"
+                       "style-src 'self' 'unsafe-inline' https:"
+                       "frame-ancestors 'self' https:")
+                 "; " 'infix)))
+    (nginx-add-header "Content-Security-Policy"
+                      `(,(string-append "\"" policy "\"")))))
 
 (define* (nginx-client-side-cache-header #:key (age (* 60 60 24 365)))
   "Add a header to files with the provided EXTENSIONS allowing clients to cache
 the content for AGE amount of time in seconds.
 By default, age defaults to 1 year."
-  (list "access_log off;"
-        (string-append "add_header Cache-Control \"max-age=" (number->string age)
-                       ", public, must-revalidate\";")
-        (string-append "add_header Strict-Transport-Security \"max-age="
-                       (number->string age)
-                       "\";")))
+  (let ((cache-attrs (string-join
+                      (list (string-append "max-age=" (number->string age))
+                            "public" "must-revalidate")
+                      ", ")))
+    (list "access_log off;"
+          (nginx-add-header "Cache-Control"
+                            `(,(string-append "\"" cache-attrs "\""))))))
 
 (define cgit-syntax-highlight-script
   (program-file
@@ -291,13 +297,14 @@ if there is no matching extension."
                           ;; If you browse, you will always get a black webpage
                           (git-http-nginx-location-configuration
                            (git-http-configuration))))
-                        (raw-content (list (nginx-hsts-header)
-                                           nginx-x-content-type-options-header
-                                           nginx-x-frame-options-header
-                                           (nginx-x-xss-protection-header)
-                                           (nginx-referrer-policy-header)
-                                           nginx-content-security-policy-header
-                                           nginx-block-bad-bots)))))))
+                        (raw-content
+                         (list (nginx-hsts-header)
+                               nginx-x-content-type-options-header
+                               nginx-x-frame-options-header
+                               (nginx-x-xss-protection-header)
+                               (nginx-referrer-policy-header)
+                               nginx-content-security-policy-header
+                               nginx-block-bad-bots)))))))
            (service fcgiwrap-service-type) ;; Needed for git-http
            ;; Cannot refresh certs for karl.hallsby.com without running on that host.
            ;; NOTE: You must run nginx with all domains' root set to /var/www for
@@ -337,16 +344,25 @@ if there is no matching extension."
                         (index '("index.html"))
                         (try-files (list "$uri" "@cgit"))
                         (server-tokens? #f)
-                        (raw-content (list (nginx-hsts-header)
-                                           nginx-x-content-type-options-header
-                                           nginx-x-frame-options-header
-                                           (nginx-x-xss-protection-header)
-                                           (nginx-referrer-policy-header)
-                                           nginx-content-security-policy-header
-                                           "add_header Cache-Control \"no-cache, no-store, must-revalidate\";"
-                                           "add_header Pragma no-cache;"
-                                           "add_header Expires 0;"
-                                           nginx-block-bad-bots))
+                        (raw-content
+                         (list (nginx-hsts-header)
+                               nginx-x-content-type-options-header
+                               nginx-x-frame-options-header
+                               (nginx-x-xss-protection-header)
+                               (nginx-referrer-policy-header)
+                               nginx-content-security-policy-header
+                               (nginx-add-header
+                                "Cache-Control"
+                                `(,(string-append "\""
+                                                  (string-join
+                                                   (list
+                                                    "no-cache"
+                                                    "no-store"
+                                                    "must-revalidate") ", " 'infix)
+                                                  "\"")))
+                               (nginx-add-header "Pragma" '("no-cache"))
+                               (nginx-add-header "Expires" '("0"))
+                               nginx-block-bad-bots))
                         (locations
                          (list
                           (nginx-location-configuration ;; So CSS & co. are found
