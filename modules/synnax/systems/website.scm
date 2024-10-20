@@ -3,7 +3,7 @@
 
 (use-modules (gnu)
              (gnu system)
-             (synnax packages personal-website)
+             (synnax packages website)
              (synnax services fstrim)
              (synnax services web-deploy))
 
