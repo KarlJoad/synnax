@@ -23,7 +23,6 @@
      (build-system gnu-build-system)
      (native-inputs
       (list texlive-scheme-medium
-            texlive-ec
             texlive-csquotes
             texlive-enumitem
             texlive-chngcntr
@@ -32,7 +31,16 @@
             texlive-titling
             texlive-titlesec
             texlive-datetime2 texlive-datetime2-english
-            texlive-tools))
+            texlive-tools
+            (texlive-updmap.cfg
+             (list
+              texlive-collection-fontsrecommended
+              texlive-collection-fontsextra
+              texlive-latex-fonts
+              texlive-ec
+              texlive-amsfonts
+              texlive-cm
+              texlive-cm-super))))
      (arguments
       (list
        #:phases
