@@ -1,29 +1,24 @@
 (define-module (synnax systems website)
+  #:use-module (gnu)
+  #:use-module (gnu system)
+  #:use-module (gnu packages admin)
+  #:use-module (gnu packages certs)
+  #:use-module (gnu packages pretty-print)
+  #:use-module (gnu packages ssh)
+  #:use-module (gnu packages vim)
+  #:use-module (gnu packages version-control)
+  #:use-module (gnu packages web)
+  #:use-module (gnu services certbot)
+  #:use-module (gnu services cgit)
+  #:use-module (gnu services networking)
+  #:use-module (gnu services security)
+  #:use-module (gnu services ssh)
+  #:use-module (gnu services version-control)
+  #:use-module (gnu services web)
+  #:use-module (synnax packages website)
+  #:use-module (synnax services fstrim)
+  #:use-module (synnax services web-deploy)
   #:export (%website-system))
-
-(use-modules (gnu)
-             (gnu system)
-             (synnax packages website)
-             (synnax services fstrim)
-             (synnax services web-deploy))
-
-(use-package-modules
- vim
- certs
- pretty-print
- web
- version-control
- ssh
- admin)
-
-(use-service-modules
- networking
- ssh
- version-control
- cgit
- web
- certbot
- security)
 
 (define git-http-regex
   "^.*/(HEAD|info/refs|objects/info/.*|git-(upload|receive)-pack)$")
