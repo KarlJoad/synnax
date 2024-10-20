@@ -345,7 +345,8 @@ if there is no matching extension."
                                            nginx-content-security-policy-header
                                            "add_header Cache-Control \"no-cache, no-store, must-revalidate\";"
                                            "add_header Pragma no-cache;"
-                                           "add_header Expires 0;"))
+                                           "add_header Expires 0;"
+                                           nginx-block-bad-bots))
                         (locations
                          (list
                           (nginx-location-configuration ;; So CSS & co. are found
