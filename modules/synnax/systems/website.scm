@@ -53,7 +53,7 @@ https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/#Config
                                (list (format #f "max-age=~a" duration)
                                      (if include-subdomains? "includeSubDomains" "")
                                      (if preload? "preload" "")))
-                              "; " 'suffix)
+                              "; " 'infix)
                  "\" "
                  (if always-add? "always" "") ";"))
 
