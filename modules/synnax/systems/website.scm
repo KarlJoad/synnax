@@ -152,6 +152,7 @@ if there is no matching extension."
 (define bad-bots
   (list
    "Amazonbot" "Amazonbot/0.1"
+   "GPTBot" "GPTBot/1.2"
    "Bytespider" "PetalBot" "SemrushBot" "Semrush"
    "AhrefsBot" "YandexBot" "YandexImages" "MegaIndex.ru" "BLEXbot"
    "BLEXBot" "ZoominfoBot" "YaK" "VelenPublicWebCrawler" "SentiBot"
