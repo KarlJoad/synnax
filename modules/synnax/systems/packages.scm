@@ -138,7 +138,7 @@
         tree-sitter-cli
         tree-sitter-bash
         tree-sitter-c tree-sitter-cpp
-        tree-sitter-cmake
+        tree-sitter-cmake tree-sitter-meson
         tree-sitter-scheme tree-sitter-clojure tree-sitter-racket
         tree-sitter-javascript tree-sitter-typescript tree-sitter-json
         tree-sitter-rust
@@ -148,15 +148,12 @@
         tree-sitter-php
         tree-sitter-org
         tree-sitter-ocaml
-        tree-sitter-meson
         tree-sitter-markdown tree-sitter-markdown-gfm
         tree-sitter-java
-        tree-sitter-html
+        tree-sitter-html tree-sitter-css
         tree-sitter-haskell
-        tree-sitter-gomod
-        tree-sitter-go
+        tree-sitter-gomod tree-sitter-go
         tree-sitter-dockerfile
-        tree-sitter-css
         tree-sitter-latex tree-sitter-bibtex
         tree-sitter-tlaplus
         tree-sitter-nix
