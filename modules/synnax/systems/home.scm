@@ -248,6 +248,19 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
 ;; To disable SBCL's loading of this file, pass --no-userinit on the command line.
 (sb-ext:restrict-compiler-policy 'debug 3 3)
 (sb-ext:restrict-compiler-policy 'safety 3 3)"))))
+   (simple-service 'bloop-config-files-service
+                   home-files-service-type
+                   (list `(".bloop/bloop.json"
+                           ;; FIXME: Turn into service which uses guile-json
+                           ;; library to generate the JSON?
+                           ;; XXX: Can this even be done? There is a "javaHome"
+                           ;; field in the default configuration that I generated
+                           ;; with Chipyard that points to an openjdk install in
+                           ;; the Nix store.
+                           ,(plain-file "bloop.json"
+                                        "{
+  \"javaOptions\": [\"Xmx6G\"]
+}"))))
    (simple-service 'nix-config-files-service
                    home-files-service-type
                    (list `(".nix-channels"
