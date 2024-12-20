@@ -35,6 +35,10 @@
 ;;;
 ;;; isync/mbsync
 ;;;
+;; TODO: Update with isync 1.5.0 changes.
+;; https://github.com/nix-community/home-manager/pull/5918
+;; FIXME: Most of these define-configuration's should be defined to allow
+;; serialization!
 (define mbsync-serialize-file-like serialize-file-like)
 (define (mbsync-serialize-list field-name list)
   (serialize-mbsync-global-config field-name list))
