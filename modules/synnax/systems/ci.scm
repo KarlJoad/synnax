@@ -99,6 +99,16 @@
                  (branch "master")))
                %default-channels)))
      (specification
+      (name "lispy-key")
+      (build '(channels lispy-key))
+      (channels
+       (append (list
+                (channel
+                 (name 'lispy-key)
+                 (url "https://github.com/KarlJoad/lispy-key.git")
+                 (branch "master"))
+                %default-channels))))
+     (specification
       (name "website")
       (build '(channels website))
       (channels
