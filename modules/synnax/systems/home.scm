@@ -301,7 +301,7 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
 }"))))
    (service home-mbsync-service-type
             (home-mbsync-configuration
-             (use-xdg? #f)
+             (use-xdg? #t)
              ;; This is what I have set, but it is really gross.
              (global-config '((Sync All)
                               (Create Both)
