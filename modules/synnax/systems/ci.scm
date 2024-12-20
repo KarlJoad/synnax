@@ -109,6 +109,16 @@
                  (branch "master"))
                 %default-channels))))
      (specification
+      (name "guile-yaml")
+      (build '(channels guile-yaml))
+      (channels
+       (append (list
+                (channel
+                 (name 'guile-yaml)
+                 (url "https://github.com/KarlJoad/guile-yaml.git")
+                 (branch "master"))
+                %default-channels))))
+     (specification
       (name "website")
       (build '(channels website))
       (channels
