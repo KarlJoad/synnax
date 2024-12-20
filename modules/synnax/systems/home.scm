@@ -175,7 +175,11 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                     (openssh-host (name "peroni")
                                   (host-name "peroni.cs.northwestern.edu")
                                   (user "kgh0080")
-                                  (identity-file "~/.ssh/nu"))))))
+                                  (identity-file "~/.ssh/nu"))
+                    (openssh-host (name "cuirass")
+                                  (host-name "cuirass.raven")
+                                  (user "root")
+                                  (identity-file "~/.ssh/cuirass_rsa"))))))
    (simple-service 'git-config-files
                    home-xdg-configuration-files-service-type
                    (list `("git/attributes"
