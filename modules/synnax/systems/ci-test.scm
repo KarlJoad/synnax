@@ -160,7 +160,8 @@
                      (remote-server
                       (cuirass-remote-server-configuration))))
            (service cuirass-remote-worker-service-type
-                    (cuirass-remote-worker-configuration))
+                    (cuirass-remote-worker-configuration
+                     (workers 2)))
            (service avahi-service-type)
            (service mcron-service-type
                     (mcron-configuration
