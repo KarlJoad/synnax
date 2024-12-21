@@ -2,12 +2,14 @@
   #:use-module (gnu)
   #:use-module (gnu system)
   #:use-module (gnu packages certs)
+  #:use-module (gnu packages databases)
   #:use-module (gnu packages ssh)
   #:use-module (gnu packages tmux)
   #:use-module (gnu packages vim)
   #:use-module (gnu services)
   #:use-module (gnu services avahi)
   #:use-module (gnu services cuirass)
+  #:use-module (gnu services databases)
   #:use-module (gnu services mcron)
   #:use-module (gnu services networking)
   #:use-module (gnu services ssh)
@@ -177,6 +179,10 @@
                  (mixed-text-file "dhclient.conf"
                                   "send host-name \"" host-name "\";"))))
       (service ntp-service-type)
+      (service postgresql-service-type
+               (postgresql-configuration
+                (postgresql postgresql)))
+      (service postgresql-role-service-type)
       (service cuirass-service-type
                (cuirass-configuration
                 (host "0.0.0.0")
