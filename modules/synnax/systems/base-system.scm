@@ -81,6 +81,7 @@
                      (nix-configuration
                       (extra-config
                        (list "experimental-features = nix-command flakes\n"
+                             "trusted-users = root @wheel karljoad\n"
                              ;; When using flakes, "nix shell" will not change $PS1.
                              ;; This configuration should make "nix shell" behave
                              ;; like "nix-shell" in setting $PS1.
