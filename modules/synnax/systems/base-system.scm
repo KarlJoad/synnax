@@ -1,6 +1,8 @@
 (define-module (synnax systems base-system)
   #:use-module (gnu)
+  #:use-module (gnu packages)
   #:use-module (gnu packages bash)
+  #:use-module (gnu services)
   #:use-module (gnu services cups)
   #:use-module (gnu services desktop)
   #:use-module (gnu services docker)
