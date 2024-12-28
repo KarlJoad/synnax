@@ -1,29 +1,25 @@
 (define-module (synnax systems base-system)
+  #:use-module (gnu)
+  #:use-module (gnu packages bash)
+  #:use-module (gnu services cups)
+  #:use-module (gnu services desktop)
+  #:use-module (gnu services docker)
+  #:use-module (gnu services networking)
+  #:use-module (gnu services nix)
+  #:use-module (gnu services ssh)
+  #:use-module (gnu services syncthing)
+  #:use-module (gnu services virtualization)
+  #:use-module (gnu services xorg)
+  #:use-module (gnu system)
+  #:use-module (nongnu packages linux)
+  #:use-module (nongnu packages mozilla)
+  #:use-module (nongnu system linux-initrd)
+  #:use-module (synnax services fstrim)
+  #:use-module (synnax services keyboard)
+  #:use-module (synnax services podman)
+  #:use-module ((synnax systems archive-keys) #:prefix keys/)
+  #:use-module (synnax systems packages)
   #:export (%base-system))
-
-(use-modules (gnu)
-             (gnu system)
-             (nongnu packages linux)
-             (nongnu system linux-initrd)
-             (nongnu packages mozilla)
-             (synnax systems packages)
-             ((synnax systems archive-keys) #:prefix keys/)
-             (synnax services fstrim)
-             (synnax services keyboard)
-             (synnax services podman))
-
-(use-package-modules
- bash)
-
-(use-service-modules
- desktop
- networking
- ssh
- cups
- syncthing
- xorg
- virtualization docker
- nix)
 
 (define-public %base-system
   (operating-system
