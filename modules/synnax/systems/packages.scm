@@ -105,6 +105,7 @@
 (define %utils-packages
   (list coreutils moreutils pciutils lsof hwdata binutils
         (list isc-bind "utils")
+        inetutils
         ethtool
         util-linux))
 
