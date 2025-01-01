@@ -135,15 +135,7 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
    (service home-openssh-service-type
             (home-openssh-configuration
              (hosts
-              (list (openssh-host (name "robin")
-                                  (host-name "robin.raven")
-                                  (user "root")
-                                  (identity-file "~/.ssh/ci_rsa"))
-                    (openssh-host (name "redhood")
-                                  (host-name "redhood.raven")
-                                  (user "root")
-                                  (identity-file "~/.ssh/ci_rsa"))
-                    (openssh-host (name "karl.hallsby.com")
+              (list (openssh-host (name "karl.hallsby.com")
                                   (identity-file "~/.ssh/website_rsa"))
                     (openssh-host (name "*github.com")
                                   (user "git")
