@@ -234,7 +234,9 @@ as the email password is stored in plain-text.
    "Groups associated with this @code{mbsync} account that should be
 synchronized."))
 
-(define (build-fq-store-name account-name store-name) (format #f "~a-~a" account-name store-name))
+(define (build-fq-store-name account-name store-name)
+  "Build a fully-qualified store name for ACCOUNT-NAME to STORE-NAME."
+  (format #f "~a-~a" account-name store-name))
 
 (define (serialize-home-mbsync-account-configuration config)
   ;; TODO: Check if maildir, imap, passwd-cmd, and username != null
