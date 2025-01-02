@@ -217,10 +217,12 @@ as the email password is stored in plain-text.
   (port
    (number 993)
    "IMAP port to connect to on remote server.")
-  (ssl-type
+  (tls-type
    (string "IMAPS") ;; TODO: Should be enum
    "Type of security/encryption to use.")
-  (ssl-versions
+  ;; TLSVersions has a new format in 1.5.0 -> TLSVersions -1.0 -1.1 +1.2 +1.3
+  ;; NOTE: 1.0 & 1.1 are disabled by default in isync 1.5.0
+  (tls-versions
    (string "TLSv1.3") ;; TODO: Should be list-of-strings
    "SSL/TLS standard to use.")
   (remote-mail-store
@@ -255,8 +257,8 @@ synchronized."))
         #$(mbsync-serialize-string "User" (home-mbsync-account-configuration-user config))
         #$(mbsync-serialize-file-like-gexp-or-string "PassCmd" (home-mbsync-account-configuration-pass-cmd config))
         #$(mbsync-serialize-number "PipelineDepth" (home-mbsync-account-configuration-pipeline-depth config))
-        #$(mbsync-serialize-string "SSLType" (home-mbsync-account-configuration-ssl-type config))
-        #$(mbsync-serialize-string "SSLVersions" (home-mbsync-account-configuration-ssl-versions config))
+        #$(mbsync-serialize-string "TLSType" (home-mbsync-account-configuration-tls-type config))
+        #$(mbsync-serialize-string "TLSVersions" (home-mbsync-account-configuration-tls-versions config))
         ""
         #$(serialize-home-mbsync-imap-store (home-mbsync-account-configuration-remote-mail-store config) account-name)
         ""
