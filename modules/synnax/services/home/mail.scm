@@ -17,6 +17,7 @@
             home-mbsync-channel-configuration
             home-mbsync-group-configuration
             home-mbsync-maildir-store-configuration
+            home-mbsync-tls-versions-configuration
             home-mbsync-imap-store-configuration
             home-mbsync-account-configuration
 
@@ -155,6 +156,39 @@ NOTE: You @emph{can} have the same channel be in multiple groups!"))
      (mbsync-serialize-string "Path" md-store-path) "\n"
      (mbsync-serialize-string "SubFolders" (home-mbsync-maildir-store-configuration-subfolders md-store-config)))))
 
+;; Only TLSv1.0, 1.1, 1.2, 1.3 are allowed. See drv_imap.c.
+(define home-mbsync-tls-versions
+  '("TLSv1.0" "TLSv1.1" "TLSv1.2" "TLSv1.3"))
+(define (home-mbsync-tls-versions? v)
+  (member v home-mbsync-tls-versions))
+(define (list-of-tls-versions? lst)
+  (every home-mbsync-tls-versions? lst))
+
+(define-configuration/no-serialization home-mbsync-tls-versions-configuration
+  (enable
+   (list-of-tls-versions '("TLSv1.2" "TLSv1.3"))
+   "List of TLS versions that isync/mbsync should enable.")
+  (disable
+   (list-of-tls-versions '("TLSv1.0" "TLSv1.1"))
+   "List of TLS versions that isync/mbsync should disable.
+NOTE: By default TLSv1 and TLSv1.1 are disabled by mbsync too."))
+
+(define (serialize-home-mbsync-tls-versions-configuration config)
+  "Serialize an mbsync account's TLS versions configuration."
+  (define (drop-tlsv tls-string)
+    "Remove leading TLSv from mbsync's TLS version strings."
+    (string-drop tls-string (string-prefix-length "TLSv" tls-string)))
+
+  (define (serialize-tls-versions prefix version-list)
+    (map (lambda (v) (string-append prefix (drop-tlsv v)))
+         version-list))
+
+  (let ((enabled (serialize-tls-versions "+"
+                   (home-mbsync-tls-versions-configuration-enable config)))
+        (disabled (serialize-tls-versions "-"
+                    (home-mbsync-tls-versions-configuration-disable config))))
+    (string-join `("TLSVersions" ,@enabled ,@disabled))))
+
 (define-configuration/no-serialization home-mbsync-imap-store-configuration
   (name
    (string "remote")
@@ -220,11 +254,9 @@ as the email password is stored in plain-text.
   (tls-type
    (string "IMAPS") ;; TODO: Should be enum
    "Type of security/encryption to use.")
-  ;; TLSVersions has a new format in 1.5.0 -> TLSVersions -1.0 -1.1 +1.2 +1.3
-  ;; NOTE: 1.0 & 1.1 are disabled by default in isync 1.5.0
   (tls-versions
-   (string "TLSv1.3") ;; TODO: Should be list-of-strings
-   "SSL/TLS standard to use.")
+   home-mbsync-tls-versions-configuration
+   "TLS standards to use.")
   (remote-mail-store
    home-mbsync-imap-store-configuration
    "The remote store for this account.")
@@ -258,7 +290,7 @@ synchronized."))
         #$(mbsync-serialize-file-like-gexp-or-string "PassCmd" (home-mbsync-account-configuration-pass-cmd config))
         #$(mbsync-serialize-number "PipelineDepth" (home-mbsync-account-configuration-pipeline-depth config))
         #$(mbsync-serialize-string "TLSType" (home-mbsync-account-configuration-tls-type config))
-        #$(mbsync-serialize-string "TLSVersions" (home-mbsync-account-configuration-tls-versions config))
+        #$(serialize-home-mbsync-tls-versions-configuration (home-mbsync-account-configuration-tls-versions config))
         ""
         #$(serialize-home-mbsync-imap-store (home-mbsync-account-configuration-remote-mail-store config) account-name)
         ""
