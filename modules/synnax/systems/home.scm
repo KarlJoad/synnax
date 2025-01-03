@@ -297,7 +297,7 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
 }"))))
    (service home-mbsync-service-type
             (home-mbsync-configuration
-             (use-xdg? #f)
+             (use-xdg? #t)
              ;; This is what I have set, but it is really gross.
              (global-config '((Sync All)
                               (Create Both)
@@ -322,8 +322,11 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                                             " " 'infix))
                      (pipeline-depth 50)
                      (port 993)
-                     (ssl-type "IMAPS")
-                     (ssl-versions "TLSv1.3")
+                     (tls-type "IMAPS")
+                     (tls-versions
+                      (home-mbsync-tls-versions-configuration
+                       (enable '("TLSv1.3" "TLSv1.2"))
+                       (disable '("TLSv1.0" "TLSv1.1"))))
                      (remote-mail-store
                       (home-mbsync-imap-store-configuration
                        (name "remote")))
@@ -384,8 +387,11 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                                             " " 'infix))
                      (pipeline-depth 50)
                      (port 993)
-                     (ssl-type "IMAPS")
-                     (ssl-versions "TLSv1.3")
+                     (tls-type "IMAPS")
+                     (tls-versions
+                      (home-mbsync-tls-versions-configuration
+                       (enable '("TLSv1.3" "TLSv1.2"))
+                       (disable '("TLSv1.0" "TLSv1.1"))))
                      (remote-mail-store
                       (home-mbsync-imap-store-configuration
                        (name "remote")))
@@ -482,8 +488,11 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                                             " " 'infix))
                      (pipeline-depth 50)
                      (port 993)
-                     (ssl-type "IMAPS")
-                     (ssl-versions "TLSv1.3")
+                     (tls-type "IMAPS")
+                     (tls-versions
+                      (home-mbsync-tls-versions-configuration
+                       (enable '("TLSv1.3" "TLSv1.2"))
+                       (disable '("TLSv1.0" "TLSv1.1"))))
                      (remote-mail-store
                       (home-mbsync-imap-store-configuration
                        (name "remote")))
