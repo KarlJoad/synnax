@@ -174,7 +174,7 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                                   (identity-file "~/.ssh/cuirass_rsa"))
                     (openssh-host (name "tvbox")
                                   (host-name "tvbox.raven")
-                                  (user "ravejoad")
+                                  (user "ravenjoad")
                                   (identity-file "~/.ssh/home_ed25519"))))))
    (simple-service 'git-config-files
                    home-xdg-configuration-files-service-type
