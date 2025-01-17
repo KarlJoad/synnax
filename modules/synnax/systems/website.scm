@@ -153,6 +153,7 @@ if there is no matching extension."
   (list
    "Amazonbot" "Amazonbot/0.1"
    "GPTBot" "GPTBot/1.2"
+   "ClaudeBot" "ClaudeBot/1.0"
    "Bytespider" "PetalBot" "SemrushBot" "Semrush"
    "AhrefsBot" "YandexBot" "YandexImages" "MegaIndex.ru" "BLEXbot"
    "BLEXBot" "ZoominfoBot" "YaK" "VelenPublicWebCrawler" "SentiBot"
