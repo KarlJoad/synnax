@@ -1,4 +1,5 @@
 (define-module (synnax systems website)
+  #:use-module (ice-9 match)
   #:use-module (gnu)
   #:use-module (gnu system)
   #:use-module (gnu packages admin)
@@ -15,6 +16,7 @@
   #:use-module (gnu services ssh)
   #:use-module (gnu services version-control)
   #:use-module (gnu services web)
+  #:use-module (synnax packages web)
   #:use-module (synnax packages website)
   #:use-module (synnax services fstrim)
   #:use-module (synnax services web-deploy)
@@ -37,6 +39,21 @@ If something must be quoted and listed (i.e. Cache-Control or
 Strict-Transport-Security), then it must be done by the caller!"
   (string-append
    (string-join `("add_header" ,header-name ,@header-vals))
+   ";"))
+
+(define (nginx-set-header header-alist)
+  "Constructs an nginx-headers-more-module \"more_set_headers\" directive.
+HEADER-VALS is an alist of header name and its value.
+
+The header's value must be a single string!"
+  (string-append
+   (string-join
+    `("more_set_headers"
+      ,@(map (match-lambda
+               ((header-name . header-vals)
+                (string-append "\"" header-name ": " header-vals "\""))
+               (_ (throw 'invalid-nginx-set-header-alist-item)))
+             header-alist)))
    ";"))
 
 (define* (nginx-hsts-header #:key (duration (* 60 60 24 365))
@@ -108,8 +125,7 @@ By default, age defaults to 1 year."
                             "public" "must-revalidate")
                       ", ")))
     (list "access_log off;"
-          (nginx-add-header "Cache-Control"
-                            `(,(string-append "\"" cache-attrs "\""))))))
+          (nginx-set-header `(("Cache-Control" . ,cache-attrs))))))
 
 (define cgit-syntax-highlight-script
   (program-file
@@ -254,6 +270,10 @@ if there is no matching extension."
                         ;; Guix's nginx is compiled with PCRE JIT enabled.
                         (pcre_jit . on)
                         (events . ((worker_connections . ,(* 10 1024))))))
+                     (modules
+                      (list
+                       (file-append nginx-headers-more-module "\
+/etc/nginx/modules/ngx_http_headers_more_filter_module.so")))
                      ;; Appended to http block
                      (extra-content
                       `("ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;" ; Disallow SSL
