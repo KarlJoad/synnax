@@ -296,7 +296,7 @@ if there is no matching extension."
                            (body '("return 308 $scheme://cgit.karl.hallsby.com ;")))
                           ;; Redirect /cgit/repo.git -> cgit.karl.hallsby.com/repo.git
                           (nginx-location-configuration
-                           (uri "~ /cgit(/.*)")
+                           (uri "~ /cgit(/[^/\\s]+)")
                            (body '("return 308 $scheme://cgit.karl.hallsby.com$1 ;")))
                           ;; NOTE: git-http is for cloning using HTTP, not browsing!
                           ;; If you browse, you will always get a black webpage
@@ -374,7 +374,7 @@ if there is no matching extension."
                            (uri "~ ^/share/cgit/")
                            (body `(("root " ,cgit ";"))))
                           (nginx-location-configuration
-                           (uri "~ /cgit(/.*)") ;; server/git/repo.git is for HTTP git cloning
+                           (uri "~ /cgit(/[^/\\s]+)") ;; server/git/repo.git is for HTTP git cloning
                            (body `(("fastcgi_param SCRIPT_FILENAME " ,cgit "/lib/cgit/cgit.cgi;")
                                    ;; () is Nginx regex captures, numbered from 1
                                    "fastcgi_param PATH_INFO $1;" ; Grab /repo.git and use that as the path
