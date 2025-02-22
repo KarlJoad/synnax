@@ -16,7 +16,6 @@
   #:use-module (gnu services ssh)
   #:use-module (gnu services version-control)
   #:use-module (gnu services web)
-  #:use-module (synnax packages web)
   #:use-module (synnax packages website)
   #:use-module (synnax services fstrim)
   #:use-module (synnax services web-deploy)
