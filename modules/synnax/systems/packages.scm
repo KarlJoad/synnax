@@ -216,7 +216,8 @@
   (list l2md))
 
 (define %messaging-packages
-  (list telegram-desktop))
+  (list telegram-desktop
+        zulip-desktop))
 
 (define %documentation-packages
   (list clhs ;; Common Lisp HyperSpec, with Emacs mode
