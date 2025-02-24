@@ -378,107 +378,6 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                                               (far "PhD")
                                               (near "PhD"))))))))
                     (home-mbsync-account-configuration
-                     (name "iit")
-                     (auth-mechs "LOGIN")
-                     (certificate-file "/etc/ssl/certs/ca-certificates.crt")
-                     (host "imap.gmail.com")
-                     (user "khallsby@hawk.iit.edu")
-                     (pass-cmd (string-join (list "cat" (string-append (getenv "HOME") "/iit"))
-                                            " " 'infix))
-                     (pipeline-depth 50)
-                     (port 993)
-                     (tls-type "IMAPS")
-                     (tls-versions
-                      (home-mbsync-tls-versions-configuration
-                       (enable '("TLSv1.3" "TLSv1.2"))
-                       (disable '("TLSv1.0" "TLSv1.1"))))
-                     (remote-mail-store
-                      (home-mbsync-imap-store-configuration
-                       (name "remote")))
-                     (local-mail-store
-                      (home-mbsync-maildir-store-configuration
-                       (name "local")
-                       (path (string-append (getenv "HOME") "/Mail/IIT/"))
-                       (inbox (string-append (getenv "HOME") "/Mail/IIT/Inbox"))
-                       (subfolders "Verbatim")))
-                     (groups
-                      (list (home-mbsync-group-configuration
-                             (name "iit")
-                             (channels (list (home-mbsync-channel-configuration
-                                              (name "inbox"))
-                                             (home-mbsync-channel-configuration
-                                              (name "drafts")
-                                              (far "[Gmail]/Drafts")
-                                              (near "Drafts"))
-                                             (home-mbsync-channel-configuration
-                                              (name "sent")
-                                              (far "[Gmail]/Sent Mail")
-                                              (near "Sent"))
-                                             (home-mbsync-channel-configuration
-                                              (name "starred")
-                                              (far "[Gmail]/Starred")
-                                              (near "Starred"))
-                                             (home-mbsync-channel-configuration
-                                              (name "trash")
-                                              (far "[Gmail]/Trash")
-                                              (near "Trash"))
-                                             (home-mbsync-channel-configuration
-                                              (name "blackboard")
-                                              (far "BlackBoard Submissions")
-                                              (near "BlackBoard_Submissions"))
-                                             (home-mbsync-channel-configuration
-                                              (name "camras")
-                                              (far "Camras")
-                                              (near "Camras"))
-                                             (home-mbsync-channel-configuration
-                                              (name "coterminal")
-                                              (far "Co-Terminal")
-                                              (near "Co-Terminal"))
-                                             (home-mbsync-channel-configuration
-                                              (name "cyberhawks")
-                                              (far "CyberHawks")
-                                              (near "CyberHawks"))
-                                             (home-mbsync-channel-configuration
-                                              (name "financialAid")
-                                              (far "Office of Financial Aid")
-                                              (near "FinAid"))
-                                             (home-mbsync-channel-configuration
-                                              (name "github")
-                                              (far "GitHub")
-                                              (near "GitHub"))
-                                             (home-mbsync-channel-configuration
-                                              (name "googleForms")
-                                              (far "Google Forms")
-                                              (near "Google_Forms"))
-                                             (home-mbsync-channel-configuration
-                                              (name "martialArtsClub")
-                                              (far "Martial Arts Club")
-                                              (near "MartialArtsClub"))
-                                             (home-mbsync-channel-configuration
-                                              (name "nsf")
-                                              (far "NSF")
-                                              (near "NSF"))
-                                             (home-mbsync-channel-configuration
-                                              (name "outOfSight")
-                                              (far "Keep but Out of Sight")
-                                              (near "Keep_but_Out_of_Sight"))
-                                             (home-mbsync-channel-configuration
-                                              (name "phd")
-                                              (far "PhD")
-                                              (near "PhD"))
-                                             (home-mbsync-channel-configuration
-                                              (name "studyAbroad")
-                                              (far "Study Abroad")
-                                              (near "Study_Abroad"))
-                                             (home-mbsync-channel-configuration
-                                              (name "tauBetaPi")
-                                              (far "Tau Beta Pi")
-                                              (near "TauBetaPi"))
-                                             (home-mbsync-channel-configuration
-                                              (name "triangle")
-                                              (far "Triangle")
-                                              (near "Triangle"))))))))
-                    (home-mbsync-account-configuration
                      (name "northwestern")
                      (auth-mechs "LOGIN")
                      (certificate-file "/etc/ssl/certs/ca-certificates.crt")
@@ -525,7 +424,7 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                                               (near "Trash"))))))))))))
    (service home-mu-service-type
             (home-mu-configuration
-             (addresses (list "karl@hallsby.com" "khallsby@hawk.iit.edu"
+             (addresses (list "karl@hallsby.com"
                               "karlhallsby2027@u.northwestern.edu"))))
    (service home-msmtp-service-type
             (home-msmtp-configuration
@@ -539,20 +438,6 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                          (user "karl@hallsby.com")
                          (pass-cmd (string-join (list "cat"
                                                       (string-append (getenv "HOME") "/personal"))
-                                                " " 'infix))
-                         (protocol "smtp")
-                         (tls? #t)
-                         (starttls? #t)
-                         (tls-trust-file "/etc/ssl/certs/ca-certificates.crt"))
-                        (home-msmtp-account-configuration
-                         (account "iit")
-                         (auth "on")
-                         (from "khallsby@hawk.iit.edu")
-                         (host "smtp.gmail.com")
-                         (port 587)
-                         (user "khallsby@hawk.iit.edu")
-                         (pass-cmd (string-join (list "cat"
-                                                      (string-append (getenv "HOME") "/iit"))
                                                 " " 'infix))
                          (protocol "smtp")
                          (tls? #t)
