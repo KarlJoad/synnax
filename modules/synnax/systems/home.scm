@@ -424,7 +424,7 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                                               (near "Trash"))))))))))))
    (service home-mu-service-type
             (home-mu-configuration
-             (addresses (list "karl@hallsby.com"
+             (addresses (list "karl@hallsby.com" "kgh@u.northwestern.edu"
                               "karlhallsby2027@u.northwestern.edu"))))
    (service home-msmtp-service-type
             (home-msmtp-configuration
