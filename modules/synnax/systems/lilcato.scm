@@ -24,7 +24,9 @@
 
    (services
     (append
-     (list (service bluetooth-service-type))
+     (list (service bluetooth-service-type
+                    (bluetooth-configuration
+                     (auto-enable? #t))))
      (operating-system-user-services %base-system)))
 
    (mapped-devices
