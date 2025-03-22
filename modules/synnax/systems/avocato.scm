@@ -53,7 +53,7 @@
                          (device (uuid "21B0-F945"
                                        'fat32))
                          (type "vfat"))
-			(file-system
+                        (file-system
                          (mount-point "/")
                          (device "/dev/mapper/cryptroot")
                          (type "ext4")
