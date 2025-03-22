@@ -1,18 +1,12 @@
 (define-module (synnax systems avocato)
+  #:use-module (gnu)
+  #:use-module (gnu packages linux) ; brightnessctl
+  #:use-module (gnu packages xorg)
+  #:use-module (gnu services desktop)
+  #:use-module (nongnu packages linux)
+  #:use-module (synnax services udev-rules)
+  #:use-module (synnax systems base-system)
   #:export (avocato))
-
-(use-modules (gnu)
-             (nongnu packages linux)
-             (synnax services udev-rules)
-             (synnax systems base-system))
-
-(use-package-modules
- linux ;; brightnessctl
- xorg)
-
-(use-service-modules
- desktop)
-
 
 ;; Allow members of the "video" group to change the screen brightness.
 (define backlight-udev-rule

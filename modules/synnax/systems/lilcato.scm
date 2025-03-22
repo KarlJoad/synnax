@@ -1,15 +1,9 @@
 (define-module (synnax systems lilcato)
+  #:use-module (gnu)
+  #:use-module (gnu packages linux) ; brightnessctl
+  #:use-module (gnu services desktop)
+  #:use-module (synnax systems base-system)
   #:export (lilcato))
-
-(use-modules (gnu)
-             (synnax systems base-system))
-
-(use-package-modules
- linux ;; brightnessctl
- )
-
-(use-service-modules
- desktop)
 
 (define-public lilcato
   (operating-system

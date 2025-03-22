@@ -1,23 +1,21 @@
 (define-module (synnax systems desktop)
+  #:use-module (gnu)
+  #:use-module (gnu packages freeipmi)
+  #:use-module (gnu packages linux)
+  #:use-module (gnu system)
+  #:use-module (gnu system accounts)
+  #:use-module (gnu services networking)
+  #:use-module (gnu services virtualization)
+  #:use-module (srfi srfi-1)
+  ;; Modules below require nonguix be a pulled channel
+  #:use-module (nongnu packages linux) ;; Needed for corrupt-linux
+  #:use-module (nongnu packages nvidia)
+  #:use-module (nongnu services nvidia)
+  ;; Modules below are from my own Synnax channel
+  #:use-module (synnax packages scripts)
+  #:use-module (synnax services udev-rules)
+  #:use-module (synnax systems base-system)
   #:export (desktop))
-
-(use-modules (gnu)
-             (gnu packages linux)
-             (gnu system)
-             ;; Modules below require nonguix be a pulled channel
-             (nongnu packages linux) ;; Needed for corrupt-linux
-             (nongnu packages nvidia)
-             (nongnu services nvidia)
-             ;; Modules below are from my own Synnax channel
-             (synnax packages scripts)
-             (synnax services udev-rules)
-             (synnax systems base-system))
-
-(use-package-modules bash freeipmi)
-
-(use-service-modules
- networking
- virtualization)
 
 (define %ipmi-linux-options
   `(("CONFIG_ACPI_IPMI" . #t)
