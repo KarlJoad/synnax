@@ -16,6 +16,7 @@
             %base-home-packages
             %email-packages
             %messaging-packages
+            %keyboard-packages
             %documentation-packages
             %eda-packages
             %document-prep-packages
@@ -219,6 +220,12 @@
 (define %messaging-packages
   (list telegram-desktop
         zulip-desktop))
+
+(define avr-toolchain
+  ((@ (gnu packages avr) make-avr-toolchain)))
+
+(define %keyboard-packages
+  (list avr-toolchain))
 
 (define %documentation-packages
   (list clhs ;; Common Lisp HyperSpec, with Emacs mode
