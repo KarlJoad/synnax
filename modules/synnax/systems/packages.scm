@@ -16,6 +16,7 @@
             %base-home-packages
             %email-packages
             %messaging-packages
+            %documentation-packages
             %eda-packages
             %document-prep-packages
             %development-packages
