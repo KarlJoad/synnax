@@ -551,6 +551,12 @@ guile
           (format #t \"~s already made!~%\" history-dir)
           (apply throw exn-args)))))
 end")))))
+   ;; This environment variable configuration service is intended to set env
+   ;; vars in a terminal emulator agnostic way. So any environment variables set
+   ;; here should work across most/all terminal emulators.
+   (simple-service 'terminal-env-vars-config
+                   home-environment-variables-service-type
+                   '(("COLORTERM" . "truecolor")))
    (simple-service 'alacritty-config-files
                    home-xdg-configuration-files-service-type
                    (list `("alacritty/alacritty.toml"
