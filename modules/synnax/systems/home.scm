@@ -575,7 +575,7 @@ cursor = \"#f4f4f4\"
 text = \"#323232\"
 
 [colors.normal]
-black = \"#323232\"
+black = \"#000000\"
 red = \"#ff8059\"
 green = \"#44bc44\"
 yellow = \"#d0bc00\"
