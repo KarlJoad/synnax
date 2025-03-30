@@ -137,6 +137,8 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
              (hosts
               (list (openssh-host (name "karl.hallsby.com")
                                   (identity-file "~/.ssh/website_rsa"))
+                    (openssh-host (name "raven.hallsby.com")
+                                  (identity-file "~/.ssh/website_rsa"))
                     (openssh-host (name "*github.com")
                                   (user "git")
                                   (identity-file "~/.ssh/github"))
