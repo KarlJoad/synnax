@@ -289,7 +289,7 @@ if there is no matching extension."
                        ;; Personal website virtual server
                        (nginx-server-configuration
                         (listen '("443 ssl"))
-                        (server-name '("karl.hallsby.com"))
+                        (server-name '("karl.hallsby.com" "raven.hallsby.com"))
                         (ssl-certificate
                          "/etc/letsencrypt/live/website/fullchain.pem")
                         (ssl-certificate-key
@@ -341,11 +341,11 @@ if there is no matching extension."
                        ;; The git page is under /cgit now.
                        (certificate-configuration
                         (name "website")
-                        (domains '("karl.hallsby.com"))
+                        (domains '("karl.hallsby.com" "raven.hallsby.com"))
                         (deploy-hook %certbot-nginx-deploy-hook))
                        (certificate-configuration
                         (name "cgit")
-                        (domains '("cgit.karl.hallsby.com"))
+                        (domains '("cgit.karl.hallsby.com" "cgit.raven.hallsby.com"))
                         (deploy-hook %certbot-nginx-deploy-hook))))))
            (service cgit-service-type
                     (cgit-configuration
@@ -359,7 +359,7 @@ if there is no matching extension."
                       (list
                        (nginx-server-configuration
                         (listen '("443 ssl"))
-                        (server-name '("cgit.karl.hallsby.com"))
+                        (server-name '("cgit.karl.hallsby.com" "cgit.raven.hallsby.com"))
                         (ssl-certificate
                          "/etc/letsencrypt/live/cgit/fullchain.pem")
                         (ssl-certificate-key
