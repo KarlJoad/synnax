@@ -34,6 +34,7 @@
  emacs emacs-xyz
  tree-sitter
  vim
+ agda
  admin
  password-utils ; passwd
  mail ; mbsync & mu
@@ -137,6 +138,7 @@
   (list emacs-pgtk
         emacs-guix
         emacs-vterm
+        emacs-agda2-mode
         tree-sitter
         tree-sitter-cli
         tree-sitter-bash
