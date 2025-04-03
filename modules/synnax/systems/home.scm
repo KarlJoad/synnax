@@ -234,7 +234,10 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
 \txfuncname = ^(\\\\((def[^[:space:]]*|let)[[:space:]]+[^[:space:]]+)
 
 [diff \"elisp\"]
-\txfuncname = ^\\\\([^[:space:]]*def[^[:space:]]+[[:space:]]+([^()[:space:]]+)"))
+\txfuncname = ^\\\\([^[:space:]]*def[^[:space:]]+[[:space:]]+([^()[:space:]]+)
+
+[github]
+\tuser = KarlJoad"))
                          `("git/ignore"
                            ,(plain-file "gitignore"
                                         "*~
