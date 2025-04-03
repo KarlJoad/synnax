@@ -237,7 +237,10 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
 \txfuncname = ^\\\\([^[:space:]]*def[^[:space:]]+[[:space:]]+([^()[:space:]]+)
 
 [github]
-\tuser = KarlJoad"))
+\tuser = KarlJoad
+
+[gitlab]
+\tuser = RavenJoad"))
                          `("git/ignore"
                            ,(plain-file "gitignore"
                                         "*~
