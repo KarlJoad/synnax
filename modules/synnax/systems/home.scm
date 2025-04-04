@@ -558,7 +558,8 @@ end")))))
    ;; here should work across most/all terminal emulators.
    (simple-service 'terminal-env-vars-config
                    home-environment-variables-service-type
-                   '(("COLORTERM" . "truecolor")))
+                   '(("COLORTERM" . "truecolor")
+                     ("EDITOR" . "nvim")))
    (simple-service 'alacritty-config-files
                    home-xdg-configuration-files-service-type
                    (list `("alacritty/alacritty.toml"
