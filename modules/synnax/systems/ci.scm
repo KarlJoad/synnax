@@ -164,7 +164,7 @@
    (services
     (append
      (list
-      (service xe-guest-agent-service-type)
+      (service xe-guest-utilities-service-type)
       (service openssh-service-type
                (openssh-configuration
                 (openssh openssh-sans-x)
