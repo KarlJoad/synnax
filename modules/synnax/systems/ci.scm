@@ -127,7 +127,7 @@
        (append (list
                 (channel
                  (name 'website)
-                 (url "git://karl.hallsby.com/website.git")
+                 (url "https://cgit.karl.hallsby.com/website.git")
                  (branch "master")))
                %default-channels)))
      (specification
