@@ -545,6 +545,22 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                (plain-file "gdb-set-history"
                            "set history save on
 set history size unlimited")
+               (plain-file "gdb-asciiprint"
+                           "# TODO: Detect endianness with 'show endian' and handle things appropriately
+define asciiprint
+ set $len = sizeof($arg0)
+ set $val = (unsigned long long)($arg0)
+ while $len-- > 0
+   set $char = $val & 0xff
+   if $char >= 0x20 && $char <= 0x7e
+     printf \"%c\", $char
+   else
+     printf \"\\\\x%02x\", $char
+   end
+   set $val >>= 8
+ end
+ printf \"\\n\"
+end")
                (plain-file "gdb-set-history-file"
                            "guile
 (use-modules (gdb))
