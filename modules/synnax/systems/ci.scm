@@ -108,8 +108,8 @@
                 (channel
                  (name 'lispy-key)
                  (url "https://github.com/KarlJoad/lispy-key.git")
-                 (branch "master"))
-                %default-channels))))
+                 (branch "master")))
+               %default-channels)))
      (specification
       (name "guile-yaml")
       (build '(channels guile-yaml))
@@ -118,8 +118,8 @@
                 (channel
                  (name 'guile-yaml)
                  (url "https://github.com/KarlJoad/guile-yaml.git")
-                 (branch "master"))
-                %default-channels))))
+                 (branch "master")))
+               %default-channels)))
      (specification
       (name "website")
       (build '(channels website))
@@ -139,8 +139,7 @@
                       (url "https://github.com/KarlJoad/synnax.git"))
                      (channel
                       (name 'nonguix)
-                      (url "https://gitlab.com/nonguix/nonguix"))
-                     (channel (inherit %default-guix-channel)))
+                      (url "https://gitlab.com/nonguix/nonguix")))
                %default-channels)))))
 
 (define guix-gc-job
