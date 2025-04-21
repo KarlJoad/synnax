@@ -544,9 +544,9 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
               (list
                (plain-file "gdb-set-history"
                            "set history save on
-set history size unlimited
-
-guile
+set history size unlimited")
+               (plain-file "gdb-set-history-file"
+                           "guile
 (use-modules (gdb))
 (let ((history-dir (string-append (or (getenv \"XDG_CACHE_HOME\") \"~/.cache\")
                                   \"/gdb\")))
