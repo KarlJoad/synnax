@@ -3,6 +3,7 @@
   #:use-module (guix packages)
   #:use-module (guix git-download)
   #:use-module (guix build-system gnu)
+  #:use-module (gnu packages perl)
   #:use-module (gnu packages tex))
 
 (define-public resume
@@ -22,7 +23,8 @@
                 "1az1p5cj9j96mpyivf8m4pwkiv64g9sak10qbf6ff1xla3gvq8lh"))))
      (build-system gnu-build-system)
      (native-inputs
-      (list texlive-scheme-medium
+      (list perl
+            texlive-scheme-medium
             texlive-csquotes
             texlive-enumitem
             texlive-chngcntr
