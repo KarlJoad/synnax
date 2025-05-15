@@ -25,24 +25,30 @@
      (native-inputs
       (list perl
             texlive-scheme-medium
-            texlive-csquotes
-            texlive-enumitem
-            texlive-chngcntr
-            texlive-transparent
-            texlive-multirow
-            texlive-titling
-            texlive-titlesec
-            texlive-datetime2 texlive-datetime2-english
-            texlive-tools
-            (texlive-updmap.cfg
+            (texlive-local-tree
              (list
+              ;; Fonts
               texlive-collection-fontsrecommended
               texlive-collection-fontsextra
               texlive-latex-fonts
               texlive-ec
               texlive-amsfonts
+              ;; Actual packages
+              texlive-booktabs
               texlive-cm
-              texlive-cm-super))))
+              texlive-cm-super
+              texlive-caption ; subcaption.sty
+              texlive-chngcntr
+              texlive-csquotes
+              texlive-ctable
+              texlive-datetime2 texlive-datetime2-english
+              texlive-enumitem
+              texlive-multirow
+              texlive-titlesec
+              texlive-titling
+              texlive-transparent
+              texlive-tools
+              texlive-xcolor))))
      (arguments
       (list
        #:phases
