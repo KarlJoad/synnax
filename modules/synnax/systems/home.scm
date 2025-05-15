@@ -58,6 +58,11 @@
                    home-environment-variables-service-type
                    '(("LANGUAGE" . "en_US.utf8")
                      ("LC_ALL" . "en_US.utf8")))
+   ;; A simple service that just sets my general preferences for programs to
+   ;; use.
+   (simple-service 'preference-env-vars-service
+                   home-environment-variables-service-type
+                   '(("PAGER" . "less")))
    (service home-keyboard-x11-service-type
             (keyboard-repeat-configuration
              (repeat-delay 200)
