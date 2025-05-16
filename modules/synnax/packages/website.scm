@@ -28,12 +28,12 @@
       (list
        #:phases
        #~(modify-phases %standard-phases
-                        (delete 'configure)
-                        (delete 'check)
-                        (replace 'install
-                                 (lambda _ (copy-recursively "site" #$output)
-                                         (mkdir-p (string-append #$output "/assets/pdf/resume"))
-                                         (symlink #$resume (string-append #$output "/assets/pdf/resume/Hallsby_Karl.pdf")))))))
+           (delete 'configure)
+           (delete 'check)
+           (replace 'install
+             (lambda _ (copy-recursively "site" #$output)
+                     (mkdir-p (string-append #$output "/assets/pdf/resume"))
+                     (symlink #$resume (string-append #$output "/assets/pdf/resume/Hallsby_Karl.pdf")))))))
      (native-inputs
       `(("guile" ,guile-3.0)
         ("guile-reader" ,guile-reader)
