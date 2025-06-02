@@ -130,6 +130,7 @@
                                            (inherit config)
                                            (substitute-urls
                                             (cons* "https://substitutes.nonguix.org"
+                                                   "https://nonguix-proxy.ditigal.xyz"
                                                    (guix-configuration-substitute-urls config)))
                                            (authorized-keys
                                             (cons* keys/%nonguix
