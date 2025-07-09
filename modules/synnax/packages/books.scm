@@ -27,3 +27,28 @@
     (description "Asciidoctor diagramming extension.")
     (home-page "https://github.com/asciidoctor/asciidoctor-diagram")
     (license license:expat)))
+
+(define-public ruby-asciidoctor-diagram-ditaamini
+  (package
+    (name "ruby-asciidoctor-diagram-ditaamini")
+    (version "1.0.3")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (rubygems-uri "asciidoctor-diagram-ditaamini" version))
+       (sha256
+        (base32 "13h65bfbq7hc7z3kqn0m28w9c6ap7fikpjcvsdga6jg01slb4c56"))))
+    (build-system ruby-build-system)
+    (arguments
+     (list
+      ;; FIXME: Re-enable tests!
+      #:tests? #f
+      ;; #:phases
+      ;; #~(modify-phases %standard-phases
+      ;;     (replace 'check
+      ;;       (invoke "bundle" "exec" "rake" "test")))
+      ))
+    (synopsis "Ditaa JAR files wrapped in a Ruby gem")
+    (description "Ditaa JAR files wrapped in a Ruby gem.")
+    (home-page "https://github.com/asciidoctor/asciidoctor-diagram")
+    (license license:expat)))
