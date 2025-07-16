@@ -253,7 +253,7 @@ if there is no matching extension."
                       `(("root" ,(local-file (string-append (getenv "HOME") "/.ssh/website_rsa.pub")))
                         ("git" ,(local-file (string-append (getenv "HOME") "/.ssh/website_rsa.pub")))))))
            (service fstrim-service-type)
-           (service dhcp-client-service-type)
+           (service dhcpcd-service-type)
            (service git-daemon-service-type) ;; Allow cloning repos with git://
            (service website-deploy-service-type
                     (website-deploy-configuration
