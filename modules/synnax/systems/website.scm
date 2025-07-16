@@ -126,6 +126,11 @@ By default, age defaults to 1 year."
     (list "access_log off;"
           (nginx-set-header `(("Cache-Control" . ,cache-attrs))))))
 
+(define* (nginx-use-http2 #:key (use-http2? #t))
+  (string-append "http2 "
+                 (if use-http2? "on" "off")
+                 ";"))
+
 (define cgit-syntax-highlight-script
   (program-file
    "cgit-highlight-script"
@@ -328,7 +333,8 @@ if there is no matching extension."
                                (nginx-x-xss-protection-header)
                                (nginx-referrer-policy-header)
                                nginx-content-security-policy-header
-                               nginx-block-bad-bots)))))))
+                               nginx-block-bad-bots
+                               (nginx-use-http2))))))))
            (service fcgiwrap-service-type) ;; Needed for git-http
            ;; Cannot refresh certs for karl.hallsby.com without running on that host.
            ;; NOTE: You must run nginx with all domains' root set to /var/www for
@@ -386,7 +392,8 @@ if there is no matching extension."
                                                   "\"")))
                                (nginx-add-header "Pragma" '("no-cache"))
                                (nginx-add-header "Expires" '("0"))
-                               nginx-block-bad-bots))
+                               nginx-block-bad-bots
+                               (nginx-use-http2)))
                         (locations
                          (list
                           (nginx-location-configuration ;; So CSS & co. are found
