@@ -172,11 +172,7 @@
                 (permit-root-login 'prohibit-password)
                 (authorized-keys
                  `(("root" ,(local-file (string-append (getenv "HOME") "/.ssh/cuirass_rsa.pub")))))))
-      (service dhcp-client-service-type
-               (dhcp-client-configuration
-                (config-file
-                 (mixed-text-file "dhclient.conf"
-                                  "send host-name \"" host-name "\";"))))
+      (service dhcpcd-service-type)
       (service ntp-service-type)
       (service postgresql-service-type
                (postgresql-configuration
