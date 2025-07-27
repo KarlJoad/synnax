@@ -221,6 +221,7 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                                         "[core]
 \tautocrlf = false
 \tattributesfile = ~/.config/git/gitattributes
+\twhitespace = trailing-space
 
 [user]
 \tname = Karl Hallsby
