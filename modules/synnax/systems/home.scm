@@ -256,7 +256,13 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
 *.swp
 .\\#*
 
-.vscode"))))
+.vscode
+
+.DS_Store
+.AppleDouble
+.LSOverride
+*.orig
+*.dSYM"))))
    (simple-service 'cl-source-registry-file-service
                    home-xdg-configuration-files-service-type
                    (list `("common-lisp/source-registry.conf"
