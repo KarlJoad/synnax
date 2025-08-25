@@ -254,7 +254,9 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                            ,(plain-file "gitignore"
                                         "*~
 *.swp
-.\\#*"))))
+.\\#*
+
+.vscode"))))
    (simple-service 'cl-source-registry-file-service
                    home-xdg-configuration-files-service-type
                    (list `("common-lisp/source-registry.conf"
