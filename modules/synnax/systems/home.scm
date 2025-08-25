@@ -222,6 +222,7 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
 \tautocrlf = false
 \tattributesfile = ~/.config/git/gitattributes
 \twhitespace = trailing-space
+\tpager = less
 
 [user]
 \tname = Karl Hallsby
