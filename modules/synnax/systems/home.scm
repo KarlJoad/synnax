@@ -221,6 +221,7 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
                                         "[core]
 \tautocrlf = false
 \tattributesfile = ~/.config/git/gitattributes
+\texcludesfile = ~/.config/git/gitignore
 \twhitespace = trailing-space
 \tpager = less
 \teditor = vim
