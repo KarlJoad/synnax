@@ -14,6 +14,7 @@
   #:use-module (gnu services networking)
   #:use-module (gnu services ssh)
   #:use-module (gnu services virtualization)
+  #:use-module (gnu services web)
   #:export (ci-system))
 
 (define %ci-specifications
@@ -149,6 +150,11 @@
          "guix gc"
          "Run Guix GC on regular interval"))
 
+;; The same as the default port Cuirass uses, but pulled out to a variable that
+;; we can get at from nginx.
+(define cuirass-server-host "localhost")
+(define cuirass-server-port 8081)
+
 (define ci-system
   (operating-system
    (locale "en_US.utf8")
@@ -195,6 +201,70 @@
       (service cuirass-remote-worker-service-type
                (cuirass-remote-worker-configuration
                 (workers 2)))
+      (service nginx-service-type
+               (nginx-configuration
+                (server-blocks
+                 (list
+                  (nginx-server-configuration
+                   (listen '("80"))
+                   (server-name '("cuirass.raven"))
+                   (locations
+                    (list
+                     ;; Proxy the root URI to cuirass.
+                     (nginx-location-configuration
+                      (uri "/")
+                      (body `(,(string-append "proxy_pass http://"
+                                              cuirass-server-host
+                                              ":"
+                                              (number->string cuirass-server-port) ";"))))
+                     ;; Cache the homepage for a short amount of time.
+                     (nginx-location-configuration
+                      (uri "= /")
+                      (body `(,(string-append "proxy_pass http://"
+                                              cuirass-server-host
+                                              ":"
+                                              (number->string cuirass-server-port) ";")
+                              "proxy_cache static;"
+                              "proxy_cache_valid 200 120s;"
+                              "proxy_ignore_client_abort on;")))
+                     ;; Let static assets (JS, CSS, etc.) be found. Cuirass has
+                     ;; them at <cuirass-uri>/static. We proxy these static
+                     ;; assets through an nginx cache too.
+                     (nginx-location-configuration
+                      (uri "/static")
+                      (body
+                       `(,(string-append "proxy_pass http://"
+                                         cuirass-server-host
+                                         ":"
+                                         (number->string cuirass-server-port) ";")
+                        ;; Cuirass adds a 'Cache-Control' header, honor it.
+                        "proxy_cache static;"
+                        "proxy_cache_valid 200 2d;"
+                        "proxy_cache_valid any 10m;"
+                        "proxy_ignore_client_abort on;")))
+                     ;; Configure Cuirass' admin page. I don't use it on my CI
+                     ;; system, since I have no reason to.
+                     (nginx-location-configuration
+                      (uri "~ ^/admin")
+                      (body
+                       (list (string-append "if ($ssl_client_verify != SUCCESS) { return 403; } proxy_pass http://"
+                                            cuirass-server-host
+                                            ":"
+                                            cuirass-server-port
+                                            ";"))))
+                     ;; Don't pass certain things upstream.
+                     (nginx-location-configuration
+                      (uri "~ (joomla/|^\\.htaccess$|\\.php$|\\.php3$|\\.php4$|\\.cgi$|\\.asp$|\\.aspx$|\\.dat$|\\.jsf$|\\.pl$|\\.bak$|\\.cfm$)")
+                      (body (list "return 404;"))))))))
+                (extra-content
+                 '("access_log /var/log/nginx/access.log combined;"
+                   ;; Cache for static data. Refer to this as static in proxy_cache.
+                   "proxy_cache_path /var/cache/nginx/static"
+                   "     levels=1"
+                   "     inactive=10d"	       ; inactive keys removed after 10d
+                   "     keys_zone=static:1m"   ; nar cache meta data: ~8K keys
+                   "     max_size=200m;"        ; total cache data size max
+                   ))))
       ;; (service zabbix-server-service-type
       ;;          (zabbix-server-configuration
       ;;           (db-password "zabbix-test")
