@@ -243,16 +243,6 @@
                         "proxy_cache_valid 200 2d;"
                         "proxy_cache_valid any 10m;"
                         "proxy_ignore_client_abort on;")))
-                     ;; Configure Cuirass' admin page. I don't use it on my CI
-                     ;; system, since I have no reason to.
-                     (nginx-location-configuration
-                      (uri "~ ^/admin")
-                      (body
-                       (list (string-append "if ($ssl_client_verify != SUCCESS) { return 403; } proxy_pass http://"
-                                            cuirass-server-host
-                                            ":"
-                                            cuirass-server-port
-                                            ";"))))
                      ;; Don't pass certain things upstream.
                      (nginx-location-configuration
                       (uri "~ (joomla/|^\\.htaccess$|\\.php$|\\.php3$|\\.php4$|\\.cgi$|\\.asp$|\\.aspx$|\\.dat$|\\.jsf$|\\.pl$|\\.bak$|\\.cfm$)")
