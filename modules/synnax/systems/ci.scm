@@ -186,7 +186,8 @@
       (service postgresql-role-service-type)
       (service cuirass-service-type
                (cuirass-configuration
-                (host "0.0.0.0")
+                (host cuirass-server-host)
+                (port cuirass-server-port)
                 (specifications %ci-specifications)
                 ;; Only poll upstreams once every x seconds
                 (interval (* 60 30))
