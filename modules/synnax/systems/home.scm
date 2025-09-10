@@ -282,7 +282,10 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
 
 ;; To disable SBCL's loading of this file, pass --no-userinit on the command line.
 (sb-ext:restrict-compiler-policy 'debug 3 3)
-(sb-ext:restrict-compiler-policy 'safety 3 3)"))))
+(sb-ext:restrict-compiler-policy 'safety 3 3)
+
+;; Set the default file encoding
+(setf sb-impl::*default-external-format* :utf-8)"))))
    (simple-service 'bloop-config-files-service
                    home-files-service-type
                    (list `(".bloop/bloop.json"
