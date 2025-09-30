@@ -103,10 +103,7 @@
       (stop #~(make-kill-destructor))))))
 
 (define %tailscaled-log-rotation
-  (list (log-rotation
-         (files '("/var/log/tailscaled.log"))
-         (options `("rotate 4"
-                    ,@%default-log-rotation-options)))))
+  '("/var/log/tailscaled.log"))
 
 (define tailscaled-service-type
   (service-type
@@ -116,7 +113,7 @@
                              tailscaled-shepherd-service)
           (service-extension activation-service-type
                              tailscaled-activation)
-          (service-extension rottlog-service-type
+          (service-extension log-rotation-service-type
                              (const %tailscaled-log-rotation))
           (service-extension profile-service-type
                              (compose list tailscaled-configuration-package))))
