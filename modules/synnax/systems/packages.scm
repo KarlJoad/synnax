@@ -133,6 +133,8 @@
    %virtualization-packages))
 
 
+;; Find the tree-sitter-* grammars with this:
+;; guix search tree-sitter-.+ | recsel -p name | awk '{print $2}' | grep -e '^tree-sitter-*' | uniq | sort
 (define %emacs-metapackage
   (list emacs-pgtk
         emacs-guix
@@ -140,47 +142,72 @@
         emacs-agda2-mode
         tree-sitter
         tree-sitter-cli
+        ;; tree-sitter grammars to install
         tree-sitter-awk
         tree-sitter-bash
-        tree-sitter-c tree-sitter-cpp tree-sitter-c-sharp
-        tree-sitter-cmake tree-sitter-meson
-        tree-sitter-javascript tree-sitter-typescript
-        tree-sitter-elm
-        tree-sitter-rust
-        tree-sitter-java tree-sitter-scala tree-sitter-kotlin
-        tree-sitter-html tree-sitter-css
-        tree-sitter-devicetree
-        tree-sitter-embedded-template
-        tree-sitter-heex
+        tree-sitter-bibtex
         tree-sitter-blueprint
+        tree-sitter-c
+        tree-sitter-cli
+        tree-sitter-clojure
+        tree-sitter-cmake
+        tree-sitter-cpp
+        tree-sitter-c-sharp
+        tree-sitter-css
+        tree-sitter-devicetree
         tree-sitter-dockerfile
-        tree-sitter-erlang tree-sitter-elixir
-        tree-sitter-go tree-sitter-gomod
+        tree-sitter-dot
+        tree-sitter-elixir
+        tree-sitter-elm
+        tree-sitter-embedded-template
+        tree-sitter-erlang
+        tree-sitter-go
+        tree-sitter-gomod
         tree-sitter-haskell
         tree-sitter-hcl
+        tree-sitter-heex
+        tree-sitter-html
         tree-sitter-janet
-        tree-sitter-json tree-sitter-yaml
+        tree-sitter-java
+        tree-sitter-javascript
+        tree-sitter-json
         tree-sitter-julia
         tree-sitter-kdl
+        tree-sitter-kotlin
+        tree-sitter-latex
+        tree-sitter-lua
+        tree-sitter-markdown
+        tree-sitter-matlab
+        tree-sitter-mermaid
+        tree-sitter-meson
+        tree-sitter-nix
         tree-sitter-ocaml
+        tree-sitter-org
         tree-sitter-php
+        tree-sitter-plantuml
         tree-sitter-prisma
         tree-sitter-python
+        tree-sitter-qml
+        tree-sitter-query
         tree-sitter-r
+        tree-sitter-racket
         tree-sitter-ron
         tree-sitter-ruby
-        tree-sitter-ungrammar
-        tree-sitter-markdown tree-sitter-markdown-gfm
-        tree-sitter-matlab
-        tree-sitter-nix
-        tree-sitter-org
-        tree-sitter-scheme tree-sitter-racket tree-sitter-clojure
+        tree-sitter-rust
+        tree-sitter-scala
+        tree-sitter-scheme
+        tree-sitter-starlark
         tree-sitter-sway
-        tree-sitter-plantuml
-        tree-sitter-latex tree-sitter-bibtex
-        tree-sitter-lua
         tree-sitter-tlaplus
-        tree-sitter-verilog tree-sitter-vhdl
+        tree-sitter-toml
+        tree-sitter-typescript
+        tree-sitter-typst
+        tree-sitter-ungrammar
+        tree-sitter-verilog
+        tree-sitter-vhdl
+        tree-sitter-vim
+        tree-sitter-vimdoc
+        tree-sitter-yaml
         tree-sitter-zig))
 
 (define %base-home-packages
