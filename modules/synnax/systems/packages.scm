@@ -14,7 +14,6 @@
             %utils-packages
             %system-packages
             %base-home-packages
-            %email-packages
             %messaging-packages
             %keyboard-packages
             %documentation-packages
@@ -231,10 +230,6 @@
         screen
         texinfo))
 
-(define %email-packages
-  (list isync ; mbsync
-        mu))
-
 (define %mailing-list-packages
   (list l2md))
 
@@ -272,7 +267,6 @@
    %document-prep-packages
    %eda-packages
    %messaging-packages
-   %email-packages
    %font-packages
    %filesystems-packages
    %base-home-packages))
