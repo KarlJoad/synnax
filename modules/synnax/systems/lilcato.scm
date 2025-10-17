@@ -2,6 +2,7 @@
   #:use-module (gnu)
   #:use-module (gnu packages linux) ; brightnessctl
   #:use-module (gnu services desktop)
+  #:use-module (gnu services pm)
   #:use-module (synnax systems base-system)
   #:export (lilcato))
 
@@ -20,7 +21,8 @@
     (append
      (list (service bluetooth-service-type
                     (bluetooth-configuration
-                     (auto-enable? #t))))
+                     (auto-enable? #t)))
+           (service power-profiles-daemon-service-type))
      (operating-system-user-services %base-system)))
 
    (mapped-devices

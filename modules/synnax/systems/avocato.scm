@@ -3,6 +3,7 @@
   #:use-module (gnu packages linux) ; brightnessctl
   #:use-module (gnu packages xorg)
   #:use-module (gnu services desktop)
+  #:use-module (gnu services pm)
   #:use-module (nongnu packages linux)
   #:use-module (synnax services udev-rules)
   #:use-module (synnax systems base-system)
@@ -38,6 +39,7 @@
      (list (service bluetooth-service-type
                     (bluetooth-configuration
                      (auto-enable? #t)))
+           (service power-profiles-daemon-service-type)
            (udev-rules-service 'change-brightness-service-type backlight-udev-rule)
            (udev-rules-service 'zsa-moonlander zsa-udev-rule))
      (operating-system-user-services %base-system)))
