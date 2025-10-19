@@ -26,7 +26,8 @@
             %desktop-home-packages))
 
 (use-package-modules
- base             ; glibc, locales, etc.
+ base             ; glibc, locales, grep, sed, etc.
+ gawk
  gnuzilla ; Icecat
  web-browsers ; Nyxt
  gstreamer
@@ -106,6 +107,8 @@
 
 (define %utils-packages
   (list coreutils moreutils pciutils lsof hwdata binutils
+        grep sed gawk
+        procps ; ps, top, & co.
         (list isc-bind "utils")
         inetutils
         ethtool
