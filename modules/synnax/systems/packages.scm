@@ -66,7 +66,7 @@
  gcc            ; GNU C Manual
  python-xyz     ; python-pygments
  aspell         ; ispell
- kde            ; okular
+ kde-graphics   ; okular
  pdf
  flashing-tools
  gnome          ; yelp (documentation generator)
