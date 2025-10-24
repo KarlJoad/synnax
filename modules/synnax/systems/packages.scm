@@ -36,6 +36,7 @@
  vim
  agda
  admin
+ databases ; recutils
  password-utils ; passwd
  mail ; mbsync & mu
  telegram
@@ -280,6 +281,7 @@
          nix-gc-roots
          geeqie ;; Lightweight GTK+ image-viewer
          rsync
+         recutils ;; Text-based databases from the command-line
          openvpn)
    %emacs-metapackage))
 
