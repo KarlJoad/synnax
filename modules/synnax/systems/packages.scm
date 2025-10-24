@@ -146,70 +146,129 @@
         tree-sitter
         tree-sitter-cli
         ;; tree-sitter grammars to install
+        tree-sitter-ada
+        tree-sitter-arduino
         tree-sitter-awk
         tree-sitter-bash
         tree-sitter-bibtex
+        tree-sitter-bicep
         tree-sitter-blueprint
         tree-sitter-c
+        tree-sitter-chatito
+        tree-sitter-clarity
         tree-sitter-cli
         tree-sitter-clojure
         tree-sitter-cmake
+        tree-sitter-comment
         tree-sitter-cpp
         tree-sitter-c-sharp
         tree-sitter-css
+        tree-sitter-dart
         tree-sitter-devicetree
         tree-sitter-dockerfile
         tree-sitter-dot
+        tree-sitter-doxygen
         tree-sitter-elixir
         tree-sitter-elm
         tree-sitter-embedded-template
         tree-sitter-erlang
+        tree-sitter-firrtl
+        tree-sitter-fortran
+        tree-sitter-func
+        tree-sitter-gdscript
+        tree-sitter-gitignore
+        tree-sitter-gleam
+        tree-sitter-gn
         tree-sitter-go
         tree-sitter-gomod
+        tree-sitter-gosum
+        tree-sitter-gpr
+        tree-sitter-groovy
+        tree-sitter-gstlaunch
+        tree-sitter-hack
         tree-sitter-haskell
         tree-sitter-hcl
         tree-sitter-heex
         tree-sitter-html
+        tree-sitter-hyprlang
+        tree-sitter-ini
         tree-sitter-janet
         tree-sitter-java
+        tree-sitter-java-properties
         tree-sitter-javascript
+        tree-sitter-jsdoc
         tree-sitter-json
+        tree-sitter-jsonnet
         tree-sitter-julia
+        tree-sitter-kconfig
         tree-sitter-kdl
         tree-sitter-kotlin
         tree-sitter-latex
+        tree-sitter-linkerscript
         tree-sitter-lua
+        tree-sitter-luadoc
+        tree-sitter-lua-patterns
+        tree-sitter-magik
+        tree-sitter-make
         tree-sitter-markdown
         tree-sitter-matlab
         tree-sitter-mermaid
         tree-sitter-meson
+        tree-sitter-netlinx
+        tree-sitter-nim
+        tree-sitter-ninja
         tree-sitter-nix
         tree-sitter-ocaml
+        tree-sitter-odin
         tree-sitter-org
+        tree-sitter-pascal
+        tree-sitter-pem
+        tree-sitter-pgn
         tree-sitter-php
         tree-sitter-plantuml
+        tree-sitter-po
+        tree-sitter-powershell
+        tree-sitter-printf
         tree-sitter-prisma
+        tree-sitter-proto
+        tree-sitter-puppet
+        tree-sitter-purescript
         tree-sitter-python
+        tree-sitter-python-manifest
+        tree-sitter-python-requirements
         tree-sitter-qml
+        tree-sitter-qmldir
         tree-sitter-query
         tree-sitter-r
         tree-sitter-racket
+        tree-sitter-readline
+        tree-sitter-rego
         tree-sitter-ron
+        tree-sitter-rst
         tree-sitter-ruby
         tree-sitter-rust
         tree-sitter-scala
         tree-sitter-scheme
+        tree-sitter-solidity
         tree-sitter-starlark
         tree-sitter-sway
+        tree-sitter-tablegen
+        tree-sitter-tcl
+        tree-sitter-test
         tree-sitter-tlaplus
         tree-sitter-toml
+        tree-sitter-twig
         tree-sitter-typescript
         tree-sitter-typst
+        tree-sitter-udev
         tree-sitter-ungrammar
+        tree-sitter-uxntal
         tree-sitter-verilog
         tree-sitter-vhdl
         tree-sitter-vim
         tree-sitter-vimdoc
+        tree-sitter-xcompose
+        tree-sitter-xml
         tree-sitter-yaml
         tree-sitter-zig))
 
