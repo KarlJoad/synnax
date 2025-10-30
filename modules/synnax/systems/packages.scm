@@ -63,6 +63,7 @@
  text-editors   ; texmacs
  cmake
  tex            ; texlive packages, biber
+ ncurses
  texinfo
  maths          ; GNUPlot
  gcc            ; GNU C Manual
@@ -298,6 +299,7 @@
         texlive-scheme-full ;; Include ALL of TeXLive, because I am lazy and disks are large
         texlive-biber ;; I prefer biber over old-school bibtex
         python-pygments ;; To make texlive-minted work
+        ncurses ;; lualatex requires "tput", which ncurses provides
         zotero
         gnuplot
         okular
