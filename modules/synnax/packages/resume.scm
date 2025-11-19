@@ -7,8 +7,8 @@
   #:use-module (gnu packages tex))
 
 (define-public resume
-  (let ((commit "82e0e809e33411be4815eb79448acd928f02b93e")
-        (revision "5"))
+  (let ((commit "39a1fdbacfd5a34366d122b3f55c2e9bcc8ce2bd")
+        (revision "6"))
     (package
      (name "karl-resume")
      (version (git-version "0.0.0" revision commit))
@@ -20,7 +20,7 @@
               (file-name (git-file-name name version))
               (sha256
                (base32
-                "1im38acgqmkkc5c9zdldsfs0gfwwqzf096kq238817y64sl1mxd3"))))
+                "1b5h1zixw51imi0zqb9wfxc7jhrda18qr1m3cb0bw323acnw4fw0"))))
      (build-system gnu-build-system)
      (native-inputs
       (list perl
@@ -34,18 +34,18 @@
               texlive-ec
               texlive-amsfonts
               ;; Actual packages
+              texlive-biber
+              texlive-biblatex
               texlive-booktabs
               texlive-cm
               texlive-cm-super
-              texlive-caption ; subcaption.sty
-              texlive-chngcntr
               texlive-csquotes
               texlive-ctable
               texlive-datetime2 texlive-datetime2-english
               texlive-enumitem
-              texlive-multirow
               texlive-titlesec
               texlive-titling
+              texlive-tocbibind
               texlive-transparent
               texlive-tools
               texlive-xcolor))))
