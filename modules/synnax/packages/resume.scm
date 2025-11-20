@@ -7,8 +7,8 @@
   #:use-module (gnu packages tex))
 
 (define-public resume
-  (let ((commit "39a1fdbacfd5a34366d122b3f55c2e9bcc8ce2bd")
-        (revision "6"))
+  (let ((commit "b0aa097cf2535132e8ed0d2e4c01c4385cbeaa69")
+        (revision "7"))
     (package
      (name "karl-resume")
      (version (git-version "0.0.0" revision commit))
@@ -20,7 +20,7 @@
               (file-name (git-file-name name version))
               (sha256
                (base32
-                "1b5h1zixw51imi0zqb9wfxc7jhrda18qr1m3cb0bw323acnw4fw0"))))
+                "1apjdgppic74jkdfsnlv4ba3qm4damwl3ligby3jbdp1cwmr7vj4"))))
      (build-system gnu-build-system)
      (native-inputs
       (list perl
