@@ -1,6 +1,8 @@
 (define-module (synnax systems lilcato)
   #:use-module (gnu)
   #:use-module (gnu packages linux) ; brightnessctl
+  #:use-module (gnu packages qt)
+  #:use-module (gnu packages wm)
   #:use-module (gnu services desktop)
   #:use-module (gnu services pm)
   #:use-module (synnax systems base-system)
@@ -13,7 +15,13 @@
 
    (packages
     (append
-     (list brightnessctl
+     (list sway
+           swaylock
+           ;; Swaylock with extra goodies.
+           ;; swaylock-effects
+           quickshell
+           ;; Adds a QT_PLATFORM_PLUGIN for wayland
+           qtwayland
            bluez)
      (operating-system-packages %base-system)))
 
