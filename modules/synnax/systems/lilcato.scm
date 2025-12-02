@@ -22,6 +22,7 @@
            quickshell
            ;; Adds a QT_PLATFORM_PLUGIN for wayland
            qtwayland
+           brightnessctl
            bluez)
      (operating-system-packages %base-system)))
 
