@@ -68,7 +68,7 @@
  maths          ; GNUPlot
  gcc            ; GNU C Manual
  python-xyz     ; python-pygments
- aspell         ; ispell
+ aspell
  kde-graphics   ; okular
  pdf
  flashing-tools
@@ -304,7 +304,7 @@
         gnuplot
         okular
         sioyek
-        ispell
+        aspell
         libreoffice))
 
 (define %development-packages
