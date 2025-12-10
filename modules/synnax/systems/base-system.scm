@@ -61,6 +61,11 @@
             (set-xorg-configuration
              (xorg-configuration
               (keyboard-layout keyboard-layout)))
+            ;; Provide a dictionary globally on my systems that I can look up
+            ;; from the command-line or from within Emacs.
+            ;; By default, this includes a major set of FreeDict dictionaries
+            ;; which covers a good number of languages I use.
+            (service dicod-service-type)
             (service libvirt-service-type
                      (libvirt-configuration
                       (unix-sock-group "libvirt")))
