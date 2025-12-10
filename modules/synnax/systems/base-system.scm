@@ -5,6 +5,7 @@
   #:use-module (gnu services)
   #:use-module (gnu services cups)
   #:use-module (gnu services desktop)
+  #:use-module (gnu services dict)
   #:use-module (gnu services docker)
   #:use-module (gnu services networking)
   #:use-module (gnu services nix)
