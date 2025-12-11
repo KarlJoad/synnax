@@ -84,6 +84,29 @@
                (base32
                 "0gzmdlp6h8lwfanahppx8r475chk8k460g7qpavccvp7bagblh86"))))
     (build-system gnu-build-system)
+    (arguments
+     (list
+      ;; #:make-flags #~(list "pdf-a4" "pdf-publish" "html" "epub")
+      #:phases
+      #~(modify-phases %standard-phases
+          (add-after 'unpack 'copy-beam-genop.tab
+            (lambda* (#:key inputs #:allow-other-keys)
+              (let ((otp (assoc-ref inputs "beam-book-OTP-28.0-checkout")))
+                (copy-recursively
+                 (string-append otp "/lib/compiler/src/genop.tab")
+                 "genop.tab"))))
+          (add-before 'build 'set-font-env-vars
+            (lambda* _
+              (setenv "XDG_CACHE_HOME" "/tmp")))
+          (delete 'configure)
+          ;; TODO: Build epub and pdf-publish versions of book too.
+          (replace 'install
+            (lambda* (#:key outputs #:allow-other-keys)
+              (let ((out (assoc-ref outputs "out")))
+                (mkdir-p out)
+                (install-file "beam-book-a4.pdf" out)
+                (copy-recursively "site" out))))
+          (delete 'check))))
     (native-inputs
      (list git-minimal ; Only used to build author/contributor list
            rsync
@@ -108,29 +131,6 @@
            ruby-asciidoctor-diagram
            ruby-asciidoctor-diagram-ditaamini
            ruby-rouge))
-    (arguments
-     (list
-      ;; #:make-flags #~(list "pdf-a4" "pdf-publish" "html" "epub")
-      #:phases
-      #~(modify-phases %standard-phases
-          (add-after 'unpack 'copy-beam-genop.tab
-            (lambda* (#:key inputs #:allow-other-keys)
-              (let ((otp (assoc-ref inputs "beam-book-OTP-28.0-checkout")))
-                (copy-recursively
-                 (string-append otp "/lib/compiler/src/genop.tab")
-                 "genop.tab"))))
-          (add-before 'build 'set-font-env-vars
-            (lambda* _
-              (setenv "XDG_CACHE_HOME" "/tmp")))
-          (delete 'configure)
-          ;; TODO: Build epub and pdf-publish versions of book too.
-          (replace 'install
-            (lambda* (#:key outputs #:allow-other-keys)
-              (let ((out (assoc-ref outputs "out")))
-                (mkdir-p out)
-                (install-file "beam-book-a4.pdf" out)
-                (copy-recursively "site" out))))
-          (delete 'check))))
     (home-page "https://github.com/happi/theBeamBook/")
     (synopsis "")
     (description "")
