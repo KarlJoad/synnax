@@ -1,0 +1,79 @@
+From 86cbf62dfd9f0e5c3fb8268e2b1a2247d3d825ee Mon Sep 17 00:00:00 2001
+From: Raven Hallsby <raven@hallsby.com>
+Date: Thu, 11 Dec 2025 00:26:06 -0600
+Subject: [PATCH] dico: Look for config file in $XDG_CONFIG_HOME before $HOME
+
+* dico/connect.c (get_xdg_configdir): New function. Returns
+heap-allocated path to $XDG_CONFIG_HOME/dico.
+* dico/dico-priv.h (get_xdg_configdir): Register function.
+* dico/shell.c (parse_init_scripts): Attempt to parse
+$XDG_CONFIG_HOME/dico/dico before $HOME/.dico. If
+$XDG_CONFIG_HOME/dico/dico does not exist, then $HOME/.dico is used
+instead, mirroring previous behavior.
+---
+ dico/connect.c   | 11 +++++++++++
+ dico/dico-priv.h |  1 +
+ dico/shell.c     | 11 ++++++++++-
+ 3 files changed, 22 insertions(+), 1 deletion(-)
+
+diff --git a/dico/connect.c b/dico/connect.c
+index 969522d..cbf7651 100644
+--- a/dico/connect.c
++++ b/dico/connect.c
+@@ -141,6 +141,17 @@ get_homedir(void)
+     return homedir;
+ }
+ 
++char *
++get_xdg_configdir(void)
++{
++    char *configdir = getenv("XDG_CONFIG_HOME");
++    if (!configdir) {
++        dico_log(L_WARN, 0, _("$XDG_CONFIG_HOME is unset!\n"));
++        configdir = dico_full_file_name(get_homedir(), ".config");
++    }
++    return dico_full_file_name(configdir, "dico");
++}
++
+ int
+ ds_tilde_expand(const char *str, char **output)
+ {
+diff --git a/dico/dico-priv.h b/dico/dico-priv.h
+index 8dd7ec4..4edbd3a 100644
+--- a/dico/dico-priv.h
++++ b/dico/dico-priv.h
+@@ -165,6 +165,7 @@ int dict_match(struct dict_connection *conn, char *database, char *strategy,
+ 	       char *word);
+ 
+ char *get_homedir(void);
++char *get_xdg_configdir(void);
+ int ds_tilde_expand(const char *str, char **output);
+ 
+ #define GETCRED_OK     0
+diff --git a/dico/shell.c b/dico/shell.c
+index 7687063..9128884 100644
+--- a/dico/shell.c
++++ b/dico/shell.c
+@@ -408,9 +408,18 @@ parse_init_script(const char *name)
+ void
+ parse_init_scripts(void)
+ {
+-    char *name = dico_full_file_name(get_homedir(), ".dico");
++  /* Try checking using the config file in $XDG_CONFIG_HOME if it
++   * cannot be found there, then check the old location. */
++    char *xdg_configname = get_xdg_configdir();
++    char *name = dico_full_file_name(xdg_configname, "dico");
++    free(xdg_configname);
++    if (access(name, F_OK | R_OK) != 0) {
++      free(name); // Free the XDG name
++      name = dico_full_file_name(get_homedir(), ".dico");
++    }
+     parse_init_script(name);
+     free(name);
++
+     parse_init_script(".dico");
+ }
+ 
+-- 
+2.51.0
+
