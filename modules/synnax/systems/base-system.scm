@@ -17,6 +17,7 @@
   #:use-module (nongnu packages linux)
   #:use-module (nongnu packages mozilla)
   #:use-module (nongnu system linux-initrd)
+  #:use-module (synnax packages dictionaries)
   #:use-module (synnax services fstrim)
   #:use-module (synnax services keyboard)
   #:use-module (synnax services podman)
@@ -66,7 +67,9 @@
             ;; from the command-line or from within Emacs.
             ;; By default, this includes a major set of FreeDict dictionaries
             ;; which covers a good number of languages I use.
-            (service dicod-service-type)
+            (service dicod-service-type
+                     (dicod-configuration
+                       (dico dico-xdg)))
             (service libvirt-service-type
                      (libvirt-configuration
                       (unix-sock-group "libvirt")))
