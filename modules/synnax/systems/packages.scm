@@ -5,6 +5,7 @@
   #:use-module (nongnu packages messaging) ;; zoom, element-desktop
   #:use-module (nongnu packages emacs) ;; clhs
   #:use-module (nongnu packages productivity) ;; zotero
+  #:use-module (synnax packages dictionaries)
   #:use-module (synnax packages scripts)
   #:export (%nonguix-packages
             %web-browser-packages
@@ -305,6 +306,7 @@
         okular
         sioyek
         aspell
+        dico-xdg
         libreoffice))
 
 (define %development-packages
