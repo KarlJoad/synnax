@@ -2,6 +2,7 @@
   #:use-module (gnu)
   #:use-module (gnu packages)
   #:use-module (gnu packages bash)
+  #:use-module (gnu packages wordnet)
   #:use-module (gnu services)
   #:use-module (gnu services cups)
   #:use-module (gnu services desktop)
@@ -69,7 +70,20 @@
             ;; which covers a good number of languages I use.
             (service dicod-service-type
                      (dicod-configuration
-                       (dico dico-xdg)))
+                       (dico dico-xdg)
+                       (handlers (list
+                                  (dicod-handler
+                                   (name "wordnet-handler")
+                                   (module "wordnet")
+                                   (options
+                                    (list #~(string-append "wnhome=" #$wordnet))))))
+                       (databases
+                        (cons* (dicod-database
+                                (name "wordnet")
+                                (complex? #t)
+                                (handler "wordnet-handler"))
+                               %dicod-database:gcide
+                               %dicod-databases:freedict))))
             (service libvirt-service-type
                      (libvirt-configuration
                       (unix-sock-group "libvirt")))
