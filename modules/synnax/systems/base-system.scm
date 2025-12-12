@@ -76,12 +76,23 @@
                                    (name "wordnet-handler")
                                    (module "wordnet")
                                    (options
-                                    (list #~(string-append "wnhome=" #$wordnet))))))
+                                    (list #~(string-append "wnhome=" #$wordnet))))
+                                  (dicod-handler
+                                   (name "moby-thesaurus-handler")
+                                   (module "dictorg")
+                                   (options
+                                    (list #~(string-append "dbdir="
+                                                           #$(file-append dict-moby-thesaurus
+                                                                          "/share/dictd/")))))))
                        (databases
                         (cons* (dicod-database
                                 (name "wordnet")
                                 (complex? #t)
                                 (handler "wordnet-handler"))
+                               (dicod-database
+                                (name "moby-thesaurus")
+                                (complex? #t)
+                                (handler "moby-thesaurus-handler"))
                                %dicod-database:gcide
                                %dicod-databases:freedict))))
             (service libvirt-service-type
