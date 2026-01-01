@@ -140,72 +140,74 @@
            license:asl2.0))))
 
 (define-public emacs-lisp-elements
-  (package
-   (name "emacs-lisp-elements")
-   (version "2.0.0")
-   (source (origin
-            (method git-fetch)
-            (uri (git-reference
-                  (url "https://github.com/protesilaos/emacs-lisp-elements")
-                  (commit version)))
-            (file-name (git-file-name name version))
-            (sha256
-             (base32
-              "0w3jxgkynq37rn7c17pnricykqf3gmq4crsvkz2j2g3hc0ydf6qp"))))
-   (build-system gnu-build-system)
-   (arguments
-    (list
-     #:tests? #f ; No code, no tests
-     #:phases
-     #~(modify-phases %standard-phases
-         (delete 'configure)
-         (add-after 'unpack 'remove-artifacts
-           (lambda _
-             (delete-file "elispelem.texi")
-             (delete-file "elispelem.info")))
-         (replace 'build
-           (lambda _
-             ;; Generates both elispelem.texi & elispelem.info
-             (invoke "emacs"
-                     "--batch"
-                     "--eval=(require 'ox-texinfo)"
-                     "--eval=(find-file \"elispelem.org\")"
-                     "--eval=(org-texinfo-export-to-info)")))
-         (add-after 'build 'build-pdf
-           (lambda _
-             ;; PDF conversion
-             (invoke "texi2any"
-                     "--pdf"
-                     "elispelem.texi")))
-         (add-after 'build 'build-epub
-           (lambda _
-             (invoke "texi2any"
-                     "--epub"
-                     "elispelem.texi")))
-         (replace 'install
-           (lambda* (#:key outputs #:allow-other-keys)
-             (let* ((out (assoc-ref outputs "out"))
-                    (info (string-append out "/share/info")))
-               (mkdir-p out)
-               (install-file "elispelem.pdf" out)
-               (install-file "elispelem.epub" out)
-               (install-file "elispelem.info" info)))))))
-   (native-inputs
-    (list emacs-minimal
-          emacs-org
-          grep
-          sed
-          texinfo-7
-          (texlive-local-tree
-           (list texlive-texinfo))
-          texlive-collection-latexrecommended))
-   (home-page "https://protesilaos.com/emacs/emacs-lisp-elements")
-   (synopsis "Provides a big picture view of the Emacs Lisp programming language")
-   (description
-    "A book that provides a big picture view of the Emacs Lisp programming
+  (let ((commit "7c35326cbb977e1a1520b8c24b062260044be21b")
+        (revision "0"))
+    (package
+     (name "emacs-lisp-elements")
+     (version (git-version "2.0.1" revision commit))
+     (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url "https://github.com/protesilaos/emacs-lisp-elements")
+                    (commit commit)))
+              (file-name (git-file-name name version))
+              (sha256
+               (base32
+                "0bv4zw3adkc9pwbm3q7gwrq2qvwsbi45v0gc8ryhdmf3j0kxbclm"))))
+     (build-system gnu-build-system)
+     (arguments
+      (list
+       #:tests? #f ; No code, no tests
+       #:phases
+       #~(modify-phases %standard-phases
+           (delete 'configure)
+           (add-after 'unpack 'remove-artifacts
+             (lambda _
+               (delete-file "elispelem.texi")
+               (delete-file "elispelem.info")))
+           (replace 'build
+             (lambda _
+               ;; Generates both elispelem.texi & elispelem.info
+               (invoke "emacs"
+                       "--batch"
+                       "--eval=(require 'ox-texinfo)"
+                       "--eval=(find-file \"elispelem.org\")"
+                       "--eval=(org-texinfo-export-to-info)")))
+           (add-after 'build 'build-pdf
+             (lambda _
+               ;; PDF conversion
+               (invoke "texi2any"
+                       "--pdf"
+                       "elispelem.texi")))
+           (add-after 'build 'build-epub
+             (lambda _
+               (invoke "texi2any"
+                       "--epub"
+                       "elispelem.texi")))
+           (replace 'install
+             (lambda* (#:key outputs #:allow-other-keys)
+               (let* ((out (assoc-ref outputs "out"))
+                      (info (string-append out "/share/info")))
+                 (mkdir-p out)
+                 (install-file "elispelem.pdf" out)
+                 (install-file "elispelem.epub" out)
+                 (install-file "elispelem.info" info)))))))
+     (native-inputs
+      (list emacs-minimal
+            emacs-org
+            grep
+            sed
+            texinfo-7
+            (texlive-local-tree
+             (list texlive-texinfo))
+            texlive-collection-latexrecommended))
+     (home-page "https://protesilaos.com/emacs/emacs-lisp-elements")
+     (synopsis "Provides a big picture view of the Emacs Lisp programming language")
+     (description
+      "A book that provides a big picture view of the Emacs Lisp programming
 language by combining prose with code.  The goal is to give readers an idea of
 how Elisp works by showing some of the main concepts or patterns discernible in
 everyday code.  The book is not meant to be a replacement for the built-in Emacs
 Lisp Reference Manual.  It simply gives you enough information to reason about
 Elisp.")
-   (license license:fdl1.3+)))
+     (license license:fdl1.3+))))
