@@ -170,11 +170,15 @@
                      "--batch"
                      "--eval=(require 'ox-texinfo)"
                      "--eval=(find-file \"elispelem.org\")"
-                     "--eval=(org-texinfo-export-to-info)")
+                     "--eval=(org-texinfo-export-to-info)")))
+         (add-after 'build 'build-pdf
+           (lambda _
              ;; PDF conversion
              (invoke "texi2any"
                      "--pdf"
-                     "elispelem.texi")
+                     "elispelem.texi")))
+         (add-after 'build 'build-epub
+           (lambda _
              (invoke "texi2any"
                      "--epub"
                      "elispelem.texi")))
