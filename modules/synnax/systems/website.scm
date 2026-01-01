@@ -342,6 +342,7 @@ if there is no matching extension."
            (service certbot-service-type
                     (certbot-configuration
                      (email "karl@hallsby.com")
+                     (webroot "/srv/http/personal")
                      (certificates
                       (list
                        ;; The git page is under /cgit now.
