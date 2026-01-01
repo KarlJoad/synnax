@@ -314,11 +314,11 @@ if there is no matching extension."
                            (body `(,@(nginx-client-side-cache-header)
                                    "etag on;"
                                    "if_modified_since exact;")))
-                          ;; Redirect /cgit -> cgit.karl.hallsby.com
+                          ;; Redirect /cgit -> cgit.raven.hallsby.com
                           (nginx-location-configuration
                            (uri "= /cgit")
-                           (body '("return 308 $scheme://cgit.karl.hallsby.com ;")))
-                          ;; Redirect /cgit/repo.git -> cgit.karl.hallsby.com/repo.git
+                           (body '("return 308 $scheme://cgit.raven.hallsby.com ;")))
+                          ;; Redirect /cgit/repo.git -> cgit.raven.hallsby.com/repo.git
                           ;; If Git's cloning info is in the URI, e.g. /info/refs,
                           ;; then keep it along for the ride.
                           ;; We also need to preserve Git's query string too (the
@@ -326,7 +326,7 @@ if there is no matching extension."
                           ;; $is_args special variable.
                           (nginx-location-configuration
                            (uri "~ /cgit(/[^/\\s]+)(/[^\\s]+)?")
-                           (body '("return 308 $scheme://cgit.karl.hallsby.com$1$2$is_args$query_string ;")))
+                           (body '("return 308 $scheme://cgit.raven.hallsby.com$1$2$is_args$query_string ;")))
                           ;; NOTE: git-http is for cloning using HTTP, not browsing!
                           ;; If you browse, you will always get a black webpage
                           (git-http-nginx-location-configuration
@@ -342,7 +342,7 @@ if there is no matching extension."
                                nginx-block-bad-bots
                                (nginx-use-http2))))))))
            (service fcgiwrap-service-type) ;; Needed for git-http
-           ;; Cannot refresh certs for karl.hallsby.com without running on that host.
+           ;; Cannot refresh certs for raven.hallsby.com without running on that host.
            ;; NOTE: You must run nginx with all domains' root set to /var/www for
            ;; certbot to work
            (service certbot-service-type
