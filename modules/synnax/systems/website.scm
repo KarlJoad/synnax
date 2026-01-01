@@ -325,7 +325,8 @@ if there is no matching extension."
                           ;; NOTE: git-http is for cloning using HTTP, not browsing!
                           ;; If you browse, you will always get a black webpage
                           (git-http-nginx-location-configuration
-                           (git-http-configuration))))
+                           (git-http-configuration
+                            (uri-path "/")))))
                         (raw-content
                          (list (nginx-hsts-header)
                                nginx-x-content-type-options-header
