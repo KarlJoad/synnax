@@ -172,7 +172,11 @@
                      "--eval=(find-file \"elispelem.org\")"
                      "--eval=(org-texinfo-export-to-info)")
              ;; PDF conversion
-             (invoke "texi2pdf"
+             (invoke "texi2any"
+                     "--pdf"
+                     "elispelem.texi")
+             (invoke "texi2any"
+                     "--epub"
                      "elispelem.texi")))
          (replace 'install
            (lambda* (#:key outputs #:allow-other-keys)
@@ -180,13 +184,14 @@
                     (info (string-append out "/share/info")))
                (mkdir-p out)
                (install-file "elispelem.pdf" out)
+               (install-file "elispelem.epub" out)
                (install-file "elispelem.info" info)))))))
    (native-inputs
     (list emacs-minimal
           emacs-org
           grep
           sed
-          texinfo
+          texinfo-7
           (texlive-local-tree
            (list texlive-texinfo))
           texlive-collection-latexrecommended))
