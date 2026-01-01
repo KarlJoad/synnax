@@ -306,6 +306,7 @@
         okular
         sioyek
         aspell
+        aspell-dict-en
         dico-xdg
         libreoffice))
 
