@@ -319,9 +319,14 @@ if there is no matching extension."
                            (uri "= /cgit")
                            (body '("return 308 $scheme://cgit.karl.hallsby.com ;")))
                           ;; Redirect /cgit/repo.git -> cgit.karl.hallsby.com/repo.git
+                          ;; If Git's cloning info is in the URI, e.g. /info/refs,
+                          ;; then keep it along for the ride.
+                          ;; We also need to preserve Git's query string too (the
+                          ;; service=git-upload-pack), adding the ? with nginx's
+                          ;; $is_args special variable.
                           (nginx-location-configuration
-                           (uri "~ /cgit(/[^/\\s]+)")
-                           (body '("return 308 $scheme://cgit.karl.hallsby.com$1 ;")))
+                           (uri "~ /cgit(/[^/\\s]+)(/[^\\s]+)?")
+                           (body '("return 308 $scheme://cgit.karl.hallsby.com$1$2$is_args$query_string ;")))
                           ;; NOTE: git-http is for cloning using HTTP, not browsing!
                           ;; If you browse, you will always get a black webpage
                           (git-http-nginx-location-configuration
@@ -402,7 +407,7 @@ if there is no matching extension."
                            (uri "~ ^/share/cgit/")
                            (body `(("root " ,cgit ";"))))
                           (nginx-location-configuration
-                           (uri "~ /cgit(/[^/\\s]+)") ;; server/git/repo.git is for HTTP git cloning
+                           (uri "~ /cgit(/[^/\\s]+)(/[^\\s]+)?") ;; server/git/repo.git is for HTTP git cloning
                            (body `(("fastcgi_param SCRIPT_FILENAME " ,cgit "/lib/cgit/cgit.cgi;")
                                    ;; () is Nginx regex captures, numbered from 1
                                    "fastcgi_param PATH_INFO $1;" ; Grab /repo.git and use that as the path
