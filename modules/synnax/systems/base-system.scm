@@ -139,8 +139,15 @@
             ;; Enable stem darkening to make thin fonts look crisper at small resolutions.
             ;; This is added to /etc/environment through session-environment-service-type
             ;; which comes from (gnu system).
-            (simple-service 'font-stem-darkening-env-var session-environment-service-type
-                            '(("FREETYPE_PROPERTIES" . "cff:no-stem-darkening=0 autofitter:no-step-darkening=0")))
+            (simple-service
+             'font-stem-darkening-env-var session-environment-service-type
+             ;; We do not use (gnu home services)'s literal-string function here
+             ;; because I do not want the system to depend on guix home in any
+             ;; way, just for a clean separation of privileges. The format is
+             ;; used to wrap everything up into a set of double-quotes.
+             `(("FREETYPE_PROPERTIES" . ,(format #f "~s"
+                                          (string-join '("cff:no-stem-darkening=0"
+                                                         "autofitter:no-step-darkening=0"))))))
             ;; Set the keyboard repeat rate in the CONSOLE. Setting it for X11
             ;; must be done for X specifically. Setting the rate for Wayland
             ;; is Wayland compositor-specific.
