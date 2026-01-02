@@ -147,7 +147,9 @@
              ;; used to wrap everything up into a set of double-quotes.
              `(("FREETYPE_PROPERTIES" . ,(format #f "~s"
                                           (string-join '("cff:no-stem-darkening=0"
-                                                         "autofitter:no-step-darkening=0"))))))
+                                                         "cff:darkening-parameters=500,400,1000,350,1500,325,2000,300"
+                                                         "autofitter:no-step-darkening=0"
+                                                         "autofitter:darkening-parameters=500,400,1000,350,1500,325,2000,300"))))))
             ;; Set the keyboard repeat rate in the CONSOLE. Setting it for X11
             ;; must be done for X specifically. Setting the rate for Wayland
             ;; is Wayland compositor-specific.
