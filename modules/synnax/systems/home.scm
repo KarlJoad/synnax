@@ -508,7 +508,8 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
    (simple-service 'wayland-workarounds-env-vars-service
             home-environment-variables-service-type
             `(("MOZ_ENABLE_WAYLAND" . "1")
-              ("NIXOS_OZONE_WL" . "1")))
+              ("NIXOS_OZONE_WL" . "1")
+              ("_JAVA_AWT_WM_NONREPARENTING" . "1")))
    (service home-emacs-server-service-type
             (home-emacs-server-configuration
              (package emacs-pgtk)))
