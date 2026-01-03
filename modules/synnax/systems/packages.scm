@@ -139,50 +139,74 @@
 
 ;; Find the tree-sitter-* grammars with this:
 ;; guix search tree-sitter-.+ | recsel -p name | awk '{print $2}' | grep -e '^tree-sitter-*' | uniq | sort
+;; Or use the synnax/aux/tree-sitter-grammars.sh script.
 (define %tree-sitter-langs
-  (list tree-sitter-ada
+  (list tree-sitter-actionscript
+        tree-sitter-ada
+        tree-sitter-agda
         tree-sitter-arduino
+        tree-sitter-asm
+        tree-sitter-astro
         tree-sitter-awk
         tree-sitter-bash
+        tree-sitter-beancount
         tree-sitter-bibtex
         tree-sitter-bicep
+        tree-sitter-bitbake
         tree-sitter-blueprint
         tree-sitter-c
+        tree-sitter-cairo
+        tree-sitter-capnp
         tree-sitter-chatito
         tree-sitter-clarity
         tree-sitter-cli
+        tree-sitter-clisp
         tree-sitter-clojure
         tree-sitter-cmake
         tree-sitter-comment
+        tree-sitter-cpon
         tree-sitter-cpp
         tree-sitter-c-sharp
         tree-sitter-css
+        tree-sitter-csv
+        tree-sitter-cuda
+        tree-sitter-d
         tree-sitter-dart
         tree-sitter-devicetree
         tree-sitter-dockerfile
         tree-sitter-dot
         tree-sitter-doxygen
+        tree-sitter-elisp
         tree-sitter-elixir
         tree-sitter-elm
         tree-sitter-embedded-template
         tree-sitter-erlang
         tree-sitter-firrtl
+        tree-sitter-fish
         tree-sitter-fortran
+        tree-sitter-f-sharp
         tree-sitter-func
         tree-sitter-gdscript
+        tree-sitter-gitattributes
+        tree-sitter-gitcommit
         tree-sitter-gitignore
         tree-sitter-gleam
+        tree-sitter-glsl
         tree-sitter-gn
         tree-sitter-go
         tree-sitter-gomod
         tree-sitter-gosum
         tree-sitter-gpr
+        tree-sitter-graphql
         tree-sitter-groovy
         tree-sitter-gstlaunch
         tree-sitter-hack
+        tree-sitter-hare
         tree-sitter-haskell
+        tree-sitter-haxe
         tree-sitter-hcl
         tree-sitter-heex
+        tree-sitter-hlsl
         tree-sitter-html
         tree-sitter-hyprlang
         tree-sitter-ini
@@ -199,9 +223,11 @@
         tree-sitter-kotlin
         tree-sitter-latex
         tree-sitter-linkerscript
+        tree-sitter-llvm
         tree-sitter-lua
         tree-sitter-luadoc
         tree-sitter-lua-patterns
+        tree-sitter-luau
         tree-sitter-magik
         tree-sitter-make
         tree-sitter-markdown
@@ -212,15 +238,19 @@
         tree-sitter-nim
         tree-sitter-ninja
         tree-sitter-nix
+        tree-sitter-nqc
+        tree-sitter-objc
         tree-sitter-ocaml
         tree-sitter-odin
         tree-sitter-org
         tree-sitter-pascal
         tree-sitter-pem
+        tree-sitter-perl
         tree-sitter-pgn
         tree-sitter-php
         tree-sitter-plantuml
         tree-sitter-po
+        tree-sitter-pony
         tree-sitter-powershell
         tree-sitter-printf
         tree-sitter-prisma
@@ -232,9 +262,11 @@
         tree-sitter-python-requirements
         tree-sitter-qml
         tree-sitter-qmldir
+        tree-sitter-qmljs
         tree-sitter-query
         tree-sitter-r
         tree-sitter-racket
+        tree-sitter-re2c
         tree-sitter-readline
         tree-sitter-rego
         tree-sitter-ron
@@ -243,12 +275,22 @@
         tree-sitter-rust
         tree-sitter-scala
         tree-sitter-scheme
+        tree-sitter-scss
+        tree-sitter-sfapex
+        tree-sitter-smali
+        tree-sitter-smithy
         tree-sitter-solidity
+        tree-sitter-sparql
+        tree-sitter-sql
+        tree-sitter-squirrel
         tree-sitter-starlark
+        tree-sitter-svelte
         tree-sitter-sway
+        tree-sitter-swift
         tree-sitter-tablegen
         tree-sitter-tcl
         tree-sitter-test
+        tree-sitter-thrift
         tree-sitter-tlaplus
         tree-sitter-toml
         tree-sitter-twig
@@ -257,13 +299,18 @@
         tree-sitter-udev
         tree-sitter-ungrammar
         tree-sitter-uxntal
+        tree-sitter-v
         tree-sitter-verilog
         tree-sitter-vhdl
         tree-sitter-vim
         tree-sitter-vimdoc
+        tree-sitter-vue
+        tree-sitter-wast
+        tree-sitter-wgsl
         tree-sitter-xcompose
         tree-sitter-xml
         tree-sitter-yaml
+        tree-sitter-yuck
         tree-sitter-zig))
 
 (define %emacs-metapackage
