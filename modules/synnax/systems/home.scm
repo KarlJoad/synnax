@@ -10,6 +10,7 @@
              (gnu home services sound)
              (gnu home services ssh)
              (gnu packages containers)
+             (gnu packages rust-apps)
              (gnu packages mail)
              (gnu services)
              (guix gexp)
@@ -576,7 +577,7 @@ set autoindent"))))
    (service home-tmux-service-type)
    (service home-podman-service-type
             (home-podman-configuration
-             (packages (list podman podman-compose))
+             (packages (list podman podman-compose podlet))
              (config-files
               (container-configuration-files
                (unqualified-search-registries
