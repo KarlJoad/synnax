@@ -21,6 +21,7 @@
             %eda-packages
             %document-prep-packages
             %development-packages
+            %tree-sitter-langs
             %emacs-metapackage
             %font-packages
             %home-packages
@@ -138,15 +139,8 @@
 
 ;; Find the tree-sitter-* grammars with this:
 ;; guix search tree-sitter-.+ | recsel -p name | awk '{print $2}' | grep -e '^tree-sitter-*' | uniq | sort
-(define %emacs-metapackage
-  (list emacs-pgtk
-        emacs-guix
-        emacs-vterm
-        emacs-agda2-mode
-        tree-sitter
-        tree-sitter-cli
-        ;; tree-sitter grammars to install
-        tree-sitter-ada
+(define %tree-sitter-langs
+  (list tree-sitter-ada
         tree-sitter-arduino
         tree-sitter-awk
         tree-sitter-bash
@@ -271,6 +265,17 @@
         tree-sitter-xml
         tree-sitter-yaml
         tree-sitter-zig))
+
+(define %emacs-metapackage
+  (append
+   (list emacs-pgtk
+         emacs-guix
+         emacs-vterm
+         emacs-agda2-mode
+         tree-sitter
+         tree-sitter-cli)
+   ;; tree-sitter grammars to install
+   %tree-sitter-langs))
 
 (define %base-home-packages
   (append
