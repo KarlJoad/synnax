@@ -370,6 +370,11 @@ if there is no matching extension."
                      (enable-git-config? #t) ;; cgit reads repo info from .git/config
                      (virtual-root "/") ;; Build links relative to this
                      (favicon (file-append personal-website "/assets/favicon/favicon.ico"))
+                     (clone-url
+                      '("git://raven.hallsby.com/$CGIT_REPO_URL"
+                        "https://raven.hallsby.com/cgit/$CGIT_REPO_URL"
+                        "git://cgit.raven.hallsby.com/$CGIT_REPO_URL"
+                        "https://cgit.raven.hallsby.com/$CGIT_REPO_URL"))
                      (nginx
                       (list
                        (nginx-server-configuration
