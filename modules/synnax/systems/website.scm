@@ -345,6 +345,7 @@ if there is no matching extension."
                                (nginx-referrer-policy-header)
                                (nginx-content-security-policy-header
                                 '((default-src . "'self'")
+                                  (worker-src . "'self'")
                                   (img-src . "'self'")
                                   (font-src . "'self'")
                                   (object-src . "'self'")
@@ -416,6 +417,7 @@ if there is no matching extension."
                                (nginx-referrer-policy-header)
                                (nginx-content-security-policy-header
                                 '((default-src . "'self'")
+                                  (worker-src . "'self'")
                                   (img-src . "'self'")
                                   (font-src . "'self'")
                                   (object-src . "'self'")
