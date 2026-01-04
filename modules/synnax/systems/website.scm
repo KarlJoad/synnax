@@ -100,20 +100,25 @@ https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/#Config
 (define* (nginx-referrer-policy-header #:key (policy-string "strict-origin-when-cross-origin"))
   (nginx-add-header "Referrer-Policy" `(,policy-string)))
 
-(define nginx-content-security-policy-header
-  (let ((policy (string-join
-                 (list "default-src 'self'"
-                       "img-src 'self'"
-                       "font-src 'self'"
-                       "object-src 'self'"
-                       "script-src 'self'"
-                       "style-src 'self'"
-                       "frame-ancestors 'self'"
-                       "base-uri 'self'"
-                       "form-action 'self'")
-                 "; " 'infix)))
-    (nginx-add-header "Content-Security-Policy"
-                      `(,(string-append "\"" policy "\"")))))
+(define (nginx-content-security-policy-header policies-alist)
+  "Return Content-Security-Policy (CSP) HTTP header string from provided
+POLICIES-ALIST."
+  (define policy->string
+    (match-lambda
+      ;; NOTE: The ordering of these cases IS important! We need to match
+      ;; an alist with a list as the value first, before a singleton string.
+      ((policy-name . (policy-vals ..1))
+       (format #f "~a ~a" (symbol->string policy-name) (string-join policy-vals)))
+      ((policy-name . policy-vals)
+       (format #f "~a ~a" (symbol->string policy-name) policy-vals))
+      (_ (throw 'invalid-nginx-security-policy-format))))
+
+  (define policies-strings
+    (map policy->string policies-alist))
+
+  (nginx-add-header
+   "Content-Security-Policy"
+   (list (string-append "\"" (string-join policies-strings "; ") "\""))))
 
 (define* (nginx-client-side-cache-header #:key (age (* 60 60 24 365)))
   "Add a header to files with the provided EXTENSIONS allowing clients to cache
@@ -338,7 +343,16 @@ if there is no matching extension."
                                nginx-x-frame-options-header
                                (nginx-x-xss-protection-header)
                                (nginx-referrer-policy-header)
-                               nginx-content-security-policy-header
+                               (nginx-content-security-policy-header
+                                '((default-src . "'self'")
+                                  (img-src . "'self'")
+                                  (font-src . "'self'")
+                                  (object-src . "'self'")
+                                  (script-src . "'self'")
+                                  (style-src . "'self'")
+                                  (frame-ancestors . "'self'")
+                                  (base-uri . "'self'")
+                                  (form-action . "'self'")))
                                nginx-block-bad-bots
                                (nginx-use-http2)
                                (nginx-add-header "X-Clacks-Overhead"
@@ -400,7 +414,16 @@ if there is no matching extension."
                                nginx-x-frame-options-header
                                (nginx-x-xss-protection-header)
                                (nginx-referrer-policy-header)
-                               nginx-content-security-policy-header
+                               (nginx-content-security-policy-header
+                                '((default-src . "'self'")
+                                  (img-src . "'self'")
+                                  (font-src . "'self'")
+                                  (object-src . "'self'")
+                                  (script-src . "'self'")
+                                  (style-src . "'self'")
+                                  (frame-ancestors . "'self'")
+                                  (base-uri . "'self'")
+                                  (form-action . "'self'")))
                                (nginx-add-header
                                 "Cache-Control"
                                 `(,(string-append "\""
