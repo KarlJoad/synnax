@@ -380,6 +380,7 @@ if there is no matching extension."
                      (enable-index-links? #t)
                      (enable-log-filecount? #t)
                      (enable-log-linecount? #t)
+                     (remove-suffix? #f) ; Keep .git suffix on URLs
                      (nginx
                       (list
                        (nginx-server-configuration
