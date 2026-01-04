@@ -375,6 +375,7 @@ if there is no matching extension."
                         "https://raven.hallsby.com/cgit/$CGIT_REPO_URL"
                         "git://cgit.raven.hallsby.com/$CGIT_REPO_URL"
                         "https://cgit.raven.hallsby.com/$CGIT_REPO_URL"))
+                     (enable-commit-graph? #t)
                      (nginx
                       (list
                        (nginx-server-configuration
