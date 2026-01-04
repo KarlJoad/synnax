@@ -136,44 +136,6 @@ By default, age defaults to 1 year."
                  (if use-http2? "on" "off")
                  ";"))
 
-(define cgit-syntax-highlight-script
-  (program-file
-   "cgit-highlight-script"
-   #~(begin
-       (use-modules (srfi srfi-2) (ice-9 textual-ports) (ice-9 match))
-       (define (file-extension path)
-         "Attempt to get the extension of the file name at PATH.
-If there is no period anywhere in the path name, return \"txt\".
-This is intended to be used with highlight, and defaulting to a plaintext file
-if there is no matching extension."
-         ;; If Makefile, use mk extension. Try to grab extension. If none, default to txt.
-         (if (string= (basename path) "Makefile") "mk"
-             (or (and-let* ((pos (string-index-right path #\.))) (string-drop path (1+ pos)))
-                 "txt")))
-
-       ;; Environment variables taken from https://git.zx2c4.com/cgit/tree/filters/syntax-highlighting.sh
-       (define cgit-env-vars-alist
-         `((repo-url . ,(getenv "CGIT_REPO_URL"))
-           (repo-name . ,(getenv "CGIT_REPO_NAME"))
-           (repo-path . ,(getenv "CGIT_REPO_PATH"))
-           (repo-owner . ,(getenv "CGIT_REPO_OWNER"))
-           (repo-defbranch . ,(getenv "CGIT_REPO_DEFBRANCH"))
-           (repo-section . ,(getenv "CGIT_REPO_SECTION"))
-           (repo-clone-url . ,(getenv "CGIT_REPO_CLONE_URL"))))
-
-       ;; File name is passed on command line. File contents passed on STDIN.
-       ;; See source-filter under https://git.zx2c4.com/cgit/tree/cgitrc.5.txt
-       (let ((file-to-highlight ((match-lambda ((_ file) file)) (program-arguments))))
-         (set-current-error-port (open-output-file "/dev/null"))
-         (execl #$(file-append highlight "/bin/highlight")
-                "highlight"
-                "--force"            ;; ALWAYS generate an output, even if unknown input type
-                "--inline-css"       ;; CSS embedded in highlighted output
-                "-f"                 ;; Omit HTML Header and Footer tags
-                "-I"                 ;; Include style information in the output
-                "-O" "xhtml"         ;; Output format
-                "-S" (file-extension file-to-highlight))))))
-
 (define bad-bots
   (list
    "Amazonbot" "Amazonbot/0.1"
@@ -380,7 +342,8 @@ if there is no matching extension."
            (service cgit-service-type
                     (cgit-configuration
                      (root-desc "Code is made for sharing!") ;; Thanks samplet!
-                     (source-filter cgit-syntax-highlight-script)
+                     (source-filter
+                      (file-append cgit "/lib/cgit/filters/syntax-highlighting.py"))
                      (repository-directory "/srv/git/")
                      (enable-git-config? #t) ;; cgit reads repo info from .git/config
                      (virtual-root "/") ;; Build links relative to this
