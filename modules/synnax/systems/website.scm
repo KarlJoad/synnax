@@ -340,7 +340,9 @@ if there is no matching extension."
                                (nginx-referrer-policy-header)
                                nginx-content-security-policy-header
                                nginx-block-bad-bots
-                               (nginx-use-http2))))))))
+                               (nginx-use-http2)
+                               (nginx-add-header "X-Clacks-Overhead"
+                                                 '("\"GNU Terry Pratchett\"")))))))))
            (service fcgiwrap-service-type) ;; Needed for git-http
            ;; Cannot refresh certs for raven.hallsby.com without running on that host.
            ;; NOTE: You must run nginx with all domains' root set to /var/www for
@@ -400,7 +402,9 @@ if there is no matching extension."
                                (nginx-add-header "Pragma" '("no-cache"))
                                (nginx-add-header "Expires" '("0"))
                                nginx-block-bad-bots
-                               (nginx-use-http2)))
+                               (nginx-use-http2)
+                               (nginx-add-header "X-Clacks-Overhead"
+                                                 '("\"GNU Terry Pratchett\""))))
                         (locations
                          (list
                           (nginx-location-configuration ;; So CSS & co. are found
