@@ -376,6 +376,7 @@ if there is no matching extension."
                         "git://cgit.raven.hallsby.com/$CGIT_REPO_URL"
                         "https://cgit.raven.hallsby.com/$CGIT_REPO_URL"))
                      (enable-commit-graph? #t)
+                     (enable-follow-links? #t)
                      (enable-log-filecount? #t)
                      (enable-log-linecount? #t)
                      (nginx
