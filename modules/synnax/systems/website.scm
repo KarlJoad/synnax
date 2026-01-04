@@ -420,7 +420,7 @@ if there is no matching extension."
                                   (font-src . "'self'")
                                   (object-src . "'self'")
                                   (script-src . "'self'")
-                                  (style-src . "'self'")
+                                  (style-src . ("'self'" "'unsafe-inline'"))
                                   (frame-ancestors . "'self'")
                                   (base-uri . "'self'")
                                   (form-action . "'self'")))
