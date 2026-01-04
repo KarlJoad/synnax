@@ -342,6 +342,8 @@ By default, age defaults to 1 year."
            (service cgit-service-type
                     (cgit-configuration
                      (root-desc "Code is made for sharing!") ;; Thanks samplet!
+                     (about-filter
+                      (file-append cgit "/lib/cgit/filters/about-formatting.sh"))
                      (source-filter
                       (file-append cgit "/lib/cgit/filters/syntax-highlighting.py"))
                      (repository-directory "/srv/git/")
