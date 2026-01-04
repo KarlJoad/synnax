@@ -349,6 +349,7 @@ By default, age defaults to 1 year."
                      (repository-directory "/srv/git/")
                      (enable-git-config? #t) ;; cgit reads repo info from .git/config
                      (virtual-root "/") ;; Build links relative to this
+                     (css "/share/cgit/cgit.css")
                      (favicon "/share/cgit/favicon.ico")
                      (clone-url
                       '("git://raven.hallsby.com/$CGIT_REPO_URL"
