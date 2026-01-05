@@ -106,12 +106,12 @@ is turned into
                (uuid "0c469309-3ce2-4780-bf8c-279f7f02e155"
                      'ext4))
               (type "ext4"))
-            ;; (file-system
-            ;;   (mount-point "/mnt/VM_Disks")
-            ;;   (device
-            ;;    (uuid "892ca4b1-5ffa-45ef-ba27-c6e6a55097c5"
-            ;;          'ext4))
-            ;;   (type "ext4"))
+            (file-system
+              (mount-point "/mnt/games")
+              (device
+               (uuid "827da19a-aabc-436e-ace4-c6ceed053adc"
+                     'xfs))
+              (type "xfs"))
             %base-file-systems))))
 
 desktop
