@@ -65,6 +65,8 @@ is turned into
 (define-public linux-corrupted/desktop
   (corrupt-linux linux-libre/desktop #:name "linux-ipmi"))
 
+(define parallel-guix-jobs 4)
+
 (define desktop
   (operating-system
     (inherit %base-system)
@@ -84,7 +86,16 @@ is turned into
                  (disk-size (* 3 (expt 2 30))) ;3GiB Volatile disk
                  (memory-size 1024)))          ;1024MiB vRAM
        (udev-rules-service 'zsa-moonlander zsa-udev-rule))
-      (operating-system-user-services %base-system)))
+      (modify-services (operating-system-user-services %base-system)
+        ;; I have a beefy machine. Let's have 4 jobs go in parallel, but only
+        ;; use 16 cores at once.
+        (guix-service-type config =>
+                           (guix-configuration
+                             (inherit config)
+                             (extra-options
+                              (list
+                               "--max-jobs" (number->string parallel-guix-jobs)
+                               "--cores" (number->string (/ 128 parallel-guix-jobs)))))))))
 
     (bootloader
      (bootloader-configuration
