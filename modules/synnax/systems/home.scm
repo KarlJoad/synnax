@@ -244,6 +244,7 @@ PROMPT_COMMAND=\"color_prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"")
 
 [fetch]
 \tfsckobjects = true
+\tprune = true # Automatically prune remote branches on fetch
 
 [receive]
 \tfsckobjects = true
