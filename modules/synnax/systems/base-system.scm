@@ -4,6 +4,7 @@
   #:use-module (gnu packages bash)
   #:use-module (gnu packages wordnet)
   #:use-module (gnu services)
+  #:use-module (gnu services containers)
   #:use-module (gnu services cups)
   #:use-module (gnu services desktop)
   #:use-module (gnu services dict)
@@ -15,13 +16,13 @@
   #:use-module (gnu services virtualization)
   #:use-module (gnu services xorg)
   #:use-module (gnu system)
+  #:use-module (gnu system accounts)
   #:use-module (nongnu packages linux)
   #:use-module (nongnu packages mozilla)
   #:use-module (nongnu system linux-initrd)
   #:use-module (synnax packages dictionaries)
   #:use-module (synnax services fstrim)
   #:use-module (synnax services keyboard)
-  #:use-module (synnax services podman)
   #:use-module ((synnax systems archive-keys) #:prefix keys/)
   #:use-module (synnax systems packages)
   #:export (%base-system))
@@ -43,7 +44,7 @@
                    (home-directory "/home/karljoad")
                    (supplementary-groups
                     `("wheel" "netdev" "audio" "video"
-                      "kvm" "libvirt" "docker"
+                      "kvm" "libvirt" "docker" "cgroup"
                       "dialout" "plugdev")))
                   %base-user-accounts))
     (groups (cons* (user-group (name "plugdev")
@@ -101,14 +102,29 @@
             (service virtlog-service-type)
             (service containerd-service-type)
             (service docker-service-type)
-            (service podman-service-type
-                     (podman-configuration
-                      (user-name "karljoad")
-                      (config-files
-                       (container-configuration-files
-                        (unqualified-search-registries
-                         (list "docker.io" "registry.fedoraproject.org"
-                               "registry.access.redhat.com" "registry.centos.org"))))))
+            (service rootless-podman-service-type
+                     (rootless-podman-configuration
+                      (podman #f) ;; Users should grab podman themselves
+                      (containers-registries
+                       (mixed-text-file
+                          "podman-registries.conf"
+                          "unqualified-search-registries = ["
+                          (string-join
+                             (map (lambda (url) (format #f "'~a'" url))
+                                  (list "docker.io" "registry.fedoraproject.org"
+                                        "registry.opensuse.org"
+                                        "registry.access.redhat.com"
+                                        "registry.centos.org"))
+                                  ", ")
+                          "]"))
+                      (subuids
+                       (list
+                        (subid-range (name "karljoad")
+                                     (start 165536))))
+                      (subgids
+                       (list
+                        (subid-range (name "karljoad")
+                                     (start 165536))))))
             (service nix-service-type
                      (nix-configuration
                       (extra-config
