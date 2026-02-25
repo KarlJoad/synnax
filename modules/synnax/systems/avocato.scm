@@ -31,7 +31,8 @@
     (append
      (list xorg-server-xwayland
            brightnessctl
-           bluez)
+           bluez
+           sof-firmware)
      (operating-system-packages %base-system)))
 
    (services
