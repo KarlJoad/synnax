@@ -5,6 +5,7 @@
   #:use-module (gnu system)
   #:use-module (gnu system accounts)
   #:use-module (gnu services networking)
+  #:use-module (gnu services nix)
   #:use-module (gnu services virtualization)
   #:use-module (srfi srfi-1)
   ;; Modules below require nonguix be a pulled channel
@@ -95,7 +96,17 @@ is turned into
                              (extra-options
                               (list
                                "--max-jobs" (number->string parallel-guix-jobs)
-                               "--cores" (number->string (/ 128 parallel-guix-jobs)))))))))
+                               "--cores" (number->string (/ 128 parallel-guix-jobs))))))
+        (nix-service-type config =>
+                          (nix-configuration
+                           (inherit config)
+                           (extra-config
+                            (append
+                             (list (format #f "max-jobs = ~a~%" (number->string parallel-guix-jobs))
+                                   (format #f "cores = ~a~%" (number->string (/ 128 parallel-guix-jobs))))
+                             ;; Guix does not export this symbol, so we have to
+                             ;; use grossly use @@ to get access to this accessor.
+                             ((@@ (gnu services nix) nix-configuration-extra-config) config))))))))
 
     (bootloader
      (bootloader-configuration
